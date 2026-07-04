@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Consultas.BusinessLogic
 {
-    class Consulta
+    public class Consulta
     {
         int idConsulta;
         int idPaciente;

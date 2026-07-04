@@ -10,7 +10,12 @@ namespace Consultas.BusinessLogic
     {
         public static int nuevaConsulta(Consulta objConsulta)
         {
-            return ConsultaDatos.GuardarDatosDeConsulta(objConsulta);
+            return ConsultaDatos.guardarDatosDeConsulta(objConsulta);
+        }
+
+        public static Consulta obtenerConsulta(int idConsulta)
+        {
+            return ConsultaDatos.obtenerConsulta(idConsulta);
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿using Recetas.DataAccess;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Recetas.BusinessLogic
+{
+    class LogicaReceta
+    {
+        public static int nuevaReceta(Receta objReceta)
+        {
+            return RecetasDatos.guardarDatosDeReceta(objReceta);
+        }
+    }
+}

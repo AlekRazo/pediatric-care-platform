@@ -57,36 +57,40 @@
             "Tipo de Sangre",
             "Edad",
             "Sexo"});
-            this.comboBoxTipoBusqueda.Location = new System.Drawing.Point(378, 39);
+            this.comboBoxTipoBusqueda.Location = new System.Drawing.Point(504, 48);
+            this.comboBoxTipoBusqueda.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxTipoBusqueda.Name = "comboBoxTipoBusqueda";
-            this.comboBoxTipoBusqueda.Size = new System.Drawing.Size(121, 26);
+            this.comboBoxTipoBusqueda.Size = new System.Drawing.Size(160, 32);
             this.comboBoxTipoBusqueda.TabIndex = 77;
             this.comboBoxTipoBusqueda.SelectedIndexChanged += new System.EventHandler(this.comboBoxTipoBusqueda_SelectedIndexChanged);
             // 
             // textBoxPaciente
             // 
             this.textBoxPaciente.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPaciente.Location = new System.Drawing.Point(107, 40);
+            this.textBoxPaciente.Location = new System.Drawing.Point(143, 49);
+            this.textBoxPaciente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxPaciente.Name = "textBoxPaciente";
-            this.textBoxPaciente.Size = new System.Drawing.Size(198, 24);
+            this.textBoxPaciente.Size = new System.Drawing.Size(263, 29);
             this.textBoxPaciente.TabIndex = 76;
             // 
             // labelNomUser
             // 
             this.labelNomUser.AutoSize = true;
             this.labelNomUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNomUser.Location = new System.Drawing.Point(3, 0);
+            this.labelNomUser.Location = new System.Drawing.Point(4, 0);
+            this.labelNomUser.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNomUser.Name = "labelNomUser";
-            this.labelNomUser.Size = new System.Drawing.Size(127, 24);
+            this.labelNomUser.Size = new System.Drawing.Size(158, 29);
             this.labelNomUser.TabIndex = 75;
             this.labelNomUser.Text = "Bienvenido: ";
             // 
             // buttonBuscar
             // 
             this.buttonBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBuscar.Location = new System.Drawing.Point(529, 27);
+            this.buttonBuscar.Location = new System.Drawing.Point(705, 33);
+            this.buttonBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonBuscar.Name = "buttonBuscar";
-            this.buttonBuscar.Size = new System.Drawing.Size(94, 37);
+            this.buttonBuscar.Size = new System.Drawing.Size(125, 46);
             this.buttonBuscar.TabIndex = 19;
             this.buttonBuscar.Text = "Buscar";
             this.buttonBuscar.UseVisualStyleBackColor = true;
@@ -97,9 +101,10 @@
             this.buttonEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonEliminar.Enabled = false;
             this.buttonEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEliminar.Location = new System.Drawing.Point(230, 440);
+            this.buttonEliminar.Location = new System.Drawing.Point(307, 542);
+            this.buttonEliminar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonEliminar.Name = "buttonEliminar";
-            this.buttonEliminar.Size = new System.Drawing.Size(96, 29);
+            this.buttonEliminar.Size = new System.Drawing.Size(128, 36);
             this.buttonEliminar.TabIndex = 18;
             this.buttonEliminar.Text = "Eliminar";
             this.buttonEliminar.UseVisualStyleBackColor = true;
@@ -111,9 +116,10 @@
             this.buttonModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonModificar.Enabled = false;
             this.buttonModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonModificar.Location = new System.Drawing.Point(128, 440);
+            this.buttonModificar.Location = new System.Drawing.Point(171, 542);
+            this.buttonModificar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonModificar.Name = "buttonModificar";
-            this.buttonModificar.Size = new System.Drawing.Size(96, 29);
+            this.buttonModificar.Size = new System.Drawing.Size(128, 36);
             this.buttonModificar.TabIndex = 17;
             this.buttonModificar.Text = "Modificar";
             this.buttonModificar.UseVisualStyleBackColor = true;
@@ -123,9 +129,10 @@
             // 
             this.buttonAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAgregar.Location = new System.Drawing.Point(26, 440);
+            this.buttonAgregar.Location = new System.Drawing.Point(35, 542);
+            this.buttonAgregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonAgregar.Name = "buttonAgregar";
-            this.buttonAgregar.Size = new System.Drawing.Size(96, 29);
+            this.buttonAgregar.Size = new System.Drawing.Size(128, 36);
             this.buttonAgregar.TabIndex = 16;
             this.buttonAgregar.Text = "Agregar";
             this.buttonAgregar.UseVisualStyleBackColor = true;
@@ -133,9 +140,9 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.buttonConsulta);
             this.panel1.Controls.Add(this.comboBoxTipoBusqueda);
             this.panel1.Controls.Add(this.textBoxPaciente);
@@ -148,9 +155,10 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.linkLabelCerrarSesion);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(16, 15);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(748, 492);
+            this.panel1.Size = new System.Drawing.Size(997, 606);
             this.panel1.TabIndex = 4;
             // 
             // buttonConsulta
@@ -158,25 +166,29 @@
             this.buttonConsulta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonConsulta.Enabled = false;
             this.buttonConsulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonConsulta.Location = new System.Drawing.Point(414, 432);
+            this.buttonConsulta.Location = new System.Drawing.Point(552, 532);
+            this.buttonConsulta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonConsulta.Name = "buttonConsulta";
-            this.buttonConsulta.Size = new System.Drawing.Size(137, 44);
+            this.buttonConsulta.Size = new System.Drawing.Size(183, 54);
             this.buttonConsulta.TabIndex = 78;
             this.buttonConsulta.Text = "Generar Consulta";
             this.buttonConsulta.UseVisualStyleBackColor = true;
+            this.buttonConsulta.Click += new System.EventHandler(this.buttonConsulta_Click);
             this.buttonConsulta.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonConsulta_MouseClick);
             // 
             // dataGridViewVerPacientes
             // 
-            this.dataGridViewVerPacientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewVerPacientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewVerPacientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewVerPacientes.Location = new System.Drawing.Point(26, 70);
+            this.dataGridViewVerPacientes.Location = new System.Drawing.Point(35, 86);
+            this.dataGridViewVerPacientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewVerPacientes.Name = "dataGridViewVerPacientes";
             this.dataGridViewVerPacientes.ReadOnly = true;
+            this.dataGridViewVerPacientes.RowHeadersWidth = 51;
             this.dataGridViewVerPacientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewVerPacientes.Size = new System.Drawing.Size(691, 356);
+            this.dataGridViewVerPacientes.Size = new System.Drawing.Size(921, 438);
             this.dataGridViewVerPacientes.TabIndex = 15;
             this.dataGridViewVerPacientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPacientes_CellClick);
             this.dataGridViewVerPacientes.DoubleClick += new System.EventHandler(this.dataGridViewPacientes_DoubleClick);
@@ -185,9 +197,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(326, 39);
+            this.label2.Location = new System.Drawing.Point(435, 48);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 18);
+            this.label2.Size = new System.Drawing.Size(58, 24);
             this.label2.TabIndex = 13;
             this.label2.Text = "Tipo:";
             // 
@@ -196,9 +209,10 @@
             this.linkLabelCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelCerrarSesion.AutoSize = true;
             this.linkLabelCerrarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabelCerrarSesion.Location = new System.Drawing.Point(632, 466);
+            this.linkLabelCerrarSesion.Location = new System.Drawing.Point(843, 574);
+            this.linkLabelCerrarSesion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLabelCerrarSesion.Name = "linkLabelCerrarSesion";
-            this.linkLabelCerrarSesion.Size = new System.Drawing.Size(113, 18);
+            this.linkLabelCerrarSesion.Size = new System.Drawing.Size(138, 24);
             this.linkLabelCerrarSesion.TabIndex = 12;
             this.linkLabelCerrarSesion.TabStop = true;
             this.linkLabelCerrarSesion.Text = "Cerrar Sesion";
@@ -208,18 +222,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(23, 39);
+            this.label1.Location = new System.Drawing.Point(31, 48);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 18);
+            this.label1.Size = new System.Drawing.Size(97, 24);
             this.label1.TabIndex = 11;
             this.label1.Text = "Paciente:";
             // 
             // FormPacientes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(769, 513);
+            this.ClientSize = new System.Drawing.Size(1025, 631);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormPacientes";
             this.Text = "Pacientes";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPacientes_FormClosed);

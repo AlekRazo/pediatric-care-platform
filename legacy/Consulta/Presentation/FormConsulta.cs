@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Consultas.BusinessLogic;
+using Recetas.Presentation;
 
 namespace Consultas.Presentation
 {
@@ -59,7 +60,7 @@ namespace Consultas.Presentation
                                             objConsulta.Temperatura = Double.Parse(textBoxTemperatura.Text);
                                             objConsulta.Diagnostico = textBoxDiagnostico.Text;
 
-                                            DialogResult result1 = MessageBox.Show("¿Está seguro que desea guardar la consulta?", "Eliminar usuario", MessageBoxButtons.YesNo);
+                                            DialogResult result1 = MessageBox.Show("¿Está seguro que desea guardar la consulta?", "Consulta", MessageBoxButtons.YesNo);
 
                                             if (result1 == DialogResult.Yes)
                                             {
@@ -70,6 +71,15 @@ namespace Consultas.Presentation
                                                     MessageBox.Show("Consulta registrada");
 
                                                     Close();
+
+                                                    DialogResult receta = MessageBox.Show("¿Desea generar una receta?", "Consulta", MessageBoxButtons.YesNo);
+
+                                                    if (result1 == DialogResult.Yes)
+                                                    {
+                                                        Consulta consulta = LogicaConsulta.obtenerConsulta(result);
+                                                        FormReceta formReceta = new FormReceta(nombrePaciente, idPaciente, consulta.IdConsulta, consulta.Peso, consulta.Talla, consulta.FechaConsulta);
+                                                        formReceta.ShowDialog();
+                                                    }
                                                 }
                                             }
                                         }
@@ -117,6 +127,11 @@ namespace Consultas.Presentation
         private void FormConsulta_Load(object sender, EventArgs e)
         {
             labelNomPaciente.Text += nombrePaciente;
+        }
+
+        private void FormConsulta_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

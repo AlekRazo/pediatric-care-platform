@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.7.11925.98 stable
+VisualStudioVersion = 18.7.11925.98
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pediatria", "Pediatria\Pediatria.csproj", "{A4AAD0FB-B619-4D55-A4B7-21B975DAC619}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacientes", "Pacientes\Pacientes.csproj", "{D0670C6E-83B4-4309-A922-8A1272BA2BE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consultas", "Consulta\Consultas.csproj", "{E39E6104-B7FD-4770-B04F-5162684E0329}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recetas", "Recetas\Recetas.csproj", "{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,18 @@ Global
 		{E39E6104-B7FD-4770-B04F-5162684E0329}.Release|Mixed Platforms.Build.0 = Release|x86
 		{E39E6104-B7FD-4770-B04F-5162684E0329}.Release|x86.ActiveCfg = Release|x86
 		{E39E6104-B7FD-4770-B04F-5162684E0329}.Release|x86.Build.0 = Release|x86
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Debug|x86.Build.0 = Debug|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Release|x86.ActiveCfg = Release|Any CPU
+		{9B35B0DB-CB13-47AD-AF91-FEA9130EB72B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

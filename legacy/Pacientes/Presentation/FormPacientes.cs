@@ -213,5 +213,11 @@ namespace Pacientes.Presentation
         {
 
         }
+
+        private void buttonConsulta_Click(object sender, EventArgs e)
+        {
+            FormConsulta consulta = new FormConsulta(objPaciente.IdPaciente, objPaciente.NombrePaciente);
+            consulta.ShowDialog();
+        }
     }
 }

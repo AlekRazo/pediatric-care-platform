@@ -63,7 +63,12 @@
       <DependentUpon>FormConsulta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Recetas\Recetas.csproj">
+      <Project>{9b35b0db-cb13-47ad-af91-fea9130eb72b}</Project>
+      <Name>Recetas</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
