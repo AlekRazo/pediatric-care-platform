@@ -108,6 +108,7 @@ namespace Pacientes.Presentation
             buttonConsulta.Enabled = true;
             buttonEliminar.Enabled = true;
             buttonModificar.Enabled = true;
+            buttonHistorial.Enabled = true;
         }
 
         private void dataGridViewPacientes_DoubleClick(object sender, EventArgs e)
@@ -218,6 +219,12 @@ namespace Pacientes.Presentation
         {
             FormConsulta consulta = new FormConsulta(objPaciente.IdPaciente, objPaciente.NombrePaciente);
             consulta.ShowDialog();
+        }
+
+        private void buttonHistorial_Click(object sender, EventArgs e)
+        {
+            FormHistorial historial = new FormHistorial(objPaciente);
+            historial.ShowDialog();
         }
     }
 }

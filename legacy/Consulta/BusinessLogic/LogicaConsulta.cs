@@ -6,7 +6,7 @@ using Consultas.DataAcces;
 
 namespace Consultas.BusinessLogic
 {
-    class LogicaConsulta
+    public class LogicaConsulta
     {
         public static int nuevaConsulta(Consulta objConsulta)
         {

@@ -6,7 +6,7 @@ using Citas.DataAccess;
 
 namespace Citas.BusinessLogic
 {
-    class LogicaCitas
+    public class LogicaCitas
     {
         public static List<Cita> obtenerCitas()
         {
@@ -15,6 +15,11 @@ namespace Citas.BusinessLogic
         public static List<Cita> obtenerCitasPorFecha(DateTime fechaBusqueda)
         {
             return CitaDatos.obtenerDatosDeCitasPorFecha(fechaBusqueda);
+        }
+
+        public static List<Cita> obtenerCitasPorIdPaciente(int idPaciente)
+        {
+            return CitaDatos.obtenerDatosDeCitasPorPaciente(idPaciente);
         }
 
         public static int capturarCita(Cita objCita)

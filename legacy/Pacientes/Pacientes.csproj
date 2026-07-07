@@ -52,6 +52,7 @@
     <Compile Include="BusinessLogic\CuidadoNatal.cs" />
     <Compile Include="BusinessLogic\CuidadoPosnatal.cs" />
     <Compile Include="BusinessLogic\CuidadoPrenatal.cs" />
+    <Compile Include="BusinessLogic\Historial.cs" />
     <Compile Include="BusinessLogic\LogicaBusquedas.cs" />
     <Compile Include="BusinessLogic\LogicaPaciente.cs" />
     <Compile Include="BusinessLogic\Paciente.cs" />
@@ -66,6 +67,12 @@
     <Compile Include="Presentation\FormAgregarPaciente.Designer.cs">
       <DependentUpon>FormAgregarPaciente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\FormHistorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\FormHistorial.Designer.cs">
+      <DependentUpon>FormHistorial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\FormPacientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,11 +85,18 @@
     <EmbeddedResource Include="Presentation\FormAgregarPaciente.resx">
       <DependentUpon>FormAgregarPaciente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\FormHistorial.resx">
+      <DependentUpon>FormHistorial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\FormPacientes.resx">
       <DependentUpon>FormPacientes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Citas\Citas.csproj">
+      <Project>{E22B4A1E-23C5-48D6-B5BF-118D6D7C2A94}</Project>
+      <Name>Citas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Consulta\Consultas.csproj">
       <Project>{E39E6104-B7FD-4770-B04F-5162684E0329}</Project>
       <Name>Consultas</Name>

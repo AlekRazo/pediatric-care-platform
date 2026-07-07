@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Consultas.BusinessLogic;
+using Pacientes.BusinessLogic;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using Pacientes.BusinessLogic;
-using System.Data.SqlClient;
 
 namespace Pacientes.DataAccess
 {
@@ -716,6 +717,59 @@ namespace Pacientes.DataAccess
                 conn.Close();
 
                 return objVacunacionRetorno;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static List<Historial> obtenerHistorialDePaciente(int idPaciente)
+        {
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT c.idConsulta" +
+                    ",c.idPaciente" +
+                    ",c.FechaConsulta" +
+                    ",c.Motivo" +
+                    ",c.Responsabilidad" +
+                    ",c.FrecCardiaca" +
+                    ",c.FrecRespiratoria" +
+                    ",c.TensionArterial" +
+                    ",c.Temperatura" +
+                    ",c.Peso" +
+                    ",c.Talla" +
+                    ",c.Diagnostico" +
+                    ",r.Descripcion " +
+                    "FROM Consulta c LEFT JOIN Receta r " +
+                    "ON c.idPaciente = r.idPaciente AND c.idConsulta = r.idConsulta " +
+                    "WHERE c.idPaciente = @idPaciente", conn);
+                cmd.Parameters.Add(new SqlParameter("@idPaciente", idPaciente));
+                List<Historial> historial = new List<Historial>();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Historial historia = new Historial ();
+                    historia.IdConsulta = int.Parse(reader["idConsulta"].ToString());
+                    historia.IdPaciente = int.Parse(reader["idPaciente"].ToString());
+                    historia.FechaConsulta = DateTime.Parse(reader["FechaConsulta"].ToString());
+                    historia.Motivo = reader["Motivo"].ToString();
+                    historia.Responsabilidad = reader["Responsabilidad"].ToString();
+                    historia.FrecuenciaCardiaca = int.Parse(reader["FrecCardiaca"].ToString());
+                    historia.FrecuenciaRespiratoria = int.Parse(reader["FrecRespiratoria"].ToString());
+                    historia.TensionArterial = reader["TensionArterial"].ToString();
+                    historia.Temperatura = double.Parse(reader["Temperatura"].ToString());
+                    historia.Peso = double.Parse(reader["Peso"].ToString());
+                    historia.Talla = double.Parse(reader["Talla"].ToString());
+                    historia.Diagnostico = reader["Diagnostico"].ToString();
+                    historia.Receta = reader["Descripcion"].ToString();
+                    historial.Add(historia);
+                }
+
+                conn.Close();
+                return historial;
             }
             catch (Exception ex)
             {

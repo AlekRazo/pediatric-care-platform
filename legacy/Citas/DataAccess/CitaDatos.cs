@@ -85,6 +85,43 @@ namespace Citas.DataAccess
             }
         }
 
+        public static List<Cita> obtenerDatosDeCitasPorPaciente(int idPaciente)
+        {
+            List<Cita> listaCitas = new List<Cita>();
+
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Cita WHERE idPaciente = @idPaciente", conn);
+                cmd.Parameters.Add(new SqlParameter("@idPaciente", idPaciente));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Cita objCita = new Cita();
+
+                    objCita.IdCita = Int32.Parse(reader["idCita"].ToString());
+                    objCita.NombrePaciente = reader["NombrePaciente"].ToString();
+                    objCita.FechaCita = DateTime.Parse(reader["Fecha"].ToString());
+                    objCita.HoraCita = TimeSpan.Parse(reader["Hora"].ToString());
+                    objCita.PrimeraVez = Boolean.Parse(reader["PrimeraVez"].ToString());
+                    objCita.Telefono = reader["Telefono"].ToString();
+                    objCita.Afiliacion = reader["Afiliacion"].ToString();
+
+                    listaCitas.Add(objCita);
+                }
+
+                reader.Close();
+                conn.Close();
+
+                return listaCitas;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static Cita obtenerDatosDeCitasPorFechaYHora(DateTime fechaBusqueda, TimeSpan hora)
         {
             Cita objCitaRetorno = new Cita();

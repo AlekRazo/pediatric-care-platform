@@ -141,5 +141,10 @@ namespace Pacientes.BusinessLogic
         {
             return PacienteBusqueda.obtenerDatosVacunacionDePaciente(idPaciente);
         }
+
+        public static List<Historial> obtenerHistorialPaciente(int idPaciente)
+        {
+            return PacienteBusqueda.obtenerHistorialDePaciente(idPaciente);
+        }
     }
 }

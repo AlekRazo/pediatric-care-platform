@@ -41,6 +41,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonHistorial = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVerPacientes)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +59,7 @@
             "Edad",
             "Sexo"});
             this.comboBoxTipoBusqueda.Location = new System.Drawing.Point(504, 48);
-            this.comboBoxTipoBusqueda.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxTipoBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxTipoBusqueda.Name = "comboBoxTipoBusqueda";
             this.comboBoxTipoBusqueda.Size = new System.Drawing.Size(160, 32);
             this.comboBoxTipoBusqueda.TabIndex = 77;
@@ -68,7 +69,7 @@
             // 
             this.textBoxPaciente.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPaciente.Location = new System.Drawing.Point(143, 49);
-            this.textBoxPaciente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPaciente.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPaciente.Name = "textBoxPaciente";
             this.textBoxPaciente.Size = new System.Drawing.Size(263, 29);
             this.textBoxPaciente.TabIndex = 76;
@@ -88,7 +89,7 @@
             // 
             this.buttonBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBuscar.Location = new System.Drawing.Point(705, 33);
-            this.buttonBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonBuscar.Name = "buttonBuscar";
             this.buttonBuscar.Size = new System.Drawing.Size(125, 46);
             this.buttonBuscar.TabIndex = 19;
@@ -102,7 +103,7 @@
             this.buttonEliminar.Enabled = false;
             this.buttonEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonEliminar.Location = new System.Drawing.Point(307, 542);
-            this.buttonEliminar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonEliminar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEliminar.Name = "buttonEliminar";
             this.buttonEliminar.Size = new System.Drawing.Size(128, 36);
             this.buttonEliminar.TabIndex = 18;
@@ -117,7 +118,7 @@
             this.buttonModificar.Enabled = false;
             this.buttonModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonModificar.Location = new System.Drawing.Point(171, 542);
-            this.buttonModificar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonModificar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonModificar.Name = "buttonModificar";
             this.buttonModificar.Size = new System.Drawing.Size(128, 36);
             this.buttonModificar.TabIndex = 17;
@@ -130,7 +131,7 @@
             this.buttonAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAgregar.Location = new System.Drawing.Point(35, 542);
-            this.buttonAgregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAgregar.Name = "buttonAgregar";
             this.buttonAgregar.Size = new System.Drawing.Size(128, 36);
             this.buttonAgregar.TabIndex = 16;
@@ -143,6 +144,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.buttonHistorial);
             this.panel1.Controls.Add(this.buttonConsulta);
             this.panel1.Controls.Add(this.comboBoxTipoBusqueda);
             this.panel1.Controls.Add(this.textBoxPaciente);
@@ -156,7 +158,7 @@
             this.panel1.Controls.Add(this.linkLabelCerrarSesion);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(16, 15);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(997, 606);
             this.panel1.TabIndex = 4;
@@ -166,8 +168,8 @@
             this.buttonConsulta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonConsulta.Enabled = false;
             this.buttonConsulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonConsulta.Location = new System.Drawing.Point(552, 532);
-            this.buttonConsulta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonConsulta.Location = new System.Drawing.Point(647, 533);
+            this.buttonConsulta.Margin = new System.Windows.Forms.Padding(4);
             this.buttonConsulta.Name = "buttonConsulta";
             this.buttonConsulta.Size = new System.Drawing.Size(183, 54);
             this.buttonConsulta.TabIndex = 78;
@@ -183,7 +185,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewVerPacientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewVerPacientes.Location = new System.Drawing.Point(35, 86);
-            this.dataGridViewVerPacientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewVerPacientes.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewVerPacientes.Name = "dataGridViewVerPacientes";
             this.dataGridViewVerPacientes.ReadOnly = true;
             this.dataGridViewVerPacientes.RowHeadersWidth = 51;
@@ -229,13 +231,27 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Paciente:";
             // 
+            // buttonHistorial
+            // 
+            this.buttonHistorial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonHistorial.Enabled = false;
+            this.buttonHistorial.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHistorial.Location = new System.Drawing.Point(456, 532);
+            this.buttonHistorial.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonHistorial.Name = "buttonHistorial";
+            this.buttonHistorial.Size = new System.Drawing.Size(183, 54);
+            this.buttonHistorial.TabIndex = 79;
+            this.buttonHistorial.Text = "Ver Historial";
+            this.buttonHistorial.UseVisualStyleBackColor = true;
+            this.buttonHistorial.Click += new System.EventHandler(this.buttonHistorial_Click);
+            // 
             // FormPacientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1025, 631);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormPacientes";
             this.Text = "Pacientes";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPacientes_FormClosed);
@@ -262,6 +278,6 @@
         private System.Windows.Forms.LinkLabel linkLabelCerrarSesion;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonConsulta;
-
+        private System.Windows.Forms.Button buttonHistorial;
     }
 }

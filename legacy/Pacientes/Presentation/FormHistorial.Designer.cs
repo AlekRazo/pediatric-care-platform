@@ -1,6 +1,6 @@
 ﻿namespace Pacientes.Presentation
 {
-    partial class FormAgregarPaciente
+    partial class FormHistorial
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.labelNombre = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Datos = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -244,8 +246,9 @@
             this.checkBoxAlergiaFlora = new System.Windows.Forms.CheckBox();
             this.checkBoxAlergiaAlimentos = new System.Windows.Forms.CheckBox();
             this.checkBoxAlergiaMedicamento = new System.Windows.Forms.CheckBox();
-            this.buttonCancelar = new System.Windows.Forms.Button();
-            this.buttonGuardar = new System.Windows.Forms.Button();
+            this.Citas = new System.Windows.Forms.TabPage();
+            this.dataGridViewHistorial = new System.Windows.Forms.DataGridView();
+            this.panel7.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Datos.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -289,7 +292,28 @@
             this.panel2.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.Citas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistorial)).BeginInit();
             this.SuspendLayout();
+            // 
+            // labelNombre
+            // 
+            this.labelNombre.AutoSize = true;
+            this.labelNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
+            this.labelNombre.Location = new System.Drawing.Point(5, 0);
+            this.labelNombre.Name = "labelNombre";
+            this.labelNombre.Size = new System.Drawing.Size(216, 29);
+            this.labelNombre.TabIndex = 67;
+            this.labelNombre.Text = "Nombre Paciente";
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.tabControl1);
+            this.panel7.Controls.Add(this.labelNombre);
+            this.panel7.Location = new System.Drawing.Point(20, 19);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(1083, 892);
+            this.panel7.TabIndex = 67;
             // 
             // tabControl1
             // 
@@ -302,21 +326,22 @@
             this.tabControl1.Controls.Add(this.Alimentos);
             this.tabControl1.Controls.Add(this.Embarazo);
             this.tabControl1.Controls.Add(this.Vacunas);
-            this.tabControl1.Location = new System.Drawing.Point(16, 15);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Controls.Add(this.Citas);
+            this.tabControl1.Location = new System.Drawing.Point(4, 33);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1029, 872);
-            this.tabControl1.TabIndex = 65;
+            this.tabControl1.Size = new System.Drawing.Size(1075, 872);
+            this.tabControl1.TabIndex = 68;
             // 
             // Datos
             // 
             this.Datos.Controls.Add(this.panel1);
             this.Datos.Location = new System.Drawing.Point(4, 25);
-            this.Datos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Datos.Margin = new System.Windows.Forms.Padding(4);
             this.Datos.Name = "Datos";
-            this.Datos.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Datos.Size = new System.Drawing.Size(1021, 604);
+            this.Datos.Padding = new System.Windows.Forms.Padding(4);
+            this.Datos.Size = new System.Drawing.Size(1067, 843);
             this.Datos.TabIndex = 0;
             this.Datos.Text = "Datos";
             this.Datos.UseVisualStyleBackColor = true;
@@ -360,9 +385,9 @@
             this.panel1.Controls.Add(this.textBoxNombre);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(4, 4);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1005, 590);
+            this.panel1.Size = new System.Drawing.Size(1051, 590);
             this.panel1.TabIndex = 1;
             // 
             // groupBoxSexo
@@ -370,9 +395,9 @@
             this.groupBoxSexo.Controls.Add(this.radioButtonMasculino);
             this.groupBoxSexo.Controls.Add(this.radioButtonFemenino);
             this.groupBoxSexo.Location = new System.Drawing.Point(103, 494);
-            this.groupBoxSexo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxSexo.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxSexo.Name = "groupBoxSexo";
-            this.groupBoxSexo.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxSexo.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxSexo.Size = new System.Drawing.Size(131, 48);
             this.groupBoxSexo.TabIndex = 111;
             this.groupBoxSexo.TabStop = false;
@@ -382,7 +407,7 @@
             this.radioButtonMasculino.AutoSize = true;
             this.radioButtonMasculino.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonMasculino.Location = new System.Drawing.Point(8, 18);
-            this.radioButtonMasculino.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonMasculino.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonMasculino.Name = "radioButtonMasculino";
             this.radioButtonMasculino.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.radioButtonMasculino.Size = new System.Drawing.Size(48, 28);
@@ -396,7 +421,7 @@
             this.radioButtonFemenino.AutoSize = true;
             this.radioButtonFemenino.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonFemenino.Location = new System.Drawing.Point(67, 18);
-            this.radioButtonFemenino.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonFemenino.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonFemenino.Name = "radioButtonFemenino";
             this.radioButtonFemenino.Size = new System.Drawing.Size(44, 28);
             this.radioButtonFemenino.TabIndex = 95;
@@ -418,7 +443,7 @@
             "O+",
             "O-"});
             this.comboBoxTipoSangre.Location = new System.Drawing.Point(721, 22);
-            this.comboBoxTipoSangre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxTipoSangre.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxTipoSangre.Name = "comboBoxTipoSangre";
             this.comboBoxTipoSangre.Size = new System.Drawing.Size(237, 24);
             this.comboBoxTipoSangre.TabIndex = 75;
@@ -427,7 +452,7 @@
             // 
             this.textBoxCP.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCP.Location = new System.Drawing.Point(201, 283);
-            this.textBoxCP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxCP.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxCP.MaxLength = 6;
             this.textBoxCP.Name = "textBoxCP";
             this.textBoxCP.Size = new System.Drawing.Size(132, 29);
@@ -452,7 +477,7 @@
             "PEMEX",
             "Carl\'s Jr"});
             this.comboBoxAfiliacion.Location = new System.Drawing.Point(721, 302);
-            this.comboBoxAfiliacion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxAfiliacion.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxAfiliacion.Name = "comboBoxAfiliacion";
             this.comboBoxAfiliacion.Size = new System.Drawing.Size(160, 24);
             this.comboBoxAfiliacion.TabIndex = 72;
@@ -461,7 +486,7 @@
             // 
             this.textBoxObservaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxObservaciones.Location = new System.Drawing.Point(720, 126);
-            this.textBoxObservaciones.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxObservaciones.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxObservaciones.MaxLength = 50;
             this.textBoxObservaciones.Name = "textBoxObservaciones";
             this.textBoxObservaciones.Size = new System.Drawing.Size(239, 29);
@@ -482,7 +507,7 @@
             // 
             this.textBoxOtro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOtro.Location = new System.Drawing.Point(721, 351);
-            this.textBoxOtro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxOtro.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxOtro.MaxLength = 50;
             this.textBoxOtro.Name = "textBoxOtro";
             this.textBoxOtro.Size = new System.Drawing.Size(237, 29);
@@ -493,7 +518,7 @@
             this.checkBoxOtro.AutoSize = true;
             this.checkBoxOtro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOtro.Location = new System.Drawing.Point(631, 353);
-            this.checkBoxOtro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxOtro.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxOtro.Name = "checkBoxOtro";
             this.checkBoxOtro.Size = new System.Drawing.Size(72, 28);
             this.checkBoxOtro.TabIndex = 65;
@@ -505,7 +530,7 @@
             this.checkBoxTutor.AutoSize = true;
             this.checkBoxTutor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxTutor.Location = new System.Drawing.Point(623, 177);
-            this.checkBoxTutor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxTutor.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxTutor.Name = "checkBoxTutor";
             this.checkBoxTutor.Size = new System.Drawing.Size(81, 28);
             this.checkBoxTutor.TabIndex = 64;
@@ -516,7 +541,7 @@
             // 
             this.textBoxSeguro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSeguro.Location = new System.Drawing.Point(720, 238);
-            this.textBoxSeguro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxSeguro.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSeguro.MaxLength = 30;
             this.textBoxSeguro.Name = "textBoxSeguro";
             this.textBoxSeguro.Size = new System.Drawing.Size(239, 29);
@@ -526,7 +551,7 @@
             // 
             this.textBoxTutor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTutor.Location = new System.Drawing.Point(720, 175);
-            this.textBoxTutor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxTutor.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTutor.MaxLength = 50;
             this.textBoxTutor.Name = "textBoxTutor";
             this.textBoxTutor.Size = new System.Drawing.Size(239, 29);
@@ -535,7 +560,7 @@
             // dateTimePickerFechaNac
             // 
             this.dateTimePickerFechaNac.Location = new System.Drawing.Point(31, 372);
-            this.dateTimePickerFechaNac.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePickerFechaNac.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerFechaNac.Name = "dateTimePickerFechaNac";
             this.dateTimePickerFechaNac.Size = new System.Drawing.Size(263, 22);
             this.dateTimePickerFechaNac.TabIndex = 57;
@@ -545,7 +570,7 @@
             // 
             this.textBoxLugarNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxLugarNac.Location = new System.Drawing.Point(259, 545);
-            this.textBoxLugarNac.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxLugarNac.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxLugarNac.Name = "textBoxLugarNac";
             this.textBoxLugarNac.Size = new System.Drawing.Size(211, 29);
             this.textBoxLugarNac.TabIndex = 55;
@@ -554,7 +579,7 @@
             // 
             this.textBoxTelCel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTelCel.Location = new System.Drawing.Point(217, 464);
-            this.textBoxTelCel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxTelCel.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTelCel.MaxLength = 13;
             this.textBoxTelCel.Name = "textBoxTelCel";
             this.textBoxTelCel.Size = new System.Drawing.Size(211, 29);
@@ -564,7 +589,7 @@
             // 
             this.textBoxTelCasa.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTelCasa.Location = new System.Drawing.Point(217, 418);
-            this.textBoxTelCasa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxTelCasa.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTelCasa.MaxLength = 10;
             this.textBoxTelCasa.Name = "textBoxTelCasa";
             this.textBoxTelCasa.Size = new System.Drawing.Size(211, 29);
@@ -574,7 +599,7 @@
             // 
             this.textBoxDomicilio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDomicilio.Location = new System.Drawing.Point(201, 190);
-            this.textBoxDomicilio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxDomicilio.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxDomicilio.MaxLength = 50;
             this.textBoxDomicilio.Multiline = true;
             this.textBoxDomicilio.Name = "textBoxDomicilio";
@@ -585,7 +610,7 @@
             // 
             this.textBoxNombrePadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNombrePadre.Location = new System.Drawing.Point(201, 138);
-            this.textBoxNombrePadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxNombrePadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxNombrePadre.MaxLength = 50;
             this.textBoxNombrePadre.Name = "textBoxNombrePadre";
             this.textBoxNombrePadre.Size = new System.Drawing.Size(277, 29);
@@ -595,7 +620,7 @@
             // 
             this.textBoxNombreMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNombreMadre.Location = new System.Drawing.Point(201, 75);
-            this.textBoxNombreMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxNombreMadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxNombreMadre.MaxLength = 50;
             this.textBoxNombreMadre.Name = "textBoxNombreMadre";
             this.textBoxNombreMadre.Size = new System.Drawing.Size(277, 29);
@@ -726,7 +751,7 @@
             // 
             this.textBoxNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNombre.Location = new System.Drawing.Point(201, 21);
-            this.textBoxNombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxNombre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxNombre.MaxLength = 50;
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(277, 29);
@@ -747,10 +772,10 @@
             // 
             this.Madre.Controls.Add(this.panel6);
             this.Madre.Location = new System.Drawing.Point(4, 25);
-            this.Madre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Madre.Margin = new System.Windows.Forms.Padding(4);
             this.Madre.Name = "Madre";
-            this.Madre.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Madre.Size = new System.Drawing.Size(1021, 604);
+            this.Madre.Padding = new System.Windows.Forms.Padding(4);
+            this.Madre.Size = new System.Drawing.Size(1067, 843);
             this.Madre.TabIndex = 1;
             this.Madre.Text = "Ant.Madre";
             this.Madre.UseVisualStyleBackColor = true;
@@ -794,15 +819,15 @@
             this.panel6.Controls.Add(this.label50);
             this.panel6.Controls.Add(this.label51);
             this.panel6.Location = new System.Drawing.Point(4, 4);
-            this.panel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel6.Margin = new System.Windows.Forms.Padding(4);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1011, 593);
+            this.panel6.Size = new System.Drawing.Size(991, 593);
             this.panel6.TabIndex = 3;
             // 
             // numericUpDownNumAborto
             // 
             this.numericUpDownNumAborto.Location = new System.Drawing.Point(179, 577);
-            this.numericUpDownNumAborto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownNumAborto.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownNumAborto.Name = "numericUpDownNumAborto";
             this.numericUpDownNumAborto.Size = new System.Drawing.Size(52, 22);
             this.numericUpDownNumAborto.TabIndex = 100;
@@ -810,7 +835,7 @@
             // numericUpDownNumCesarea
             // 
             this.numericUpDownNumCesarea.Location = new System.Drawing.Point(179, 545);
-            this.numericUpDownNumCesarea.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownNumCesarea.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownNumCesarea.Name = "numericUpDownNumCesarea";
             this.numericUpDownNumCesarea.Size = new System.Drawing.Size(52, 22);
             this.numericUpDownNumCesarea.TabIndex = 99;
@@ -818,7 +843,7 @@
             // numericUpDownNumEmbarazo
             // 
             this.numericUpDownNumEmbarazo.Location = new System.Drawing.Point(179, 481);
-            this.numericUpDownNumEmbarazo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownNumEmbarazo.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownNumEmbarazo.Name = "numericUpDownNumEmbarazo";
             this.numericUpDownNumEmbarazo.Size = new System.Drawing.Size(52, 22);
             this.numericUpDownNumEmbarazo.TabIndex = 98;
@@ -860,7 +885,7 @@
             // 
             this.textBoxToxicomaniasMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxToxicomaniasMadre.Location = new System.Drawing.Point(709, 190);
-            this.textBoxToxicomaniasMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxToxicomaniasMadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxToxicomaniasMadre.Name = "textBoxToxicomaniasMadre";
             this.textBoxToxicomaniasMadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxToxicomaniasMadre.TabIndex = 94;
@@ -879,7 +904,7 @@
             // numericUpDownNumPartos
             // 
             this.numericUpDownNumPartos.Location = new System.Drawing.Point(179, 513);
-            this.numericUpDownNumPartos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownNumPartos.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownNumPartos.Name = "numericUpDownNumPartos";
             this.numericUpDownNumPartos.Size = new System.Drawing.Size(52, 22);
             this.numericUpDownNumPartos.TabIndex = 92;
@@ -932,7 +957,7 @@
             // 
             this.textBoxEstadoSaludActualMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEstadoSaludActualMadre.Location = new System.Drawing.Point(524, 433);
-            this.textBoxEstadoSaludActualMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxEstadoSaludActualMadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxEstadoSaludActualMadre.MaxLength = 50;
             this.textBoxEstadoSaludActualMadre.Name = "textBoxEstadoSaludActualMadre";
             this.textBoxEstadoSaludActualMadre.Size = new System.Drawing.Size(465, 29);
@@ -953,7 +978,7 @@
             // 
             this.textBoxDismorfologicosMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDismorfologicosMadre.Location = new System.Drawing.Point(709, 238);
-            this.textBoxDismorfologicosMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxDismorfologicosMadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxDismorfologicosMadre.Name = "textBoxDismorfologicosMadre";
             this.textBoxDismorfologicosMadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxDismorfologicosMadre.TabIndex = 81;
@@ -962,7 +987,7 @@
             // 
             this.textBoxAlergiasMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAlergiasMadre.Location = new System.Drawing.Point(159, 380);
-            this.textBoxAlergiasMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxAlergiasMadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAlergiasMadre.Name = "textBoxAlergiasMadre";
             this.textBoxAlergiasMadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxAlergiasMadre.TabIndex = 80;
@@ -971,7 +996,7 @@
             // 
             this.textBoxOtrosMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOtrosMadre.Location = new System.Drawing.Point(159, 426);
-            this.textBoxOtrosMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxOtrosMadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxOtrosMadre.Name = "textBoxOtrosMadre";
             this.textBoxOtrosMadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxOtrosMadre.TabIndex = 79;
@@ -981,7 +1006,7 @@
             this.checkBoxCancerMadre.AutoSize = true;
             this.checkBoxCancerMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCancerMadre.Location = new System.Drawing.Point(43, 331);
-            this.checkBoxCancerMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxCancerMadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxCancerMadre.Name = "checkBoxCancerMadre";
             this.checkBoxCancerMadre.Size = new System.Drawing.Size(99, 28);
             this.checkBoxCancerMadre.TabIndex = 75;
@@ -993,7 +1018,7 @@
             this.checkBoxDismorfologicosMadre.AutoSize = true;
             this.checkBoxDismorfologicosMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDismorfologicosMadre.Location = new System.Drawing.Point(269, 240);
-            this.checkBoxDismorfologicosMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxDismorfologicosMadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxDismorfologicosMadre.Name = "checkBoxDismorfologicosMadre";
             this.checkBoxDismorfologicosMadre.Size = new System.Drawing.Size(181, 28);
             this.checkBoxDismorfologicosMadre.TabIndex = 74;
@@ -1005,7 +1030,7 @@
             this.checkBoxDiabetesMadre.AutoSize = true;
             this.checkBoxDiabetesMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDiabetesMadre.Location = new System.Drawing.Point(43, 286);
-            this.checkBoxDiabetesMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxDiabetesMadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxDiabetesMadre.Name = "checkBoxDiabetesMadre";
             this.checkBoxDiabetesMadre.Size = new System.Drawing.Size(113, 28);
             this.checkBoxDiabetesMadre.TabIndex = 72;
@@ -1017,7 +1042,7 @@
             this.checkBoxHipertensionMadre.AutoSize = true;
             this.checkBoxHipertensionMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHipertensionMadre.Location = new System.Drawing.Point(269, 193);
-            this.checkBoxHipertensionMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxHipertensionMadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxHipertensionMadre.Name = "checkBoxHipertensionMadre";
             this.checkBoxHipertensionMadre.Size = new System.Drawing.Size(151, 28);
             this.checkBoxHipertensionMadre.TabIndex = 70;
@@ -1029,7 +1054,7 @@
             this.checkBoxAlcoholismoMadre.AutoSize = true;
             this.checkBoxAlcoholismoMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlcoholismoMadre.Location = new System.Drawing.Point(43, 240);
-            this.checkBoxAlcoholismoMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxAlcoholismoMadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAlcoholismoMadre.Name = "checkBoxAlcoholismoMadre";
             this.checkBoxAlcoholismoMadre.Size = new System.Drawing.Size(147, 28);
             this.checkBoxAlcoholismoMadre.TabIndex = 65;
@@ -1041,7 +1066,7 @@
             this.checkBoxTabaquismoMadre.AutoSize = true;
             this.checkBoxTabaquismoMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxTabaquismoMadre.Location = new System.Drawing.Point(43, 193);
-            this.checkBoxTabaquismoMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxTabaquismoMadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxTabaquismoMadre.Name = "checkBoxTabaquismoMadre";
             this.checkBoxTabaquismoMadre.Size = new System.Drawing.Size(147, 28);
             this.checkBoxTabaquismoMadre.TabIndex = 63;
@@ -1051,7 +1076,7 @@
             // dateTimePickerFechaNacMadre
             // 
             this.dateTimePickerFechaNacMadre.Location = new System.Drawing.Point(264, 25);
-            this.dateTimePickerFechaNacMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePickerFechaNacMadre.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerFechaNacMadre.Name = "dateTimePickerFechaNacMadre";
             this.dateTimePickerFechaNacMadre.Size = new System.Drawing.Size(263, 22);
             this.dateTimePickerFechaNacMadre.TabIndex = 57;
@@ -1061,7 +1086,7 @@
             // 
             this.textBoxMedicamentoActualMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxMedicamentoActualMadre.Location = new System.Drawing.Point(524, 321);
-            this.textBoxMedicamentoActualMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxMedicamentoActualMadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxMedicamentoActualMadre.Multiline = true;
             this.textBoxMedicamentoActualMadre.Name = "textBoxMedicamentoActualMadre";
             this.textBoxMedicamentoActualMadre.Size = new System.Drawing.Size(465, 68);
@@ -1071,7 +1096,7 @@
             // 
             this.textBoxTipoCancerMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTipoCancerMadre.Location = new System.Drawing.Point(159, 331);
-            this.textBoxTipoCancerMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxTipoCancerMadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTipoCancerMadre.Name = "textBoxTipoCancerMadre";
             this.textBoxTipoCancerMadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxTipoCancerMadre.TabIndex = 53;
@@ -1080,7 +1105,7 @@
             // 
             this.textBoxOcupacionMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOcupacionMadre.Location = new System.Drawing.Point(160, 79);
-            this.textBoxOcupacionMadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxOcupacionMadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxOcupacionMadre.MaxLength = 50;
             this.textBoxOcupacionMadre.Name = "textBoxOcupacionMadre";
             this.textBoxOcupacionMadre.Size = new System.Drawing.Size(367, 29);
@@ -1135,9 +1160,9 @@
             // 
             this.Padre.Controls.Add(this.panel5);
             this.Padre.Location = new System.Drawing.Point(4, 25);
-            this.Padre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Padre.Margin = new System.Windows.Forms.Padding(4);
             this.Padre.Name = "Padre";
-            this.Padre.Size = new System.Drawing.Size(1021, 604);
+            this.Padre.Size = new System.Drawing.Size(1067, 843);
             this.Padre.TabIndex = 2;
             this.Padre.Text = "Ant.Padre";
             this.Padre.UseVisualStyleBackColor = true;
@@ -1173,9 +1198,9 @@
             this.panel5.Controls.Add(this.label55);
             this.panel5.Controls.Add(this.label56);
             this.panel5.Location = new System.Drawing.Point(4, 4);
-            this.panel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1069, 593);
+            this.panel5.Size = new System.Drawing.Size(1049, 593);
             this.panel5.TabIndex = 2;
             // 
             // label37
@@ -1215,7 +1240,7 @@
             // 
             this.textBoxToxicomaniasPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxToxicomaniasPadre.Location = new System.Drawing.Point(704, 186);
-            this.textBoxToxicomaniasPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxToxicomaniasPadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxToxicomaniasPadre.Name = "textBoxToxicomaniasPadre";
             this.textBoxToxicomaniasPadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxToxicomaniasPadre.TabIndex = 122;
@@ -1235,7 +1260,7 @@
             // 
             this.textBoxEstadoSaludActualPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEstadoSaludActualPadre.Location = new System.Drawing.Point(519, 430);
-            this.textBoxEstadoSaludActualPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxEstadoSaludActualPadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxEstadoSaludActualPadre.MaxLength = 50;
             this.textBoxEstadoSaludActualPadre.Name = "textBoxEstadoSaludActualPadre";
             this.textBoxEstadoSaludActualPadre.Size = new System.Drawing.Size(465, 29);
@@ -1256,7 +1281,7 @@
             // 
             this.textBoxDismorfologicosPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDismorfologicosPadre.Location = new System.Drawing.Point(704, 234);
-            this.textBoxDismorfologicosPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxDismorfologicosPadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxDismorfologicosPadre.Name = "textBoxDismorfologicosPadre";
             this.textBoxDismorfologicosPadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxDismorfologicosPadre.TabIndex = 115;
@@ -1265,7 +1290,7 @@
             // 
             this.textBoxAlergiasPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAlergiasPadre.Location = new System.Drawing.Point(153, 377);
-            this.textBoxAlergiasPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxAlergiasPadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAlergiasPadre.Name = "textBoxAlergiasPadre";
             this.textBoxAlergiasPadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxAlergiasPadre.TabIndex = 114;
@@ -1274,7 +1299,7 @@
             // 
             this.textBoxOtrosPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOtrosPadre.Location = new System.Drawing.Point(153, 420);
-            this.textBoxOtrosPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxOtrosPadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxOtrosPadre.Name = "textBoxOtrosPadre";
             this.textBoxOtrosPadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxOtrosPadre.TabIndex = 113;
@@ -1284,7 +1309,7 @@
             this.checkBoxCancerPadre.AutoSize = true;
             this.checkBoxCancerPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCancerPadre.Location = new System.Drawing.Point(37, 329);
-            this.checkBoxCancerPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxCancerPadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxCancerPadre.Name = "checkBoxCancerPadre";
             this.checkBoxCancerPadre.Size = new System.Drawing.Size(99, 28);
             this.checkBoxCancerPadre.TabIndex = 112;
@@ -1296,7 +1321,7 @@
             this.checkBoxDismorfologicosPadre.AutoSize = true;
             this.checkBoxDismorfologicosPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDismorfologicosPadre.Location = new System.Drawing.Point(264, 236);
-            this.checkBoxDismorfologicosPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxDismorfologicosPadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxDismorfologicosPadre.Name = "checkBoxDismorfologicosPadre";
             this.checkBoxDismorfologicosPadre.Size = new System.Drawing.Size(181, 28);
             this.checkBoxDismorfologicosPadre.TabIndex = 111;
@@ -1308,7 +1333,7 @@
             this.checkBoxDiabetesPadre.AutoSize = true;
             this.checkBoxDiabetesPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDiabetesPadre.Location = new System.Drawing.Point(37, 282);
-            this.checkBoxDiabetesPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxDiabetesPadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxDiabetesPadre.Name = "checkBoxDiabetesPadre";
             this.checkBoxDiabetesPadre.Size = new System.Drawing.Size(113, 28);
             this.checkBoxDiabetesPadre.TabIndex = 110;
@@ -1320,7 +1345,7 @@
             this.checkBoxHipertensionPadre.AutoSize = true;
             this.checkBoxHipertensionPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHipertensionPadre.Location = new System.Drawing.Point(264, 190);
-            this.checkBoxHipertensionPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxHipertensionPadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxHipertensionPadre.Name = "checkBoxHipertensionPadre";
             this.checkBoxHipertensionPadre.Size = new System.Drawing.Size(151, 28);
             this.checkBoxHipertensionPadre.TabIndex = 109;
@@ -1332,7 +1357,7 @@
             this.checkBoxAlcoholismoPadre.AutoSize = true;
             this.checkBoxAlcoholismoPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlcoholismoPadre.Location = new System.Drawing.Point(37, 236);
-            this.checkBoxAlcoholismoPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxAlcoholismoPadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAlcoholismoPadre.Name = "checkBoxAlcoholismoPadre";
             this.checkBoxAlcoholismoPadre.Size = new System.Drawing.Size(147, 28);
             this.checkBoxAlcoholismoPadre.TabIndex = 108;
@@ -1344,7 +1369,7 @@
             this.checkBoxTabaquismoPadre.AutoSize = true;
             this.checkBoxTabaquismoPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxTabaquismoPadre.Location = new System.Drawing.Point(37, 190);
-            this.checkBoxTabaquismoPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxTabaquismoPadre.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxTabaquismoPadre.Name = "checkBoxTabaquismoPadre";
             this.checkBoxTabaquismoPadre.Size = new System.Drawing.Size(147, 28);
             this.checkBoxTabaquismoPadre.TabIndex = 107;
@@ -1354,7 +1379,7 @@
             // dateTimePickerFechaNacPadre
             // 
             this.dateTimePickerFechaNacPadre.Location = new System.Drawing.Point(259, 21);
-            this.dateTimePickerFechaNacPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePickerFechaNacPadre.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerFechaNacPadre.Name = "dateTimePickerFechaNacPadre";
             this.dateTimePickerFechaNacPadre.Size = new System.Drawing.Size(263, 22);
             this.dateTimePickerFechaNacPadre.TabIndex = 106;
@@ -1364,7 +1389,7 @@
             // 
             this.textBoxMedicamentoActualPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxMedicamentoActualPadre.Location = new System.Drawing.Point(519, 318);
-            this.textBoxMedicamentoActualPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxMedicamentoActualPadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxMedicamentoActualPadre.Multiline = true;
             this.textBoxMedicamentoActualPadre.Name = "textBoxMedicamentoActualPadre";
             this.textBoxMedicamentoActualPadre.Size = new System.Drawing.Size(465, 68);
@@ -1374,7 +1399,7 @@
             // 
             this.textBoxTipoCancerPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTipoCancerPadre.Location = new System.Drawing.Point(153, 329);
-            this.textBoxTipoCancerPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxTipoCancerPadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTipoCancerPadre.Name = "textBoxTipoCancerPadre";
             this.textBoxTipoCancerPadre.Size = new System.Drawing.Size(237, 29);
             this.textBoxTipoCancerPadre.TabIndex = 104;
@@ -1383,7 +1408,7 @@
             // 
             this.textBoxOcupacionPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOcupacionPadre.Location = new System.Drawing.Point(155, 75);
-            this.textBoxOcupacionPadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxOcupacionPadre.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxOcupacionPadre.MaxLength = 50;
             this.textBoxOcupacionPadre.Name = "textBoxOcupacionPadre";
             this.textBoxOcupacionPadre.Size = new System.Drawing.Size(367, 29);
@@ -1438,9 +1463,9 @@
             // 
             this.Alimentos.Controls.Add(this.panel4);
             this.Alimentos.Location = new System.Drawing.Point(4, 25);
-            this.Alimentos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Alimentos.Margin = new System.Windows.Forms.Padding(4);
             this.Alimentos.Name = "Alimentos";
-            this.Alimentos.Size = new System.Drawing.Size(1021, 604);
+            this.Alimentos.Size = new System.Drawing.Size(1067, 843);
             this.Alimentos.TabIndex = 3;
             this.Alimentos.Text = "Alimentos";
             this.Alimentos.UseVisualStyleBackColor = true;
@@ -1454,9 +1479,9 @@
             this.panel4.Controls.Add(this.groupBox2);
             this.panel4.Controls.Add(this.groupBox1);
             this.panel4.Location = new System.Drawing.Point(4, 4);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1011, 593);
+            this.panel4.Size = new System.Drawing.Size(991, 593);
             this.panel4.TabIndex = 4;
             // 
             // groupBox2
@@ -1483,9 +1508,9 @@
             this.groupBox2.Controls.Add(this.labelMesInicial);
             this.groupBox2.Controls.Add(this.label36);
             this.groupBox2.Location = new System.Drawing.Point(4, 4);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(933, 273);
             this.groupBox2.TabIndex = 133;
             this.groupBox2.TabStop = false;
@@ -1515,7 +1540,7 @@
             // numericUpDownMesTomate
             // 
             this.numericUpDownMesTomate.Location = new System.Drawing.Point(759, 151);
-            this.numericUpDownMesTomate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesTomate.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesTomate.Name = "numericUpDownMesTomate";
             this.numericUpDownMesTomate.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesTomate.TabIndex = 150;
@@ -1523,7 +1548,7 @@
             // numericUpDownCitricos
             // 
             this.numericUpDownCitricos.Location = new System.Drawing.Point(505, 151);
-            this.numericUpDownCitricos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownCitricos.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownCitricos.Name = "numericUpDownCitricos";
             this.numericUpDownCitricos.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownCitricos.TabIndex = 149;
@@ -1553,7 +1578,7 @@
             // numericUpDownMesVerduras
             // 
             this.numericUpDownMesVerduras.Location = new System.Drawing.Point(759, 82);
-            this.numericUpDownMesVerduras.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesVerduras.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesVerduras.Name = "numericUpDownMesVerduras";
             this.numericUpDownMesVerduras.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesVerduras.TabIndex = 146;
@@ -1561,7 +1586,7 @@
             // numericUpDownMesFrutas
             // 
             this.numericUpDownMesFrutas.Location = new System.Drawing.Point(505, 82);
-            this.numericUpDownMesFrutas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesFrutas.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesFrutas.Name = "numericUpDownMesFrutas";
             this.numericUpDownMesFrutas.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesFrutas.TabIndex = 145;
@@ -1569,7 +1594,7 @@
             // numericUpDownMesCereal
             // 
             this.numericUpDownMesCereal.Location = new System.Drawing.Point(304, 82);
-            this.numericUpDownMesCereal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesCereal.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesCereal.Name = "numericUpDownMesCereal";
             this.numericUpDownMesCereal.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesCereal.TabIndex = 144;
@@ -1577,7 +1602,7 @@
             // numericUpDownMesFormula
             // 
             this.numericUpDownMesFormula.Location = new System.Drawing.Point(227, 201);
-            this.numericUpDownMesFormula.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesFormula.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesFormula.Name = "numericUpDownMesFormula";
             this.numericUpDownMesFormula.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesFormula.TabIndex = 143;
@@ -1607,7 +1632,7 @@
             // numericUpDownMesPecho
             // 
             this.numericUpDownMesPecho.Location = new System.Drawing.Point(56, 116);
-            this.numericUpDownMesPecho.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesPecho.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesPecho.Name = "numericUpDownMesPecho";
             this.numericUpDownMesPecho.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesPecho.TabIndex = 140;
@@ -1616,7 +1641,7 @@
             // 
             this.textBoxTipoFormula.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTipoFormula.Location = new System.Drawing.Point(13, 196);
-            this.textBoxTipoFormula.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxTipoFormula.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTipoFormula.MaxLength = 50;
             this.textBoxTipoFormula.Name = "textBoxTipoFormula";
             this.textBoxTipoFormula.Size = new System.Drawing.Size(201, 29);
@@ -1627,7 +1652,7 @@
             this.checkBoxVerduras.AutoSize = true;
             this.checkBoxVerduras.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxVerduras.Location = new System.Drawing.Point(736, 20);
-            this.checkBoxVerduras.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxVerduras.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxVerduras.Name = "checkBoxVerduras";
             this.checkBoxVerduras.Size = new System.Drawing.Size(117, 28);
             this.checkBoxVerduras.TabIndex = 138;
@@ -1639,7 +1664,7 @@
             this.checkBoxFrutas.AutoSize = true;
             this.checkBoxFrutas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxFrutas.Location = new System.Drawing.Point(500, 20);
-            this.checkBoxFrutas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxFrutas.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxFrutas.Name = "checkBoxFrutas";
             this.checkBoxFrutas.Size = new System.Drawing.Size(90, 28);
             this.checkBoxFrutas.TabIndex = 137;
@@ -1651,7 +1676,7 @@
             this.checkBoxCereal.AutoSize = true;
             this.checkBoxCereal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCereal.Location = new System.Drawing.Point(297, 20);
-            this.checkBoxCereal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxCereal.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxCereal.Name = "checkBoxCereal";
             this.checkBoxCereal.Size = new System.Drawing.Size(93, 28);
             this.checkBoxCereal.TabIndex = 136;
@@ -1674,7 +1699,7 @@
             this.checkBoxPecho.AutoSize = true;
             this.checkBoxPecho.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxPecho.Location = new System.Drawing.Point(17, 59);
-            this.checkBoxPecho.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxPecho.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxPecho.Name = "checkBoxPecho";
             this.checkBoxPecho.Size = new System.Drawing.Size(163, 28);
             this.checkBoxPecho.TabIndex = 134;
@@ -1726,9 +1751,9 @@
             this.groupBox1.Controls.Add(this.checkBoxControlEsfinteres);
             this.groupBox1.Controls.Add(this.label33);
             this.groupBox1.Location = new System.Drawing.Point(4, 284);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(933, 340);
             this.groupBox1.TabIndex = 132;
             this.groupBox1.TabStop = false;
@@ -1736,7 +1761,7 @@
             // numericUpDownMesDeambulacion
             // 
             this.numericUpDownMesDeambulacion.Location = new System.Drawing.Point(765, 300);
-            this.numericUpDownMesDeambulacion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesDeambulacion.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesDeambulacion.Name = "numericUpDownMesDeambulacion";
             this.numericUpDownMesDeambulacion.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesDeambulacion.TabIndex = 163;
@@ -1755,7 +1780,7 @@
             // numericUpDownMesBipedestacion
             // 
             this.numericUpDownMesBipedestacion.Location = new System.Drawing.Point(765, 176);
-            this.numericUpDownMesBipedestacion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesBipedestacion.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesBipedestacion.Name = "numericUpDownMesBipedestacion";
             this.numericUpDownMesBipedestacion.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesBipedestacion.TabIndex = 161;
@@ -1774,7 +1799,7 @@
             // numericUpDownMesEsfinteres
             // 
             this.numericUpDownMesEsfinteres.Location = new System.Drawing.Point(385, 300);
-            this.numericUpDownMesEsfinteres.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesEsfinteres.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesEsfinteres.Name = "numericUpDownMesEsfinteres";
             this.numericUpDownMesEsfinteres.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesEsfinteres.TabIndex = 159;
@@ -1793,7 +1818,7 @@
             // numericUpDownMesGatear
             // 
             this.numericUpDownMesGatear.Location = new System.Drawing.Point(41, 300);
-            this.numericUpDownMesGatear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesGatear.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesGatear.Name = "numericUpDownMesGatear";
             this.numericUpDownMesGatear.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesGatear.TabIndex = 157;
@@ -1812,7 +1837,7 @@
             // numericUpDownMesRodar
             // 
             this.numericUpDownMesRodar.Location = new System.Drawing.Point(385, 176);
-            this.numericUpDownMesRodar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesRodar.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesRodar.Name = "numericUpDownMesRodar";
             this.numericUpDownMesRodar.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesRodar.TabIndex = 155;
@@ -1831,7 +1856,7 @@
             // numericUpDownMesSentarse
             // 
             this.numericUpDownMesSentarse.Location = new System.Drawing.Point(41, 176);
-            this.numericUpDownMesSentarse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesSentarse.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesSentarse.Name = "numericUpDownMesSentarse";
             this.numericUpDownMesSentarse.Size = new System.Drawing.Size(95, 22);
             this.numericUpDownMesSentarse.TabIndex = 153;
@@ -1852,7 +1877,7 @@
             this.checkBoxGatear.AutoSize = true;
             this.checkBoxGatear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxGatear.Location = new System.Drawing.Point(17, 239);
-            this.checkBoxGatear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxGatear.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxGatear.Name = "checkBoxGatear";
             this.checkBoxGatear.Size = new System.Drawing.Size(109, 28);
             this.checkBoxGatear.TabIndex = 151;
@@ -1864,7 +1889,7 @@
             this.checkBoxSentarse.AutoSize = true;
             this.checkBoxSentarse.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxSentarse.Location = new System.Drawing.Point(17, 112);
-            this.checkBoxSentarse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxSentarse.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxSentarse.Name = "checkBoxSentarse";
             this.checkBoxSentarse.Size = new System.Drawing.Size(136, 28);
             this.checkBoxSentarse.TabIndex = 150;
@@ -1876,7 +1901,7 @@
             this.checkBoxRodar.AutoSize = true;
             this.checkBoxRodar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxRodar.Location = new System.Drawing.Point(297, 112);
-            this.checkBoxRodar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxRodar.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxRodar.Name = "checkBoxRodar";
             this.checkBoxRodar.Size = new System.Drawing.Size(262, 28);
             this.checkBoxRodar.TabIndex = 149;
@@ -1888,7 +1913,7 @@
             this.checkBoxSostieneCabeza.AutoSize = true;
             this.checkBoxSostieneCabeza.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxSostieneCabeza.Location = new System.Drawing.Point(17, 64);
-            this.checkBoxSostieneCabeza.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxSostieneCabeza.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxSostieneCabeza.Name = "checkBoxSostieneCabeza";
             this.checkBoxSostieneCabeza.Size = new System.Drawing.Size(223, 28);
             this.checkBoxSostieneCabeza.TabIndex = 148;
@@ -1900,7 +1925,7 @@
             this.checkBoxDeambulacion.AutoSize = true;
             this.checkBoxDeambulacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDeambulacion.Location = new System.Drawing.Point(713, 239);
-            this.checkBoxDeambulacion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxDeambulacion.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxDeambulacion.Name = "checkBoxDeambulacion";
             this.checkBoxDeambulacion.Size = new System.Drawing.Size(188, 28);
             this.checkBoxDeambulacion.TabIndex = 147;
@@ -1912,7 +1937,7 @@
             this.checkBoxBipedestacion.AutoSize = true;
             this.checkBoxBipedestacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxBipedestacion.Location = new System.Drawing.Point(715, 112);
-            this.checkBoxBipedestacion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxBipedestacion.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxBipedestacion.Name = "checkBoxBipedestacion";
             this.checkBoxBipedestacion.Size = new System.Drawing.Size(186, 28);
             this.checkBoxBipedestacion.TabIndex = 146;
@@ -1924,7 +1949,7 @@
             this.checkBoxControlEsfinteres.AutoSize = true;
             this.checkBoxControlEsfinteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxControlEsfinteres.Location = new System.Drawing.Point(311, 239);
-            this.checkBoxControlEsfinteres.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxControlEsfinteres.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxControlEsfinteres.Name = "checkBoxControlEsfinteres";
             this.checkBoxControlEsfinteres.Size = new System.Drawing.Size(249, 28);
             this.checkBoxControlEsfinteres.TabIndex = 145;
@@ -1946,9 +1971,9 @@
             // 
             this.Embarazo.Controls.Add(this.panel3);
             this.Embarazo.Location = new System.Drawing.Point(4, 25);
-            this.Embarazo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Embarazo.Margin = new System.Windows.Forms.Padding(4);
             this.Embarazo.Name = "Embarazo";
-            this.Embarazo.Size = new System.Drawing.Size(1021, 843);
+            this.Embarazo.Size = new System.Drawing.Size(1067, 843);
             this.Embarazo.TabIndex = 4;
             this.Embarazo.Text = "Embarazo";
             this.Embarazo.UseVisualStyleBackColor = true;
@@ -1964,9 +1989,9 @@
             this.panel3.Controls.Add(this.groupBoxEnfermedades);
             this.panel3.Controls.Add(this.label29);
             this.panel3.Location = new System.Drawing.Point(4, 4);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1011, 832);
+            this.panel3.Size = new System.Drawing.Size(1059, 832);
             this.panel3.TabIndex = 3;
             // 
             // groupBox5
@@ -1986,9 +2011,9 @@
             this.groupBox5.Controls.Add(this.label20);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(511, 52);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(461, 394);
             this.groupBox5.TabIndex = 110;
             this.groupBox5.TabStop = false;
@@ -1999,7 +2024,7 @@
             this.checkBoxMultiple.AutoSize = true;
             this.checkBoxMultiple.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMultiple.Location = new System.Drawing.Point(283, 134);
-            this.checkBoxMultiple.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxMultiple.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxMultiple.Name = "checkBoxMultiple";
             this.checkBoxMultiple.Size = new System.Drawing.Size(105, 28);
             this.checkBoxMultiple.TabIndex = 154;
@@ -2015,7 +2040,7 @@
             "Natural",
             "Cesárea"});
             this.comboBoxTipoNac.Location = new System.Drawing.Point(33, 132);
-            this.comboBoxTipoNac.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxTipoNac.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxTipoNac.Name = "comboBoxTipoNac";
             this.comboBoxTipoNac.Size = new System.Drawing.Size(211, 32);
             this.comboBoxTipoNac.TabIndex = 151;
@@ -2057,7 +2082,7 @@
             // 
             this.textBoxTallaNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTallaNac.Location = new System.Drawing.Point(251, 268);
-            this.textBoxTallaNac.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxTallaNac.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTallaNac.Name = "textBoxTallaNac";
             this.textBoxTallaNac.Size = new System.Drawing.Size(73, 29);
             this.textBoxTallaNac.TabIndex = 151;
@@ -2066,7 +2091,7 @@
             // 
             this.textBoxPesoNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPesoNac.Location = new System.Drawing.Point(251, 222);
-            this.textBoxPesoNac.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPesoNac.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPesoNac.Name = "textBoxPesoNac";
             this.textBoxPesoNac.Size = new System.Drawing.Size(73, 29);
             this.textBoxPesoNac.TabIndex = 150;
@@ -2075,7 +2100,7 @@
             // 
             this.textBoxIndicaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxIndicaciones.Location = new System.Drawing.Point(177, 336);
-            this.textBoxIndicaciones.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxIndicaciones.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxIndicaciones.Name = "textBoxIndicaciones";
             this.textBoxIndicaciones.Size = new System.Drawing.Size(268, 29);
             this.textBoxIndicaciones.TabIndex = 149;
@@ -2117,7 +2142,7 @@
             // 
             this.textBoxHospital.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxHospital.Location = new System.Drawing.Point(137, 44);
-            this.textBoxHospital.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxHospital.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxHospital.MaxLength = 50;
             this.textBoxHospital.Name = "textBoxHospital";
             this.textBoxHospital.Size = new System.Drawing.Size(308, 29);
@@ -2149,9 +2174,9 @@
             this.groupBox4.Controls.Add(this.label22);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(9, 452);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(967, 353);
             this.groupBox4.TabIndex = 109;
             this.groupBox4.TabStop = false;
@@ -2183,7 +2208,7 @@
             // 
             this.textBoxOtrosPosnatal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOtrosPosnatal.Location = new System.Drawing.Point(683, 130);
-            this.textBoxOtrosPosnatal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxOtrosPosnatal.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxOtrosPosnatal.Name = "textBoxOtrosPosnatal";
             this.textBoxOtrosPosnatal.Size = new System.Drawing.Size(216, 29);
             this.textBoxOtrosPosnatal.TabIndex = 157;
@@ -2192,7 +2217,7 @@
             // 
             this.textBoxFototerapias.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFototerapias.Location = new System.Drawing.Point(683, 91);
-            this.textBoxFototerapias.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxFototerapias.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxFototerapias.MaxLength = 50;
             this.textBoxFototerapias.Name = "textBoxFototerapias";
             this.textBoxFototerapias.Size = new System.Drawing.Size(216, 29);
@@ -2214,9 +2239,9 @@
             this.groupBoxIncubadora.Controls.Add(this.radioButtonSiIncubadora);
             this.groupBoxIncubadora.Controls.Add(this.radioButtonNoIncubadora);
             this.groupBoxIncubadora.Location = new System.Drawing.Point(768, 16);
-            this.groupBoxIncubadora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxIncubadora.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxIncubadora.Name = "groupBoxIncubadora";
-            this.groupBoxIncubadora.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxIncubadora.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxIncubadora.Size = new System.Drawing.Size(132, 48);
             this.groupBoxIncubadora.TabIndex = 118;
             this.groupBoxIncubadora.TabStop = false;
@@ -2226,7 +2251,7 @@
             this.radioButtonSiIncubadora.AutoSize = true;
             this.radioButtonSiIncubadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonSiIncubadora.Location = new System.Drawing.Point(8, 18);
-            this.radioButtonSiIncubadora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonSiIncubadora.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonSiIncubadora.Name = "radioButtonSiIncubadora";
             this.radioButtonSiIncubadora.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.radioButtonSiIncubadora.Size = new System.Drawing.Size(49, 28);
@@ -2240,7 +2265,7 @@
             this.radioButtonNoIncubadora.AutoSize = true;
             this.radioButtonNoIncubadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonNoIncubadora.Location = new System.Drawing.Point(64, 18);
-            this.radioButtonNoIncubadora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonNoIncubadora.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonNoIncubadora.Name = "radioButtonNoIncubadora";
             this.radioButtonNoIncubadora.Size = new System.Drawing.Size(58, 28);
             this.radioButtonNoIncubadora.TabIndex = 95;
@@ -2264,9 +2289,9 @@
             this.groupBoxRespirador.Controls.Add(this.radioButtonSiRespirador);
             this.groupBoxRespirador.Controls.Add(this.radioButtonNoRespirador);
             this.groupBoxRespirador.Location = new System.Drawing.Point(287, 91);
-            this.groupBoxRespirador.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxRespirador.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxRespirador.Name = "groupBoxRespirador";
-            this.groupBoxRespirador.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxRespirador.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxRespirador.Size = new System.Drawing.Size(132, 48);
             this.groupBoxRespirador.TabIndex = 116;
             this.groupBoxRespirador.TabStop = false;
@@ -2276,7 +2301,7 @@
             this.radioButtonSiRespirador.AutoSize = true;
             this.radioButtonSiRespirador.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonSiRespirador.Location = new System.Drawing.Point(8, 18);
-            this.radioButtonSiRespirador.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonSiRespirador.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonSiRespirador.Name = "radioButtonSiRespirador";
             this.radioButtonSiRespirador.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.radioButtonSiRespirador.Size = new System.Drawing.Size(49, 28);
@@ -2290,7 +2315,7 @@
             this.radioButtonNoRespirador.AutoSize = true;
             this.radioButtonNoRespirador.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonNoRespirador.Location = new System.Drawing.Point(64, 18);
-            this.radioButtonNoRespirador.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonNoRespirador.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonNoRespirador.Name = "radioButtonNoRespirador";
             this.radioButtonNoRespirador.Size = new System.Drawing.Size(58, 28);
             this.radioButtonNoRespirador.TabIndex = 95;
@@ -2303,9 +2328,9 @@
             this.groupBoxVigilancia.Controls.Add(this.radioButtonSiVigilancia);
             this.groupBoxVigilancia.Controls.Add(this.radioButtonNoVigilancia);
             this.groupBoxVigilancia.Location = new System.Drawing.Point(287, 36);
-            this.groupBoxVigilancia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxVigilancia.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxVigilancia.Name = "groupBoxVigilancia";
-            this.groupBoxVigilancia.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxVigilancia.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxVigilancia.Size = new System.Drawing.Size(132, 48);
             this.groupBoxVigilancia.TabIndex = 114;
             this.groupBoxVigilancia.TabStop = false;
@@ -2315,7 +2340,7 @@
             this.radioButtonSiVigilancia.AutoSize = true;
             this.radioButtonSiVigilancia.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonSiVigilancia.Location = new System.Drawing.Point(8, 18);
-            this.radioButtonSiVigilancia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonSiVigilancia.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonSiVigilancia.Name = "radioButtonSiVigilancia";
             this.radioButtonSiVigilancia.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.radioButtonSiVigilancia.Size = new System.Drawing.Size(49, 28);
@@ -2329,7 +2354,7 @@
             this.radioButtonNoVigilancia.AutoSize = true;
             this.radioButtonNoVigilancia.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonNoVigilancia.Location = new System.Drawing.Point(64, 18);
-            this.radioButtonNoVigilancia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonNoVigilancia.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonNoVigilancia.Name = "radioButtonNoVigilancia";
             this.radioButtonNoVigilancia.Size = new System.Drawing.Size(58, 28);
             this.radioButtonNoVigilancia.TabIndex = 95;
@@ -2373,9 +2398,9 @@
             this.groupBoxEnfermedades.Controls.Add(this.textBoxResponsableControl);
             this.groupBoxEnfermedades.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxEnfermedades.Location = new System.Drawing.Point(9, 52);
-            this.groupBoxEnfermedades.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxEnfermedades.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxEnfermedades.Name = "groupBoxEnfermedades";
-            this.groupBoxEnfermedades.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxEnfermedades.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxEnfermedades.Size = new System.Drawing.Size(463, 394);
             this.groupBoxEnfermedades.TabIndex = 108;
             this.groupBoxEnfermedades.TabStop = false;
@@ -2396,7 +2421,7 @@
             // 
             this.textBoxEnfermedades.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEnfermedades.Location = new System.Drawing.Point(48, 340);
-            this.textBoxEnfermedades.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxEnfermedades.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxEnfermedades.Name = "textBoxEnfermedades";
             this.textBoxEnfermedades.Size = new System.Drawing.Size(317, 29);
             this.textBoxEnfermedades.TabIndex = 148;
@@ -2404,7 +2429,7 @@
             // numericUpDownMesControl
             // 
             this.numericUpDownMesControl.Location = new System.Drawing.Point(287, 177);
-            this.numericUpDownMesControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownMesControl.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesControl.Name = "numericUpDownMesControl";
             this.numericUpDownMesControl.Size = new System.Drawing.Size(95, 29);
             this.numericUpDownMesControl.TabIndex = 146;
@@ -2425,9 +2450,9 @@
             this.groupBoxPlaneado.Controls.Add(this.radioButtonSiPlaneado);
             this.groupBoxPlaneado.Controls.Add(this.radioButtonNoPlaneado);
             this.groupBoxPlaneado.Location = new System.Drawing.Point(163, 28);
-            this.groupBoxPlaneado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxPlaneado.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxPlaneado.Name = "groupBoxPlaneado";
-            this.groupBoxPlaneado.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxPlaneado.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxPlaneado.Size = new System.Drawing.Size(131, 48);
             this.groupBoxPlaneado.TabIndex = 112;
             this.groupBoxPlaneado.TabStop = false;
@@ -2437,7 +2462,7 @@
             this.radioButtonSiPlaneado.AutoSize = true;
             this.radioButtonSiPlaneado.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonSiPlaneado.Location = new System.Drawing.Point(8, 18);
-            this.radioButtonSiPlaneado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonSiPlaneado.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonSiPlaneado.Name = "radioButtonSiPlaneado";
             this.radioButtonSiPlaneado.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.radioButtonSiPlaneado.Size = new System.Drawing.Size(49, 28);
@@ -2451,7 +2476,7 @@
             this.radioButtonNoPlaneado.AutoSize = true;
             this.radioButtonNoPlaneado.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonNoPlaneado.Location = new System.Drawing.Point(67, 18);
-            this.radioButtonNoPlaneado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonNoPlaneado.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonNoPlaneado.Name = "radioButtonNoPlaneado";
             this.radioButtonNoPlaneado.Size = new System.Drawing.Size(58, 28);
             this.radioButtonNoPlaneado.TabIndex = 95;
@@ -2490,7 +2515,7 @@
             "Fecundación In Vitro",
             "Inseminación Artificial"});
             this.comboBoxMetFertilizacion.Location = new System.Drawing.Point(51, 119);
-            this.comboBoxMetFertilizacion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxMetFertilizacion.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxMetFertilizacion.Name = "comboBoxMetFertilizacion";
             this.comboBoxMetFertilizacion.Size = new System.Drawing.Size(315, 32);
             this.comboBoxMetFertilizacion.TabIndex = 113;
@@ -2510,7 +2535,7 @@
             // 
             this.textBoxResponsableControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxResponsableControl.Location = new System.Drawing.Point(48, 258);
-            this.textBoxResponsableControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxResponsableControl.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxResponsableControl.MaxLength = 50;
             this.textBoxResponsableControl.Name = "textBoxResponsableControl";
             this.textBoxResponsableControl.Size = new System.Drawing.Size(317, 29);
@@ -2531,9 +2556,9 @@
             // 
             this.Vacunas.Controls.Add(this.panel2);
             this.Vacunas.Location = new System.Drawing.Point(4, 25);
-            this.Vacunas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Vacunas.Margin = new System.Windows.Forms.Padding(4);
             this.Vacunas.Name = "Vacunas";
-            this.Vacunas.Size = new System.Drawing.Size(1021, 604);
+            this.Vacunas.Size = new System.Drawing.Size(1067, 843);
             this.Vacunas.TabIndex = 5;
             this.Vacunas.Text = "Vacunas";
             this.Vacunas.UseVisualStyleBackColor = true;
@@ -2544,7 +2569,7 @@
             this.panel2.Controls.Add(this.groupBox8);
             this.panel2.Controls.Add(this.groupBox7);
             this.panel2.Location = new System.Drawing.Point(4, 4);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1011, 593);
             this.panel2.TabIndex = 5;
@@ -2566,9 +2591,9 @@
             this.groupBox8.Controls.Add(this.checkBoxHepatitisB);
             this.groupBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox8.Location = new System.Drawing.Point(25, 25);
-            this.groupBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox8.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox8.Size = new System.Drawing.Size(267, 566);
             this.groupBox8.TabIndex = 121;
             this.groupBox8.TabStop = false;
@@ -2579,7 +2604,7 @@
             this.checkBoxHepatitisA.AutoSize = true;
             this.checkBoxHepatitisA.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHepatitisA.Location = new System.Drawing.Point(51, 54);
-            this.checkBoxHepatitisA.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxHepatitisA.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxHepatitisA.Name = "checkBoxHepatitisA";
             this.checkBoxHepatitisA.Size = new System.Drawing.Size(132, 28);
             this.checkBoxHepatitisA.TabIndex = 133;
@@ -2591,7 +2616,7 @@
             this.checkBoxInfluenza.AutoSize = true;
             this.checkBoxInfluenza.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxInfluenza.Location = new System.Drawing.Point(51, 346);
-            this.checkBoxInfluenza.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxInfluenza.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxInfluenza.Name = "checkBoxInfluenza";
             this.checkBoxInfluenza.Size = new System.Drawing.Size(116, 28);
             this.checkBoxInfluenza.TabIndex = 132;
@@ -2603,7 +2628,7 @@
             this.checkBoxNeumococo.AutoSize = true;
             this.checkBoxNeumococo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxNeumococo.Location = new System.Drawing.Point(51, 311);
-            this.checkBoxNeumococo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxNeumococo.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxNeumococo.Name = "checkBoxNeumococo";
             this.checkBoxNeumococo.Size = new System.Drawing.Size(146, 28);
             this.checkBoxNeumococo.TabIndex = 131;
@@ -2615,7 +2640,7 @@
             this.checkBoxRotavirus.AutoSize = true;
             this.checkBoxRotavirus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxRotavirus.Location = new System.Drawing.Point(51, 274);
-            this.checkBoxRotavirus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxRotavirus.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxRotavirus.Name = "checkBoxRotavirus";
             this.checkBoxRotavirus.Size = new System.Drawing.Size(118, 28);
             this.checkBoxRotavirus.TabIndex = 130;
@@ -2627,7 +2652,7 @@
             this.checkBoxPoliomelitis.AutoSize = true;
             this.checkBoxPoliomelitis.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxPoliomelitis.Location = new System.Drawing.Point(51, 238);
-            this.checkBoxPoliomelitis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxPoliomelitis.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxPoliomelitis.Name = "checkBoxPoliomelitis";
             this.checkBoxPoliomelitis.Size = new System.Drawing.Size(138, 28);
             this.checkBoxPoliomelitis.TabIndex = 129;
@@ -2639,7 +2664,7 @@
             this.checkBoxTuberculosis.AutoSize = true;
             this.checkBoxTuberculosis.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxTuberculosis.Location = new System.Drawing.Point(51, 489);
-            this.checkBoxTuberculosis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxTuberculosis.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxTuberculosis.Name = "checkBoxTuberculosis";
             this.checkBoxTuberculosis.Size = new System.Drawing.Size(153, 28);
             this.checkBoxTuberculosis.TabIndex = 128;
@@ -2651,7 +2676,7 @@
             this.checkBoxHPV.AutoSize = true;
             this.checkBoxHPV.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHPV.Location = new System.Drawing.Point(51, 454);
-            this.checkBoxHPV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxHPV.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxHPV.Name = "checkBoxHPV";
             this.checkBoxHPV.Size = new System.Drawing.Size(74, 28);
             this.checkBoxHPV.TabIndex = 127;
@@ -2663,7 +2688,7 @@
             this.checkBoxVaricela.AutoSize = true;
             this.checkBoxVaricela.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxVaricela.Location = new System.Drawing.Point(51, 417);
-            this.checkBoxVaricela.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxVaricela.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxVaricela.Name = "checkBoxVaricela";
             this.checkBoxVaricela.Size = new System.Drawing.Size(108, 28);
             this.checkBoxVaricela.TabIndex = 126;
@@ -2675,7 +2700,7 @@
             this.checkBoxMMR.AutoSize = true;
             this.checkBoxMMR.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMMR.Location = new System.Drawing.Point(51, 380);
-            this.checkBoxMMR.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxMMR.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxMMR.Name = "checkBoxMMR";
             this.checkBoxMMR.Size = new System.Drawing.Size(80, 28);
             this.checkBoxMMR.TabIndex = 125;
@@ -2687,7 +2712,7 @@
             this.checkBoxBPT.AutoSize = true;
             this.checkBoxBPT.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxBPT.Location = new System.Drawing.Point(51, 203);
-            this.checkBoxBPT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxBPT.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxBPT.Name = "checkBoxBPT";
             this.checkBoxBPT.Size = new System.Drawing.Size(71, 28);
             this.checkBoxBPT.TabIndex = 124;
@@ -2699,7 +2724,7 @@
             this.checkBoxMeningococo.AutoSize = true;
             this.checkBoxMeningococo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMeningococo.Location = new System.Drawing.Point(51, 166);
-            this.checkBoxMeningococo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxMeningococo.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxMeningococo.Name = "checkBoxMeningococo";
             this.checkBoxMeningococo.Size = new System.Drawing.Size(160, 28);
             this.checkBoxMeningococo.TabIndex = 123;
@@ -2711,7 +2736,7 @@
             this.checkBoxHIB.AutoSize = true;
             this.checkBoxHIB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHIB.Location = new System.Drawing.Point(51, 129);
-            this.checkBoxHIB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxHIB.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxHIB.Name = "checkBoxHIB";
             this.checkBoxHIB.Size = new System.Drawing.Size(65, 28);
             this.checkBoxHIB.TabIndex = 122;
@@ -2723,7 +2748,7 @@
             this.checkBoxHepatitisB.AutoSize = true;
             this.checkBoxHepatitisB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHepatitisB.Location = new System.Drawing.Point(51, 95);
-            this.checkBoxHepatitisB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxHepatitisB.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxHepatitisB.Name = "checkBoxHepatitisB";
             this.checkBoxHepatitisB.Size = new System.Drawing.Size(131, 28);
             this.checkBoxHepatitisB.TabIndex = 121;
@@ -2743,9 +2768,9 @@
             this.groupBox7.Controls.Add(this.checkBoxAlergiaMedicamento);
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox7.Location = new System.Drawing.Point(347, 25);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox7.Size = new System.Drawing.Size(560, 394);
             this.groupBox7.TabIndex = 120;
             this.groupBox7.TabStop = false;
@@ -2756,13 +2781,12 @@
             this.checkBoxAlergiaRopa.AutoSize = true;
             this.checkBoxAlergiaRopa.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlergiaRopa.Location = new System.Drawing.Point(20, 162);
-            this.checkBoxAlergiaRopa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxAlergiaRopa.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAlergiaRopa.Name = "checkBoxAlergiaRopa";
             this.checkBoxAlergiaRopa.Size = new System.Drawing.Size(81, 28);
             this.checkBoxAlergiaRopa.TabIndex = 130;
             this.checkBoxAlergiaRopa.Text = "Ropa";
             this.checkBoxAlergiaRopa.UseVisualStyleBackColor = true;
-            this.checkBoxAlergiaRopa.CheckedChanged += new System.EventHandler(this.checkBoxAlergiaRopa_CheckedChanged);
             // 
             // label16
             // 
@@ -2780,7 +2804,7 @@
             this.textBoxAlergiaRopa.Enabled = false;
             this.textBoxAlergiaRopa.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAlergiaRopa.Location = new System.Drawing.Point(199, 162);
-            this.textBoxAlergiaRopa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxAlergiaRopa.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAlergiaRopa.Name = "textBoxAlergiaRopa";
             this.textBoxAlergiaRopa.Size = new System.Drawing.Size(300, 29);
             this.textBoxAlergiaRopa.TabIndex = 128;
@@ -2790,7 +2814,7 @@
             this.textBoxAlergiaFlora.Enabled = false;
             this.textBoxAlergiaFlora.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAlergiaFlora.Location = new System.Drawing.Point(199, 126);
-            this.textBoxAlergiaFlora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxAlergiaFlora.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAlergiaFlora.Name = "textBoxAlergiaFlora";
             this.textBoxAlergiaFlora.Size = new System.Drawing.Size(300, 29);
             this.textBoxAlergiaFlora.TabIndex = 127;
@@ -2800,7 +2824,7 @@
             this.textBoxAlergiaAlimentos.Enabled = false;
             this.textBoxAlergiaAlimentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAlergiaAlimentos.Location = new System.Drawing.Point(199, 89);
-            this.textBoxAlergiaAlimentos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxAlergiaAlimentos.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAlergiaAlimentos.Name = "textBoxAlergiaAlimentos";
             this.textBoxAlergiaAlimentos.Size = new System.Drawing.Size(300, 29);
             this.textBoxAlergiaAlimentos.TabIndex = 126;
@@ -2810,7 +2834,7 @@
             this.textBoxAlergiaMedicamento.Enabled = false;
             this.textBoxAlergiaMedicamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAlergiaMedicamento.Location = new System.Drawing.Point(199, 52);
-            this.textBoxAlergiaMedicamento.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxAlergiaMedicamento.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAlergiaMedicamento.Name = "textBoxAlergiaMedicamento";
             this.textBoxAlergiaMedicamento.Size = new System.Drawing.Size(300, 29);
             this.textBoxAlergiaMedicamento.TabIndex = 125;
@@ -2820,78 +2844,72 @@
             this.checkBoxAlergiaFlora.AutoSize = true;
             this.checkBoxAlergiaFlora.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlergiaFlora.Location = new System.Drawing.Point(20, 126);
-            this.checkBoxAlergiaFlora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxAlergiaFlora.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAlergiaFlora.Name = "checkBoxAlergiaFlora";
             this.checkBoxAlergiaFlora.Size = new System.Drawing.Size(80, 28);
             this.checkBoxAlergiaFlora.TabIndex = 124;
             this.checkBoxAlergiaFlora.Text = "Flora";
             this.checkBoxAlergiaFlora.UseVisualStyleBackColor = true;
-            this.checkBoxAlergiaFlora.CheckedChanged += new System.EventHandler(this.checkBoxAlergiaFlora_CheckedChanged);
             // 
             // checkBoxAlergiaAlimentos
             // 
             this.checkBoxAlergiaAlimentos.AutoSize = true;
             this.checkBoxAlergiaAlimentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlergiaAlimentos.Location = new System.Drawing.Point(20, 89);
-            this.checkBoxAlergiaAlimentos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxAlergiaAlimentos.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAlergiaAlimentos.Name = "checkBoxAlergiaAlimentos";
             this.checkBoxAlergiaAlimentos.Size = new System.Drawing.Size(124, 28);
             this.checkBoxAlergiaAlimentos.TabIndex = 123;
             this.checkBoxAlergiaAlimentos.Text = "Alimentos";
             this.checkBoxAlergiaAlimentos.UseVisualStyleBackColor = true;
-            this.checkBoxAlergiaAlimentos.CheckedChanged += new System.EventHandler(this.checkBoxAlergiaAlimentos_CheckedChanged);
             // 
             // checkBoxAlergiaMedicamento
             // 
             this.checkBoxAlergiaMedicamento.AutoSize = true;
             this.checkBoxAlergiaMedicamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlergiaMedicamento.Location = new System.Drawing.Point(20, 54);
-            this.checkBoxAlergiaMedicamento.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxAlergiaMedicamento.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAlergiaMedicamento.Name = "checkBoxAlergiaMedicamento";
             this.checkBoxAlergiaMedicamento.Size = new System.Drawing.Size(158, 28);
             this.checkBoxAlergiaMedicamento.TabIndex = 122;
             this.checkBoxAlergiaMedicamento.Text = "Medicamento";
             this.checkBoxAlergiaMedicamento.UseVisualStyleBackColor = true;
-            this.checkBoxAlergiaMedicamento.CheckedChanged += new System.EventHandler(this.checkBoxAlergiaMedicamento_CheckedChanged);
             // 
-            // buttonCancelar
+            // Citas
             // 
-            this.buttonCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancelar.Location = new System.Drawing.Point(899, 894);
-            this.buttonCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.buttonCancelar.Name = "buttonCancelar";
-            this.buttonCancelar.Size = new System.Drawing.Size(137, 37);
-            this.buttonCancelar.TabIndex = 69;
-            this.buttonCancelar.Text = "Cancelar";
-            this.buttonCancelar.UseVisualStyleBackColor = true;
-            this.buttonCancelar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonCancelar_MouseClick);
+            this.Citas.Controls.Add(this.dataGridViewHistorial);
+            this.Citas.Location = new System.Drawing.Point(4, 25);
+            this.Citas.Name = "Citas";
+            this.Citas.Padding = new System.Windows.Forms.Padding(3);
+            this.Citas.Size = new System.Drawing.Size(1067, 843);
+            this.Citas.TabIndex = 6;
+            this.Citas.Text = "Citas";
+            this.Citas.UseVisualStyleBackColor = true;
             // 
-            // buttonGuardar
+            // dataGridViewHistorial
             // 
-            this.buttonGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGuardar.Location = new System.Drawing.Point(753, 894);
-            this.buttonGuardar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.buttonGuardar.Name = "buttonGuardar";
-            this.buttonGuardar.Size = new System.Drawing.Size(137, 37);
-            this.buttonGuardar.TabIndex = 68;
-            this.buttonGuardar.Text = "Guardar";
-            this.buttonGuardar.UseVisualStyleBackColor = true;
-            this.buttonGuardar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonGuardar_MouseClick);
+            this.dataGridViewHistorial.AllowUserToDeleteRows = false;
+            this.dataGridViewHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewHistorial.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewHistorial.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewHistorial.Name = "dataGridViewHistorial";
+            this.dataGridViewHistorial.ReadOnly = true;
+            this.dataGridViewHistorial.RowHeadersWidth = 51;
+            this.dataGridViewHistorial.RowTemplate.Height = 24;
+            this.dataGridViewHistorial.Size = new System.Drawing.Size(1061, 837);
+            this.dataGridViewHistorial.TabIndex = 0;
             // 
-            // FormAgregarPaciente
+            // FormHistorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1061, 945);
-            this.Controls.Add(this.buttonCancelar);
-            this.Controls.Add(this.buttonGuardar);
-            this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "FormAgregarPaciente";
-            this.Text = "Agregar Paciente";
-            this.Load += new System.EventHandler(this.FormAgregarPaciente_Load);
+            this.ClientSize = new System.Drawing.Size(1115, 954);
+            this.Controls.Add(this.panel7);
+            this.Name = "FormHistorial";
+            this.Text = "FormHistorial";
+            this.Load += new System.EventHandler(this.FormHistorial_Load);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.Datos.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -2951,15 +2969,22 @@
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.Citas.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistorial)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
+        private System.Windows.Forms.Label labelNombre;
+        private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage Datos;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBoxSexo;
+        private System.Windows.Forms.RadioButton radioButtonMasculino;
+        private System.Windows.Forms.RadioButton radioButtonFemenino;
+        private System.Windows.Forms.ComboBox comboBoxTipoSangre;
         private System.Windows.Forms.TextBox textBoxCP;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox comboBoxAfiliacion;
@@ -2992,6 +3017,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage Madre;
         private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.NumericUpDown numericUpDownNumAborto;
+        private System.Windows.Forms.NumericUpDown numericUpDownNumCesarea;
+        private System.Windows.Forms.NumericUpDown numericUpDownNumEmbarazo;
+        private System.Windows.Forms.Label labelOtros;
+        private System.Windows.Forms.Label labelAlergias;
+        private System.Windows.Forms.Label labelToxicomanias;
+        private System.Windows.Forms.TextBox textBoxToxicomaniasMadre;
+        private System.Windows.Forms.Label labelDismorfologicos;
         private System.Windows.Forms.NumericUpDown numericUpDownNumPartos;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label43;
@@ -3018,31 +3051,6 @@
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.TabPage Padre;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TabPage Alimentos;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.TabPage Embarazo;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.TabPage Vacunas;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.ComboBox comboBoxTipoSangre;
-        private System.Windows.Forms.Button buttonCancelar;
-        private System.Windows.Forms.Button buttonGuardar;
-        private System.Windows.Forms.GroupBox groupBoxSexo;
-        private System.Windows.Forms.RadioButton radioButtonMasculino;
-        private System.Windows.Forms.RadioButton radioButtonFemenino;
-        private System.Windows.Forms.Label labelDismorfologicos;
-        private System.Windows.Forms.Label labelToxicomanias;
-        private System.Windows.Forms.TextBox textBoxToxicomaniasMadre;
-        private System.Windows.Forms.Label labelAlergias;
-        private System.Windows.Forms.Label labelOtros;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumAborto;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumCesarea;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumEmbarazo;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label labelTaxicomanias;
@@ -3067,6 +3075,8 @@
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.TabPage Alimentos;
+        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label labelCitricos;
@@ -3110,32 +3120,28 @@
         private System.Windows.Forms.CheckBox checkBoxBipedestacion;
         private System.Windows.Forms.CheckBox checkBoxControlEsfinteres;
         private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TabPage Embarazo;
+        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox textBoxHospital;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBoxEnfermedades;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.ComboBox comboBoxMetFertilizacion;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox textBoxResponsableControl;
-        private System.Windows.Forms.GroupBox groupBoxPlaneado;
-        private System.Windows.Forms.RadioButton radioButtonSiPlaneado;
-        private System.Windows.Forms.RadioButton radioButtonNoPlaneado;
-        private System.Windows.Forms.NumericUpDown numericUpDownMesControl;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBoxEnfermedades;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox textBoxIndicaciones;
+        private System.Windows.Forms.CheckBox checkBoxMultiple;
+        private System.Windows.Forms.ComboBox comboBoxTipoNac;
         private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.TextBox textBoxTallaNac;
         private System.Windows.Forms.TextBox textBoxPesoNac;
-        private System.Windows.Forms.GroupBox groupBoxVigilancia;
-        private System.Windows.Forms.RadioButton radioButtonSiVigilancia;
-        private System.Windows.Forms.RadioButton radioButtonNoVigilancia;
+        private System.Windows.Forms.TextBox textBoxIndicaciones;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox textBoxHospital;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBoxOtrosPosnatal;
+        private System.Windows.Forms.TextBox textBoxFototerapias;
+        private System.Windows.Forms.Label label62;
         private System.Windows.Forms.GroupBox groupBoxIncubadora;
         private System.Windows.Forms.RadioButton radioButtonSiIncubadora;
         private System.Windows.Forms.RadioButton radioButtonNoIncubadora;
@@ -3143,11 +3149,29 @@
         private System.Windows.Forms.GroupBox groupBoxRespirador;
         private System.Windows.Forms.RadioButton radioButtonSiRespirador;
         private System.Windows.Forms.RadioButton radioButtonNoRespirador;
+        private System.Windows.Forms.GroupBox groupBoxVigilancia;
+        private System.Windows.Forms.RadioButton radioButtonSiVigilancia;
+        private System.Windows.Forms.RadioButton radioButtonNoVigilancia;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.TextBox textBoxOtrosPosnatal;
-        private System.Windows.Forms.TextBox textBoxFototerapias;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.GroupBox groupBoxEnfermedades;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBoxEnfermedades;
+        private System.Windows.Forms.NumericUpDown numericUpDownMesControl;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.GroupBox groupBoxPlaneado;
+        private System.Windows.Forms.RadioButton radioButtonSiPlaneado;
+        private System.Windows.Forms.RadioButton radioButtonNoPlaneado;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox comboBoxMetFertilizacion;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox textBoxResponsableControl;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TabPage Vacunas;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.CheckBox checkBoxHepatitisA;
         private System.Windows.Forms.CheckBox checkBoxInfluenza;
         private System.Windows.Forms.CheckBox checkBoxNeumococo;
         private System.Windows.Forms.CheckBox checkBoxRotavirus;
@@ -3170,12 +3194,7 @@
         private System.Windows.Forms.CheckBox checkBoxAlergiaFlora;
         private System.Windows.Forms.CheckBox checkBoxAlergiaAlimentos;
         private System.Windows.Forms.CheckBox checkBoxAlergiaMedicamento;
-        private System.Windows.Forms.CheckBox checkBoxHepatitisA;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox comboBoxTipoNac;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.CheckBox checkBoxMultiple;
-        private System.Windows.Forms.Label label63;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TabPage Citas;
+        private System.Windows.Forms.DataGridView dataGridViewHistorial;
     }
 }

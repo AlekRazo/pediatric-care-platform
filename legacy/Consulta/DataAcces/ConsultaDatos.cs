@@ -20,7 +20,7 @@ namespace Consultas.DataAcces
                 string motivo = objConsulta.Motivo;
                 string responsabilidad = objConsulta.Responsabilidad;
                 int frecuenciaCardiaca = objConsulta.FrecuenciaCardiaca;
-                int frecuenciaRespiratoria  = objConsulta.FrecuenciaRespiratoria;
+                int frecuenciaRespiratoria = objConsulta.FrecuenciaRespiratoria;
                 string tensionArterial = objConsulta.TensionArterial;
                 double temperatura = objConsulta.Temperatura;
                 double peso = objConsulta.Peso;
