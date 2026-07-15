@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Helpers.Helpers;
 using Pacientes.DataAccess;
 
 namespace Pacientes.BusinessLogic

@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="BusinessLogic\LogicaUsuario.cs" />
     <Compile Include="BusinessLogic\Usuario.cs" />
-    <Compile Include="BusinessLogic\Validaciones.cs" />
     <Compile Include="DataAccess\UsuarioDatos.cs" />
     <Compile Include="Presentation\FormLogin.cs">
       <SubType>Form</SubType>
@@ -102,6 +101,10 @@
     <ProjectReference Include="..\Citas\Citas.csproj">
       <Project>{E22B4A1E-23C5-48D6-B5BF-118D6D7C2A94}</Project>
       <Name>Citas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{C5A75012-7D08-46DD-839D-BDC0D3EA6313}</Project>
+      <Name>Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pacientes\Pacientes.csproj">
       <Project>{D0670C6E-83B4-4309-A922-8A1272BA2BE7}</Project>

@@ -47,7 +47,7 @@ namespace Consultas.DataAcces
 
                 while (reader.Read())
                 {
-                    idConsulta = int.Parse(reader["idConsulta"].ToString());
+                    idConsulta = SeguridadDeTipos.GetSafeInt(reader, "idConsulta");
                 }
 
                 conn.Close();
@@ -87,18 +87,18 @@ namespace Consultas.DataAcces
 
                 while (reader.Read())
                 {
-                    consulta.IdConsulta = int.Parse(reader["idConsulta"].ToString());
-                    consulta.IdPaciente = int.Parse(reader["idPaciente"].ToString());
-                    consulta.FechaConsulta = DateTime.Parse(reader["FechaConsulta"].ToString());
-                    consulta.Motivo = reader["Motivo"].ToString();
-                    consulta.Responsabilidad = reader["Responsabilidad"].ToString();
-                    consulta.FrecuenciaCardiaca = int.Parse(reader["FrecCardiaca"].ToString());
-                    consulta.FrecuenciaRespiratoria = int.Parse(reader["FrecRespiratoria"].ToString());
-                    consulta.TensionArterial = reader["TensionArterial"].ToString();
-                    consulta.Temperatura = double.Parse(reader["Temperatura"].ToString());
-                    consulta.Peso = double.Parse(reader["Peso"].ToString());
-                    consulta.Talla = double.Parse(reader["Talla"].ToString());
-                    consulta.Diagnostico = reader["Diagnostico"].ToString();
+                    consulta.IdConsulta = SeguridadDeTipos.GetSafeInt(reader, "idConsulta");
+                    consulta.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    consulta.FechaConsulta = SeguridadDeTipos.GetSafeDateTime(reader, "FechaConsulta");
+                    consulta.Motivo = SeguridadDeTipos.GetSafeString(reader, "Motivo");
+                    consulta.Responsabilidad = SeguridadDeTipos.GetSafeString(reader, "Responsabilidad");
+                    consulta.FrecuenciaCardiaca = SeguridadDeTipos.GetSafeInt(reader, "FrecCardiaca");
+                    consulta.FrecuenciaRespiratoria = SeguridadDeTipos.GetSafeInt(reader, "FrecRespiratoria");
+                    consulta.TensionArterial = SeguridadDeTipos.GetSafeString(reader, "TensionArterial");
+                    consulta.Temperatura = SeguridadDeTipos.GetSafeDouble(reader, "Temperatura");
+                    consulta.Peso = SeguridadDeTipos.GetSafeDouble(reader, "Peso");
+                    consulta.Talla = SeguridadDeTipos.GetSafeDouble(reader, "Talla");
+                    consulta.Diagnostico = SeguridadDeTipos.GetSafeString(reader, "Diagnostico");
                 }
 
                 conn.Close();

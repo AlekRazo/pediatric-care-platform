@@ -58,7 +58,6 @@
     <Compile Include="BusinessLogic\Paciente.cs" />
     <Compile Include="BusinessLogic\Psicomotor.cs" />
     <Compile Include="BusinessLogic\Vacunacion.cs" />
-    <Compile Include="BusinessLogic\Validaciones.cs" />
     <Compile Include="DataAccess\PacienteBusqueda.cs" />
     <Compile Include="DataAccess\PacienteDatos.cs" />
     <Compile Include="Presentation\FormAgregarPaciente.cs">
@@ -100,6 +99,10 @@
     <ProjectReference Include="..\Consulta\Consultas.csproj">
       <Project>{E39E6104-B7FD-4770-B04F-5162684E0329}</Project>
       <Name>Consultas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{c5a75012-7d08-46dd-839d-bdc0d3ea6313}</Project>
+      <Name>Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

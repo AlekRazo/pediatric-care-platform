@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpers.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Usuarios.BusinessLogic;
@@ -26,8 +27,8 @@ namespace Usuarios.DataAccess
 
                 while (reader.Read())
                 {
-                    objUsuarioRetorno.Nombre = reader["Nombre"].ToString();
-                    objUsuarioRetorno.Contrasena = reader["Contrasena"].ToString();
+                    objUsuarioRetorno.Nombre = SeguridadDeTipos.GetSafeString(reader, "Nombre");
+                    objUsuarioRetorno.Contrasena = SeguridadDeTipos.GetSafeString(reader, "Contrasena");
                 }
 
                 reader.Close();
@@ -58,17 +59,18 @@ namespace Usuarios.DataAccess
 
                 while (reader.Read())
                 {
-                    objUsuarioRetorno.IdUsuario = Int32.Parse(reader["idUsuario"].ToString());
-                    objUsuarioRetorno.Nombre = reader["Nombre"].ToString();
-                    objUsuarioRetorno.Contrasena = reader["Contrasena"].ToString();
-                    objUsuarioRetorno.FechaNacimiento = DateTime.Parse(reader["FechaNacimiento"].ToString());
-                    objUsuarioRetorno.FechaRegistro = DateTime.Parse(reader["FechaRegistro"].ToString());
-                    objUsuarioRetorno.Sexo = reader["Sexo"].ToString();
-                    objUsuarioRetorno.TipoUsuario = Int32.Parse(reader["TipoUsuario"].ToString());
-                    objUsuarioRetorno.Cedula = reader["Cedula"].ToString();
-                    objUsuarioRetorno.Correo = reader["CorreoElectronico"].ToString();
+                    objUsuarioRetorno.IdUsuario = SeguridadDeTipos.GetSafeInt(reader, "idUsuario");
+                    objUsuarioRetorno.Nombre = SeguridadDeTipos.GetSafeString(reader, "Nombre");
+                    objUsuarioRetorno.Contrasena = SeguridadDeTipos.GetSafeString(reader, "Contrasena");
+                    objUsuarioRetorno.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objUsuarioRetorno.FechaRegistro = SeguridadDeTipos.GetSafeDateTime(reader, "FechaRegistro");
+                    objUsuarioRetorno.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    objUsuarioRetorno.TipoUsuario = SeguridadDeTipos.GetSafeInt(reader, "TipoUsuario");
+                    objUsuarioRetorno.Cedula = SeguridadDeTipos.GetSafeString(reader, "Cedula");
+                    objUsuarioRetorno.Correo = SeguridadDeTipos.GetSafeString(reader, "CorreoElectronico");
                 }
 
+                reader.Close();
                 conn.Close();
 
                 return objUsuarioRetorno;
@@ -93,9 +95,10 @@ namespace Usuarios.DataAccess
 
                 while (reader.Read())
                 {
-                    contrasena = reader["Contrasena"].ToString();
+                    contrasena = SeguridadDeTipos.GetSafeString(reader, "Contrasena");
                 }
 
+                reader.Close();
                 conn.Close();
 
                 return contrasena;
@@ -120,9 +123,10 @@ namespace Usuarios.DataAccess
 
                 while (reader.Read())
                 {
-                    correo = reader["CorreoElectronico"].ToString();
+                    correo = SeguridadDeTipos.GetSafeString(reader, "CorreoElectronico");
                 }
 
+                reader.Close();
                 conn.Close();
 
                 return correo;
@@ -145,7 +149,17 @@ namespace Usuarios.DataAccess
 
                 while (reader.Read())
                 {
-                    listaUsuarios.Add(new Usuario(Int32.Parse(reader["idUsuario"].ToString()), reader["Nombre"].ToString(), reader["Contrasena"].ToString(), DateTime.Parse(reader["FechaNacimiento"].ToString()), DateTime.Parse(reader["FechaRegistro"].ToString()), reader["Sexo"].ToString(), Int32.Parse(reader["TipoUsuario"].ToString()), reader["Cedula"].ToString(), reader["CorreoElectronico"].ToString()));
+                    Usuario usuario = new Usuario();
+                    usuario.IdUsuario = SeguridadDeTipos.GetSafeInt(reader, "idUsuario");
+                    usuario.Nombre = SeguridadDeTipos.GetSafeString(reader, "Nombre");
+                    usuario.Contrasena = SeguridadDeTipos.GetSafeString(reader, "Contrasena");
+                    usuario.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    usuario.FechaRegistro = SeguridadDeTipos.GetSafeDateTime(reader, "FechaRegistro");
+                    usuario.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    usuario.TipoUsuario = SeguridadDeTipos.GetSafeInt(reader, "TipoUsuario");
+                    usuario.Cedula = SeguridadDeTipos.GetSafeString(reader, "Cedula");
+                    usuario.Correo = SeguridadDeTipos.GetSafeString(reader, "CorreoElectronico");
+                    listaUsuarios.Add(usuario);
                 }
 
                 reader.Close();
@@ -173,9 +187,20 @@ namespace Usuarios.DataAccess
 
                 while (reader.Read())
                 {
-                    listaUsuarios.Add(new Usuario(Int32.Parse(reader["idUsuario"].ToString()), reader["Nombre"].ToString(), reader["Contrasena"].ToString(), DateTime.Parse(reader["FechaNacimiento"].ToString()), DateTime.Parse(reader["FechaRegistro"].ToString()), reader["Sexo"].ToString(), Int32.Parse(reader["TipoUsuario"].ToString()), reader["Cedula"].ToString(), reader["CorreoElectronico"].ToString()));
+                    Usuario usuario = new Usuario();
+                    usuario.IdUsuario = SeguridadDeTipos.GetSafeInt(reader, "idUsuario");
+                    usuario.Nombre = SeguridadDeTipos.GetSafeString(reader, "Nombre");
+                    usuario.Contrasena = SeguridadDeTipos.GetSafeString(reader, "Contrasena");
+                    usuario.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    usuario.FechaRegistro = SeguridadDeTipos.GetSafeDateTime(reader, "FechaRegistro");
+                    usuario.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    usuario.TipoUsuario = SeguridadDeTipos.GetSafeInt(reader, "TipoUsuario");
+                    usuario.Cedula = SeguridadDeTipos.GetSafeString(reader, "Cedula");
+                    usuario.Correo = SeguridadDeTipos.GetSafeString(reader, "CorreoElectronico");
+                    listaUsuarios.Add(usuario);
                 }
 
+                reader.Close();
                 conn.Close();
 
                 return listaUsuarios;
@@ -199,7 +224,17 @@ namespace Usuarios.DataAccess
 
                 while (reader.Read())
                 {
-                    listaUsuarios.Add(new Usuario(Int32.Parse(reader["idUsuario"].ToString()), reader["Nombre"].ToString(), reader["Contrasena"].ToString(), DateTime.Parse(reader["FechaNacimiento"].ToString()), DateTime.Parse(reader["FechaRegistro"].ToString()), reader["Sexo"].ToString(), Int32.Parse(reader["TipoUsuario"].ToString()), reader["Cedula"].ToString(), reader["CorreoElectronico"].ToString()));
+                    Usuario usuario = new Usuario();
+                    usuario.IdUsuario = SeguridadDeTipos.GetSafeInt(reader, "idUsuario");
+                    usuario.Nombre = SeguridadDeTipos.GetSafeString(reader, "Nombre");
+                    usuario.Contrasena = SeguridadDeTipos.GetSafeString(reader, "Contrasena");
+                    usuario.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    usuario.FechaRegistro = SeguridadDeTipos.GetSafeDateTime(reader, "FechaRegistro");
+                    usuario.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    usuario.TipoUsuario = SeguridadDeTipos.GetSafeInt(reader, "TipoUsuario");
+                    usuario.Cedula = SeguridadDeTipos.GetSafeString(reader, "Cedula");
+                    usuario.Correo = SeguridadDeTipos.GetSafeString(reader, "CorreoElectronico");
+                    listaUsuarios.Add(usuario);
                 }
 
                 reader.Close();

@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="BusinessLogic\Consulta.cs" />
     <Compile Include="BusinessLogic\LogicaConsulta.cs" />
-    <Compile Include="BusinessLogic\Validaciones.cs" />
     <Compile Include="DataAcces\ConsultaDatos.cs" />
     <Compile Include="Presentation\FormConsulta.cs">
       <SubType>Form</SubType>

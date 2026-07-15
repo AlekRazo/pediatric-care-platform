@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
-namespace Usuarios.BusinessLogic
+namespace Helpers.Helpers
 {
-    class Validaciones
+    public class Validaciones
     {
         public static bool esNumeroEntero(String cadena)
         {
             Regex patronNumerico = new Regex("[^0-9]");
             return !patronNumerico.IsMatch(cadena);
-        }
-
-        public static bool esNumeroDecimal(String cadena)
-        {
-            Regex patronDecimal = new Regex(@"^[0-9]{1,9}([\.\,][0-9]{1,3})?$");
-            return patronDecimal.IsMatch(cadena);
         }
 
         public static bool esAlfabetico(String cadena)
@@ -36,6 +31,18 @@ namespace Usuarios.BusinessLogic
         {
             Regex patronAlfabetico = new Regex(@"^[^ ][a-zA-Z ]+[^ ]$");
             return patronAlfabetico.IsMatch(cadena);
+        }
+
+        public static bool esNumeroDecimal(String cadena)
+        {
+            Regex patronDecimal = new Regex(@"^[0-9]{1,9}([\.\,][0-9]{1,3})?$");
+            return patronDecimal.IsMatch(cadena);
+        }
+
+        public static bool esFraccionario(String cadena)
+        {
+            Regex patronDecimal = new Regex(@"^[0-9]{1,9}([/][0-9]{1,3})?$");
+            return patronDecimal.IsMatch(cadena);
         }
 
         public static bool esCorreoElectronico(String cadena)

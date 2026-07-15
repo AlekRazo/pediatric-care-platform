@@ -1,4 +1,5 @@
 ﻿using Consultas.BusinessLogic;
+using Helpers.Helpers;
 using Pacientes.BusinessLogic;
 using System;
 using System.Collections.Generic;
@@ -27,22 +28,22 @@ namespace Pacientes.DataAccess
                 {
                     Paciente objPaciente = new Paciente();
 
-                    objPaciente.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objPaciente.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objPaciente.NombreMadre = reader["NombreMadre"].ToString();
-                    objPaciente.NombrePadre = reader["NombrePadre"].ToString();
-                    objPaciente.NombreTutor = reader["NombreTutor"].ToString();
-                    objPaciente.Afiliacion = reader["Afiliacion"].ToString();
-                    objPaciente.NumeroSeguro = reader["NumeroSeguro"].ToString();
-                    objPaciente.Domicilio = reader["Domicilio"].ToString();
-                    objPaciente.CodigoPostal = reader["CodigoPostal"].ToString();
-                    objPaciente.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objPaciente.LugarNacimiento = reader["LugarNacimiento"].ToString();
-                    objPaciente.TelefonoCasa = reader["TelefonoCasa"].ToString();
-                    objPaciente.TelefonoCelular = reader["TelefonoCelular"].ToString();
-                    objPaciente.Sexo = reader["Sexo"].ToString();
-                    objPaciente.TipoSangre = reader["TipoSangre"].ToString();
-                    objPaciente.Observaciones = reader["Observaciones"].ToString();
+                    objPaciente.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPaciente.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objPaciente.NombreMadre = SeguridadDeTipos.GetSafeString(reader, "NombreMadre");
+                    objPaciente.NombrePadre = SeguridadDeTipos.GetSafeString(reader, "NombrePadre");
+                    objPaciente.NombreTutor = SeguridadDeTipos.GetSafeString(reader, "NombreTutor");
+                    objPaciente.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
+                    objPaciente.NumeroSeguro = SeguridadDeTipos.GetSafeString(reader, "NumeroSeguro");
+                    objPaciente.Domicilio = SeguridadDeTipos.GetSafeString(reader, "Domicilio");
+                    objPaciente.CodigoPostal = SeguridadDeTipos.GetSafeString(reader, "CodigoPostal");
+                    objPaciente.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objPaciente.LugarNacimiento = SeguridadDeTipos.GetSafeString(reader, "LugarNacimiento");
+                    objPaciente.TelefonoCasa = SeguridadDeTipos.GetSafeString(reader, "TelefonoCasa");
+                    objPaciente.TelefonoCelular = SeguridadDeTipos.GetSafeString(reader, "TelefonoCelular");
+                    objPaciente.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    objPaciente.TipoSangre = SeguridadDeTipos.GetSafeString(reader, "TipoSangre");
+                    objPaciente.Observaciones = SeguridadDeTipos.GetSafeString(reader, "Observaciones");
 
                     listaPacientes.Add(objPaciente);
                 }
@@ -73,22 +74,22 @@ namespace Pacientes.DataAccess
                 {
                     Paciente objPaciente = new Paciente();
 
-                    objPaciente.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objPaciente.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objPaciente.NombreMadre = reader["NombreMadre"].ToString();
-                    objPaciente.NombrePadre = reader["NombrePadre"].ToString();
-                    objPaciente.NombreTutor = reader["NombreTutor"].ToString();
-                    objPaciente.Afiliacion = reader["Afiliacion"].ToString();
-                    objPaciente.NumeroSeguro = reader["NumeroSeguro"].ToString();
-                    objPaciente.Domicilio = reader["Domicilio"].ToString();
-                    objPaciente.CodigoPostal = reader["CodigoPostal"].ToString();
-                    objPaciente.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objPaciente.LugarNacimiento = reader["LugarNacimiento"].ToString();
-                    objPaciente.TelefonoCasa = reader["TelefonoCasa"].ToString();
-                    objPaciente.TelefonoCelular = reader["TelefonoCelular"].ToString();
-                    objPaciente.Sexo = reader["Sexo"].ToString();
-                    objPaciente.TipoSangre = reader["TipoSangre"].ToString();
-                    objPaciente.Observaciones = reader["Observaciones"].ToString();
+                    objPaciente.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPaciente.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objPaciente.NombreMadre = SeguridadDeTipos.GetSafeString(reader, "NombreMadre");
+                    objPaciente.NombrePadre = SeguridadDeTipos.GetSafeString(reader, "NombrePadre");
+                    objPaciente.NombreTutor = SeguridadDeTipos.GetSafeString(reader, "NombreTutor");
+                    objPaciente.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
+                    objPaciente.NumeroSeguro = SeguridadDeTipos.GetSafeString(reader, "NumeroSeguro");
+                    objPaciente.Domicilio = SeguridadDeTipos.GetSafeString(reader, "Domicilio");
+                    objPaciente.CodigoPostal = SeguridadDeTipos.GetSafeString(reader, "CodigoPostal");
+                    objPaciente.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objPaciente.LugarNacimiento = SeguridadDeTipos.GetSafeString(reader, "LugarNacimiento");
+                    objPaciente.TelefonoCasa = SeguridadDeTipos.GetSafeString(reader, "TelefonoCasa");
+                    objPaciente.TelefonoCelular = SeguridadDeTipos.GetSafeString(reader, "TelefonoCelular");
+                    objPaciente.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    objPaciente.TipoSangre = SeguridadDeTipos.GetSafeString(reader, "TipoSangre");
+                    objPaciente.Observaciones = SeguridadDeTipos.GetSafeString(reader, "Observaciones");
 
                     listaPacientes.Add(objPaciente);
                 }
@@ -119,22 +120,22 @@ namespace Pacientes.DataAccess
                 {
                     Paciente objPaciente = new Paciente();
 
-                    objPaciente.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objPaciente.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objPaciente.NombreMadre = reader["NombreMadre"].ToString();
-                    objPaciente.NombrePadre = reader["NombrePadre"].ToString();
-                    objPaciente.NombreTutor = reader["NombreTutor"].ToString();
-                    objPaciente.Afiliacion = reader["Afiliacion"].ToString();
-                    objPaciente.NumeroSeguro = reader["NumeroSeguro"].ToString();
-                    objPaciente.Domicilio = reader["Domicilio"].ToString();
-                    objPaciente.CodigoPostal = reader["CodigoPostal"].ToString();
-                    objPaciente.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objPaciente.LugarNacimiento = reader["LugarNacimiento"].ToString();
-                    objPaciente.TelefonoCasa = reader["TelefonoCasa"].ToString();
-                    objPaciente.TelefonoCelular = reader["TelefonoCelular"].ToString();
-                    objPaciente.Sexo = reader["Sexo"].ToString();
-                    objPaciente.TipoSangre = reader["TipoSangre"].ToString();
-                    objPaciente.Observaciones = reader["Observaciones"].ToString();
+                    objPaciente.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPaciente.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objPaciente.NombreMadre = SeguridadDeTipos.GetSafeString(reader, "NombreMadre");
+                    objPaciente.NombrePadre = SeguridadDeTipos.GetSafeString(reader, "NombrePadre");
+                    objPaciente.NombreTutor = SeguridadDeTipos.GetSafeString(reader, "NombreTutor");
+                    objPaciente.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
+                    objPaciente.NumeroSeguro = SeguridadDeTipos.GetSafeString(reader, "NumeroSeguro");
+                    objPaciente.Domicilio = SeguridadDeTipos.GetSafeString(reader, "Domicilio");
+                    objPaciente.CodigoPostal = SeguridadDeTipos.GetSafeString(reader, "CodigoPostal");
+                    objPaciente.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objPaciente.LugarNacimiento = SeguridadDeTipos.GetSafeString(reader, "LugarNacimiento");
+                    objPaciente.TelefonoCasa = SeguridadDeTipos.GetSafeString(reader, "TelefonoCasa");
+                    objPaciente.TelefonoCelular = SeguridadDeTipos.GetSafeString(reader, "TelefonoCelular");
+                    objPaciente.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    objPaciente.TipoSangre = SeguridadDeTipos.GetSafeString(reader, "TipoSangre");
+                    objPaciente.Observaciones = SeguridadDeTipos.GetSafeString(reader, "Observaciones");
 
                     listaPacientes.Add(objPaciente);
                 }
@@ -165,22 +166,22 @@ namespace Pacientes.DataAccess
                 {
                     Paciente objPaciente = new Paciente();
 
-                    objPaciente.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objPaciente.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objPaciente.NombreMadre = reader["NombreMadre"].ToString();
-                    objPaciente.NombrePadre = reader["NombrePadre"].ToString();
-                    objPaciente.NombreTutor = reader["NombreTutor"].ToString();
-                    objPaciente.Afiliacion = reader["Afiliacion"].ToString();
-                    objPaciente.NumeroSeguro = reader["NumeroSeguro"].ToString();
-                    objPaciente.Domicilio = reader["Domicilio"].ToString();
-                    objPaciente.CodigoPostal = reader["CodigoPostal"].ToString();
-                    objPaciente.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objPaciente.LugarNacimiento = reader["LugarNacimiento"].ToString();
-                    objPaciente.TelefonoCasa = reader["TelefonoCasa"].ToString();
-                    objPaciente.TelefonoCelular = reader["TelefonoCelular"].ToString();
-                    objPaciente.Sexo = reader["Sexo"].ToString();
-                    objPaciente.TipoSangre = reader["TipoSangre"].ToString();
-                    objPaciente.Observaciones = reader["Observaciones"].ToString();
+                    objPaciente.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPaciente.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objPaciente.NombreMadre = SeguridadDeTipos.GetSafeString(reader, "NombreMadre");
+                    objPaciente.NombrePadre = SeguridadDeTipos.GetSafeString(reader, "NombrePadre");
+                    objPaciente.NombreTutor = SeguridadDeTipos.GetSafeString(reader, "NombreTutor");
+                    objPaciente.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
+                    objPaciente.NumeroSeguro = SeguridadDeTipos.GetSafeString(reader, "NumeroSeguro");
+                    objPaciente.Domicilio = SeguridadDeTipos.GetSafeString(reader, "Domicilio");
+                    objPaciente.CodigoPostal = SeguridadDeTipos.GetSafeString(reader, "CodigoPostal");
+                    objPaciente.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objPaciente.LugarNacimiento = SeguridadDeTipos.GetSafeString(reader, "LugarNacimiento");
+                    objPaciente.TelefonoCasa = SeguridadDeTipos.GetSafeString(reader, "TelefonoCasa");
+                    objPaciente.TelefonoCelular = SeguridadDeTipos.GetSafeString(reader, "TelefonoCelular");
+                    objPaciente.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    objPaciente.TipoSangre = SeguridadDeTipos.GetSafeString(reader, "TipoSangre");
+                    objPaciente.Observaciones = SeguridadDeTipos.GetSafeString(reader, "Observaciones");
 
                     listaPacientes.Add(objPaciente);
                 }
@@ -211,22 +212,22 @@ namespace Pacientes.DataAccess
                 {
                     Paciente objPaciente = new Paciente();
 
-                    objPaciente.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objPaciente.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objPaciente.NombreMadre = reader["NombreMadre"].ToString();
-                    objPaciente.NombrePadre = reader["NombrePadre"].ToString();
-                    objPaciente.NombreTutor = reader["NombreTutor"].ToString();
-                    objPaciente.Afiliacion = reader["Afiliacion"].ToString();
-                    objPaciente.NumeroSeguro = reader["NumeroSeguro"].ToString();
-                    objPaciente.Domicilio = reader["Domicilio"].ToString();
-                    objPaciente.CodigoPostal = reader["CodigoPostal"].ToString();
-                    objPaciente.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objPaciente.LugarNacimiento = reader["LugarNacimiento"].ToString();
-                    objPaciente.TelefonoCasa = reader["TelefonoCasa"].ToString();
-                    objPaciente.TelefonoCelular = reader["TelefonoCelular"].ToString();
-                    objPaciente.Sexo = reader["Sexo"].ToString();
-                    objPaciente.TipoSangre = reader["TipoSangre"].ToString();
-                    objPaciente.Observaciones = reader["Observaciones"].ToString();
+                    objPaciente.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPaciente.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objPaciente.NombreMadre = SeguridadDeTipos.GetSafeString(reader, "NombreMadre");
+                    objPaciente.NombrePadre = SeguridadDeTipos.GetSafeString(reader, "NombrePadre");
+                    objPaciente.NombreTutor = SeguridadDeTipos.GetSafeString(reader, "NombreTutor");
+                    objPaciente.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
+                    objPaciente.NumeroSeguro = SeguridadDeTipos.GetSafeString(reader, "NumeroSeguro");
+                    objPaciente.Domicilio = SeguridadDeTipos.GetSafeString(reader, "Domicilio");
+                    objPaciente.CodigoPostal = SeguridadDeTipos.GetSafeString(reader, "CodigoPostal");
+                    objPaciente.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objPaciente.LugarNacimiento = SeguridadDeTipos.GetSafeString(reader, "LugarNacimiento");
+                    objPaciente.TelefonoCasa = SeguridadDeTipos.GetSafeString(reader, "TelefonoCasa");
+                    objPaciente.TelefonoCelular = SeguridadDeTipos.GetSafeString(reader, "TelefonoCelular");
+                    objPaciente.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    objPaciente.TipoSangre = SeguridadDeTipos.GetSafeString(reader, "TipoSangre");
+                    objPaciente.Observaciones = SeguridadDeTipos.GetSafeString(reader, "Observaciones");
 
                     listaPacientes.Add(objPaciente);
                 }
@@ -257,22 +258,22 @@ namespace Pacientes.DataAccess
                 {
                     Paciente objPaciente = new Paciente();
 
-                    objPaciente.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objPaciente.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objPaciente.NombreMadre = reader["NombreMadre"].ToString();
-                    objPaciente.NombrePadre = reader["NombrePadre"].ToString();
-                    objPaciente.NombreTutor = reader["NombreTutor"].ToString();
-                    objPaciente.Afiliacion = reader["Afiliacion"].ToString();
-                    objPaciente.NumeroSeguro = reader["NumeroSeguro"].ToString();
-                    objPaciente.Domicilio = reader["Domicilio"].ToString();
-                    objPaciente.CodigoPostal = reader["CodigoPostal"].ToString();
-                    objPaciente.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objPaciente.LugarNacimiento = reader["LugarNacimiento"].ToString();
-                    objPaciente.TelefonoCasa = reader["TelefonoCasa"].ToString();
-                    objPaciente.TelefonoCelular = reader["TelefonoCelular"].ToString();
-                    objPaciente.Sexo = reader["Sexo"].ToString();
-                    objPaciente.TipoSangre = reader["TipoSangre"].ToString();
-                    objPaciente.Observaciones = reader["Observaciones"].ToString();
+                    objPaciente.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPaciente.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objPaciente.NombreMadre = SeguridadDeTipos.GetSafeString(reader, "NombreMadre");
+                    objPaciente.NombrePadre = SeguridadDeTipos.GetSafeString(reader, "NombrePadre");
+                    objPaciente.NombreTutor = SeguridadDeTipos.GetSafeString(reader, "NombreTutor");
+                    objPaciente.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
+                    objPaciente.NumeroSeguro = SeguridadDeTipos.GetSafeString(reader, "NumeroSeguro");
+                    objPaciente.Domicilio = SeguridadDeTipos.GetSafeString(reader, "Domicilio");
+                    objPaciente.CodigoPostal = SeguridadDeTipos.GetSafeString(reader, "CodigoPostal");
+                    objPaciente.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objPaciente.LugarNacimiento = SeguridadDeTipos.GetSafeString(reader, "LugarNacimiento");
+                    objPaciente.TelefonoCasa = SeguridadDeTipos.GetSafeString(reader, "TelefonoCasa");
+                    objPaciente.TelefonoCelular = SeguridadDeTipos.GetSafeString(reader, "TelefonoCelular");
+                    objPaciente.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    objPaciente.TipoSangre = SeguridadDeTipos.GetSafeString(reader, "TipoSangre");
+                    objPaciente.Observaciones = SeguridadDeTipos.GetSafeString(reader, "Observaciones");
 
                     listaPacientes.Add(objPaciente);
                 }
@@ -303,22 +304,22 @@ namespace Pacientes.DataAccess
                 {
                     Paciente objPaciente = new Paciente();
 
-                    objPaciente.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objPaciente.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objPaciente.NombreMadre = reader["NombreMadre"].ToString();
-                    objPaciente.NombrePadre = reader["NombrePadre"].ToString();
-                    objPaciente.NombreTutor = reader["NombreTutor"].ToString();
-                    objPaciente.Afiliacion = reader["Afiliacion"].ToString();
-                    objPaciente.NumeroSeguro = reader["NumeroSeguro"].ToString();
-                    objPaciente.Domicilio = reader["Domicilio"].ToString();
-                    objPaciente.CodigoPostal = reader["CodigoPostal"].ToString();
-                    objPaciente.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objPaciente.LugarNacimiento = reader["LugarNacimiento"].ToString();
-                    objPaciente.TelefonoCasa = reader["TelefonoCasa"].ToString();
-                    objPaciente.TelefonoCelular = reader["TelefonoCelular"].ToString();
-                    objPaciente.Sexo = reader["Sexo"].ToString();
-                    objPaciente.TipoSangre = reader["TipoSangre"].ToString();
-                    objPaciente.Observaciones = reader["Observaciones"].ToString();
+                    objPaciente.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPaciente.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objPaciente.NombreMadre = SeguridadDeTipos.GetSafeString(reader, "NombreMadre");
+                    objPaciente.NombrePadre = SeguridadDeTipos.GetSafeString(reader, "NombrePadre");
+                    objPaciente.NombreTutor = SeguridadDeTipos.GetSafeString(reader, "NombreTutor");
+                    objPaciente.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
+                    objPaciente.NumeroSeguro = SeguridadDeTipos.GetSafeString(reader, "NumeroSeguro");
+                    objPaciente.Domicilio = SeguridadDeTipos.GetSafeString(reader, "Domicilio");
+                    objPaciente.CodigoPostal = SeguridadDeTipos.GetSafeString(reader, "CodigoPostal");
+                    objPaciente.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objPaciente.LugarNacimiento = SeguridadDeTipos.GetSafeString(reader, "LugarNacimiento");
+                    objPaciente.TelefonoCasa = SeguridadDeTipos.GetSafeString(reader, "TelefonoCasa");
+                    objPaciente.TelefonoCelular = SeguridadDeTipos.GetSafeString(reader, "TelefonoCelular");
+                    objPaciente.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    objPaciente.TipoSangre = SeguridadDeTipos.GetSafeString(reader, "TipoSangre");
+                    objPaciente.Observaciones = SeguridadDeTipos.GetSafeString(reader, "Observaciones");
 
                     listaPacientes.Add(objPaciente);
                 }
@@ -347,23 +348,23 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objPacienteRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objPacienteRetorno.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objPacienteRetorno.NombreMadre = reader["NombreMadre"].ToString();
-                    objPacienteRetorno.NombrePadre = reader["NombrePadre"].ToString();
-                    objPacienteRetorno.NombreTutor = reader["NombreTutor"].ToString();
-                    objPacienteRetorno.Afiliacion = reader["Afiliacion"].ToString();
-                    objPacienteRetorno.NumeroSeguro = reader["NumeroSeguro"].ToString();
-                    objPacienteRetorno.Domicilio = reader["Domicilio"].ToString();
-                    objPacienteRetorno.CodigoPostal = reader["CodigoPostal"].ToString();
-                    objPacienteRetorno.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objPacienteRetorno.LugarNacimiento = reader["LugarNacimiento"].ToString();
-                    objPacienteRetorno.TelefonoCasa = reader["TelefonoCasa"].ToString();
-                    objPacienteRetorno.TelefonoCelular = reader["TelefonoCelular"].ToString();
-                    objPacienteRetorno.Sexo = reader["Sexo"].ToString();
-                    objPacienteRetorno.TipoSangre = reader["TipoSangre"].ToString();
-                    //objPacienteRetorno.Fotografia = (byte[]) reader["Fotografia"];
-                    objPacienteRetorno.Observaciones = reader["Observaciones"].ToString();
+                    objPacienteRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPacienteRetorno.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objPacienteRetorno.NombreMadre = SeguridadDeTipos.GetSafeString(reader, "NombreMadre");
+                    objPacienteRetorno.NombrePadre = SeguridadDeTipos.GetSafeString(reader, "NombrePadre");
+                    objPacienteRetorno.NombreTutor = SeguridadDeTipos.GetSafeString(reader, "NombreTutor");
+                    objPacienteRetorno.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
+                    objPacienteRetorno.NumeroSeguro = SeguridadDeTipos.GetSafeString(reader, "NumeroSeguro");
+                    objPacienteRetorno.Domicilio = SeguridadDeTipos.GetSafeString(reader, "Domicilio");
+                    objPacienteRetorno.CodigoPostal = SeguridadDeTipos.GetSafeString(reader, "CodigoPostal");
+                    objPacienteRetorno.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objPacienteRetorno.LugarNacimiento = SeguridadDeTipos.GetSafeString(reader, "LugarNacimiento");
+                    objPacienteRetorno.TelefonoCasa = SeguridadDeTipos.GetSafeString(reader, "TelefonoCasa");
+                    objPacienteRetorno.TelefonoCelular = SeguridadDeTipos.GetSafeString(reader, "TelefonoCelular");
+                    objPacienteRetorno.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                    objPacienteRetorno.TipoSangre = SeguridadDeTipos.GetSafeString(reader, "TipoSangre");
+                    //objPacienteRetorno.Fotografia = (byte[]) SeguridadDeTipos.GetSafeString(reader, "Fotografia"];
+                    objPacienteRetorno.Observaciones = SeguridadDeTipos.GetSafeString(reader, "Observaciones");
                 }
 
                 reader.Close();
@@ -390,16 +391,16 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objAlergiasRetorno.IdAlergias = Convert.ToInt32(reader["idAlergias"]);
-                    objAlergiasRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objAlergiasRetorno.AlergiaMedicamentos = Convert.ToBoolean(reader["AlergiaMedicamentos"]);
-                    objAlergiasRetorno.Medicamentos = reader["Medicamentos"].ToString();
-                    objAlergiasRetorno.AlergiaAlimentos = Convert.ToBoolean(reader["AlergiaAlimentos"]);
-                    objAlergiasRetorno.Alimentos = reader["Alimentos"].ToString();
-                    objAlergiasRetorno.AlergiaFlora = Convert.ToBoolean(reader["AlergiaFlora"]);
-                    objAlergiasRetorno.Flora = reader["Flora"].ToString();
-                    objAlergiasRetorno.AlergiaRopa = Convert.ToBoolean(reader["AlergiaRopa"]);
-                    objAlergiasRetorno.Ropa = reader["Ropa"].ToString();
+                    objAlergiasRetorno.IdAlergias = SeguridadDeTipos.GetSafeInt(reader, "idAlergias");
+                    objAlergiasRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objAlergiasRetorno.AlergiaMedicamentos = SeguridadDeTipos.GetSafeBool(reader, "AlergiaMedicamentos");
+                    objAlergiasRetorno.Medicamentos = SeguridadDeTipos.GetSafeString(reader, "Medicamentos");
+                    objAlergiasRetorno.AlergiaAlimentos = SeguridadDeTipos.GetSafeBool(reader, "AlergiaAlimentos");
+                    objAlergiasRetorno.Alimentos = SeguridadDeTipos.GetSafeString(reader, "Alimentos");
+                    objAlergiasRetorno.AlergiaFlora = SeguridadDeTipos.GetSafeBool(reader, "AlergiaFlora");
+                    objAlergiasRetorno.Flora = SeguridadDeTipos.GetSafeString(reader, "Flora");
+                    objAlergiasRetorno.AlergiaRopa = SeguridadDeTipos.GetSafeBool(reader, "AlergiaRopa");
+                    objAlergiasRetorno.Ropa = SeguridadDeTipos.GetSafeString(reader, "Ropa");
                 }
 
                 reader.Close();
@@ -426,20 +427,20 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objAlimentacionRetorno.IdAlimentacion = Convert.ToInt32(reader["idAlimentos"]);
-                    objAlimentacionRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objAlimentacionRetorno.Pecho = Convert.ToBoolean(reader["Pecho"]);
-                    objAlimentacionRetorno.MesInicioPecho = Convert.ToInt32(reader["InicioPecho"]);
-                    objAlimentacionRetorno.TipoFormula = reader["TipoFormula"].ToString();
-                    objAlimentacionRetorno.MesInicioFormula = Convert.ToInt32(reader["InicioFormula"]);
-                    objAlimentacionRetorno.Cereal = Convert.ToBoolean(reader["Cereal"]);
-                    objAlimentacionRetorno.MesInicioCereal = Convert.ToInt32(reader["InicioCereal"]);
-                    objAlimentacionRetorno.Frutas = Convert.ToBoolean(reader["Frutas"]);
-                    objAlimentacionRetorno.InicioFrutas = Convert.ToInt32(reader["InicioFrutas"]);
-                    objAlimentacionRetorno.InicioCitricos = Convert.ToInt32(reader["InicioCitricos"]);
-                    objAlimentacionRetorno.Verduras = Convert.ToBoolean(reader["Verduras"]);
-                    objAlimentacionRetorno.InicioVerduras = Convert.ToInt32(reader["InicioVerduras"]);
-                    objAlimentacionRetorno.InicioTomate = Convert.ToInt32(reader["InicioTomate"]);
+                    objAlimentacionRetorno.IdAlimentacion = SeguridadDeTipos.GetSafeInt(reader, "idAlimentos");
+                    objAlimentacionRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objAlimentacionRetorno.Pecho = SeguridadDeTipos.GetSafeBool(reader, "Pecho");
+                    objAlimentacionRetorno.MesInicioPecho = SeguridadDeTipos.GetSafeInt(reader, "InicioPecho");
+                    objAlimentacionRetorno.TipoFormula = SeguridadDeTipos.GetSafeString(reader, "TipoFormula");
+                    objAlimentacionRetorno.MesInicioFormula = SeguridadDeTipos.GetSafeInt(reader, "InicioFormula");
+                    objAlimentacionRetorno.Cereal = SeguridadDeTipos.GetSafeBool(reader, "Cereal");
+                    objAlimentacionRetorno.MesInicioCereal = SeguridadDeTipos.GetSafeInt(reader, "InicioCereal");
+                    objAlimentacionRetorno.Frutas = SeguridadDeTipos.GetSafeBool(reader, "Frutas");
+                    objAlimentacionRetorno.InicioFrutas = SeguridadDeTipos.GetSafeInt(reader, "InicioFrutas");
+                    objAlimentacionRetorno.InicioCitricos = SeguridadDeTipos.GetSafeInt(reader, "InicioCitricos");
+                    objAlimentacionRetorno.Verduras = SeguridadDeTipos.GetSafeBool(reader, "Verduras");
+                    objAlimentacionRetorno.InicioVerduras = SeguridadDeTipos.GetSafeInt(reader, "InicioVerduras");
+                    objAlimentacionRetorno.InicioTomate = SeguridadDeTipos.GetSafeInt(reader, "InicioTomate");
                 }
 
                 reader.Close();
@@ -466,27 +467,27 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objAntecedentesRetorno.IdAntecedente = Convert.ToInt32(reader["idAntecedenteMadre"]);
-                    objAntecedentesRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objAntecedentesRetorno.Nombre = reader["NombreMadre"].ToString();
-                    objAntecedentesRetorno.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objAntecedentesRetorno.Ocupacion = reader["Ocupacion"].ToString();
-                    objAntecedentesRetorno.Tabaquismo = Convert.ToBoolean(reader["Tabaquismo"]);
-                    objAntecedentesRetorno.Alcoholismo = Convert.ToBoolean(reader["Alcoholismo"]);
-                    objAntecedentesRetorno.Toxicomanias = reader["Toxicomanias"].ToString();
-                    objAntecedentesRetorno.Alergias = reader["Alergias"].ToString();
-                    objAntecedentesRetorno.Diabetes = Convert.ToBoolean(reader["Diabetes"]);
-                    objAntecedentesRetorno.Hipertension = Convert.ToBoolean(reader["Hipertension"]);
-                    objAntecedentesRetorno.Dismorfologicos = reader["Dismorfologicos"].ToString();
-                    objAntecedentesRetorno.Cancer = Convert.ToBoolean(reader["Cancer"]);
-                    objAntecedentesRetorno.TiposCancer = reader["TiposCancer"].ToString();
-                    objAntecedentesRetorno.Otros = reader["Otros"].ToString();
-                    objAntecedentesRetorno.Medicamentos = reader["Medicamentos"].ToString();
-                    objAntecedentesRetorno.EstadoActual = reader["EstadoActual"].ToString();
-                    objAntecedentesRetorno.Embarazos = Convert.ToInt32(reader["Embarazos"]);
-                    objAntecedentesRetorno.Partos = Convert.ToInt32(reader["Partos"]);
-                    objAntecedentesRetorno.Abortos = Convert.ToInt32(reader["Abortos"]);
-                    objAntecedentesRetorno.Cesareas = Convert.ToInt32(reader["Cesareas"]);
+                    objAntecedentesRetorno.IdAntecedente = SeguridadDeTipos.GetSafeInt(reader, "idAntecedenteMadre");
+                    objAntecedentesRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objAntecedentesRetorno.Nombre = SeguridadDeTipos.GetSafeString(reader, "NombreMadre");
+                    objAntecedentesRetorno.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objAntecedentesRetorno.Ocupacion = SeguridadDeTipos.GetSafeString(reader, "Ocupacion");
+                    objAntecedentesRetorno.Tabaquismo = SeguridadDeTipos.GetSafeBool(reader, "Tabaquismo");
+                    objAntecedentesRetorno.Alcoholismo = SeguridadDeTipos.GetSafeBool(reader, "Alcoholismo");
+                    objAntecedentesRetorno.Toxicomanias = SeguridadDeTipos.GetSafeString(reader, "Toxicomanias");
+                    objAntecedentesRetorno.Alergias = SeguridadDeTipos.GetSafeString(reader, "Alergias");
+                    objAntecedentesRetorno.Diabetes = SeguridadDeTipos.GetSafeBool(reader, "Diabetes");
+                    objAntecedentesRetorno.Hipertension = SeguridadDeTipos.GetSafeBool(reader, "Hipertension");
+                    objAntecedentesRetorno.Dismorfologicos = SeguridadDeTipos.GetSafeString(reader, "Dismorfologicos");
+                    objAntecedentesRetorno.Cancer = SeguridadDeTipos.GetSafeBool(reader, "Cancer");
+                    objAntecedentesRetorno.TiposCancer = SeguridadDeTipos.GetSafeString(reader, "TiposCancer");
+                    objAntecedentesRetorno.Otros = SeguridadDeTipos.GetSafeString(reader, "Otros");
+                    objAntecedentesRetorno.Medicamentos = SeguridadDeTipos.GetSafeString(reader, "Medicamentos");
+                    objAntecedentesRetorno.EstadoActual = SeguridadDeTipos.GetSafeString(reader, "EstadoActual");
+                    objAntecedentesRetorno.Embarazos = SeguridadDeTipos.GetSafeInt(reader, "Embarazos");
+                    objAntecedentesRetorno.Partos = SeguridadDeTipos.GetSafeInt(reader, "Partos");
+                    objAntecedentesRetorno.Abortos = SeguridadDeTipos.GetSafeInt(reader, "Abortos");
+                    objAntecedentesRetorno.Cesareas = SeguridadDeTipos.GetSafeInt(reader, "Cesareas");
                 }
 
                 reader.Close();
@@ -513,23 +514,23 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objAntecedentesRetorno.IdAntecedente = Convert.ToInt32(reader["idAntecedentePadre"]);
-                    objAntecedentesRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objAntecedentesRetorno.Nombre = reader["NombrePadre"].ToString();
-                    objAntecedentesRetorno.FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"]);
-                    objAntecedentesRetorno.Ocupacion = reader["Ocupacion"].ToString();
-                    objAntecedentesRetorno.Tabaquismo = Convert.ToBoolean(reader["Tabaquismo"]);
-                    objAntecedentesRetorno.Alcoholismo = Convert.ToBoolean(reader["Alcoholismo"]);
-                    objAntecedentesRetorno.Toxicomanias = reader["Toxicomanias"].ToString();
-                    objAntecedentesRetorno.Alergias = reader["Alergias"].ToString();
-                    objAntecedentesRetorno.Diabetes = Convert.ToBoolean(reader["Diabetes"]);
-                    objAntecedentesRetorno.Hipertension = Convert.ToBoolean(reader["Hipertension"]);
-                    objAntecedentesRetorno.Dismorfologicos = reader["Dismorfologicos"].ToString();
-                    objAntecedentesRetorno.Cancer = Convert.ToBoolean(reader["Cancer"]);
-                    objAntecedentesRetorno.TiposCancer = reader["TiposCancer"].ToString();
-                    objAntecedentesRetorno.Otros = reader["Otros"].ToString();
-                    objAntecedentesRetorno.Medicamentos = reader["Medicamentos"].ToString();
-                    objAntecedentesRetorno.EstadoActual = reader["EstadoActual"].ToString();
+                    objAntecedentesRetorno.IdAntecedente = SeguridadDeTipos.GetSafeInt(reader, "idAntecedentePadre");
+                    objAntecedentesRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objAntecedentesRetorno.Nombre = SeguridadDeTipos.GetSafeString(reader, "NombrePadre");
+                    objAntecedentesRetorno.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objAntecedentesRetorno.Ocupacion = SeguridadDeTipos.GetSafeString(reader, "Ocupacion");
+                    objAntecedentesRetorno.Tabaquismo = SeguridadDeTipos.GetSafeBool(reader, "Tabaquismo");
+                    objAntecedentesRetorno.Alcoholismo = SeguridadDeTipos.GetSafeBool(reader, "Alcoholismo");
+                    objAntecedentesRetorno.Toxicomanias = SeguridadDeTipos.GetSafeString(reader, "Toxicomanias");
+                    objAntecedentesRetorno.Alergias = SeguridadDeTipos.GetSafeString(reader, "Alergias");
+                    objAntecedentesRetorno.Diabetes = SeguridadDeTipos.GetSafeBool(reader, "Diabetes");
+                    objAntecedentesRetorno.Hipertension = SeguridadDeTipos.GetSafeBool(reader, "Hipertension");
+                    objAntecedentesRetorno.Dismorfologicos = SeguridadDeTipos.GetSafeString(reader, "Dismorfologicos");
+                    objAntecedentesRetorno.Cancer = SeguridadDeTipos.GetSafeBool(reader, "Cancer");
+                    objAntecedentesRetorno.TiposCancer = SeguridadDeTipos.GetSafeString(reader, "TiposCancer");
+                    objAntecedentesRetorno.Otros = SeguridadDeTipos.GetSafeString(reader, "Otros");
+                    objAntecedentesRetorno.Medicamentos = SeguridadDeTipos.GetSafeString(reader, "Medicamentos");
+                    objAntecedentesRetorno.EstadoActual = SeguridadDeTipos.GetSafeString(reader, "EstadoActual");
                 }
 
                 reader.Close();
@@ -556,13 +557,13 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objCuidadosRetorno.IdPrenatal = Convert.ToInt32(reader["idPrenatal"]);
-                    objCuidadosRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objCuidadosRetorno.Planeado = Convert.ToBoolean(reader["Planeado"]);
-                    objCuidadosRetorno.MetodoFertilizacion = reader["MetodoFertilizacion"].ToString();
-                    objCuidadosRetorno.InicioControl = Convert.ToInt32(reader["MesInicioControl"]);
-                    objCuidadosRetorno.Responsable = reader["ResponsableDeControl"].ToString();
-                    objCuidadosRetorno.Enfermedades = reader["Enfermedades"].ToString();
+                    objCuidadosRetorno.IdPrenatal = SeguridadDeTipos.GetSafeInt(reader, "idPrenatal");
+                    objCuidadosRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objCuidadosRetorno.Planeado = SeguridadDeTipos.GetSafeBool(reader, "Planeado");
+                    objCuidadosRetorno.MetodoFertilizacion = SeguridadDeTipos.GetSafeString(reader, "MetodoFertilizacion");
+                    objCuidadosRetorno.InicioControl = SeguridadDeTipos.GetSafeInt(reader, "MesInicioControl");
+                    objCuidadosRetorno.Responsable = SeguridadDeTipos.GetSafeString(reader, "ResponsableDeControl");
+                    objCuidadosRetorno.Enfermedades = SeguridadDeTipos.GetSafeString(reader, "Enfermedades");
                 }
 
                 reader.Close();
@@ -589,14 +590,14 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objCuidadosRetorno.IdNatal = Convert.ToInt32(reader["idNatal"]);
-                    objCuidadosRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objCuidadosRetorno.Hospital = reader["Hospital"].ToString();
-                    objCuidadosRetorno.TipoNacimiento = reader["TipoNacimiento"].ToString();
-                    objCuidadosRetorno.Multiple = Convert.ToBoolean(reader["Multiple"]);
-                    objCuidadosRetorno.PesoNacimiento = Convert.ToDouble(reader["PesoNacimiento"]);
-                    objCuidadosRetorno.TallaNacimiento = Convert.ToDouble(reader["TallaNacimiento"]);
-                    objCuidadosRetorno.Indicaciones = reader["Indicaciones"].ToString();
+                    objCuidadosRetorno.IdNatal = SeguridadDeTipos.GetSafeInt(reader, "idNatal");
+                    objCuidadosRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objCuidadosRetorno.Hospital = SeguridadDeTipos.GetSafeString(reader, "Hospital");
+                    objCuidadosRetorno.TipoNacimiento = SeguridadDeTipos.GetSafeString(reader, "TipoNacimiento");
+                    objCuidadosRetorno.Multiple = SeguridadDeTipos.GetSafeBool(reader, "Multiple");
+                    objCuidadosRetorno.PesoNacimiento = SeguridadDeTipos.GetSafeDouble(reader, "PesoNacimiento");
+                    objCuidadosRetorno.TallaNacimiento = SeguridadDeTipos.GetSafeDouble(reader, "TallaNacimiento");
+                    objCuidadosRetorno.Indicaciones = SeguridadDeTipos.GetSafeString(reader, "Indicaciones");
                 }
 
                 reader.Close();
@@ -623,13 +624,13 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objCuidadosRetorno.IdPosnatal = Convert.ToInt32(reader["idPosnatal"]);
-                    objCuidadosRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objCuidadosRetorno.NecesidadVigilancia = Convert.ToBoolean(reader["NecesidadVigilancia"]);
-                    objCuidadosRetorno.Respirador = Convert.ToBoolean(reader["Respirador"]);
-                    objCuidadosRetorno.Incubadora = Convert.ToBoolean(reader["Incubadora"]);
-                    objCuidadosRetorno.Fototerapias = reader["Fototerapias"].ToString();
-                    objCuidadosRetorno.Otros = reader["Otros"].ToString();
+                    objCuidadosRetorno.IdPosnatal = SeguridadDeTipos.GetSafeInt(reader, "idPosnatal");
+                    objCuidadosRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objCuidadosRetorno.NecesidadVigilancia = SeguridadDeTipos.GetSafeBool(reader, "NecesidadVigilancia");
+                    objCuidadosRetorno.Respirador = SeguridadDeTipos.GetSafeBool(reader, "Respirador");
+                    objCuidadosRetorno.Incubadora = SeguridadDeTipos.GetSafeBool(reader, "Incubadora");
+                    objCuidadosRetorno.Fototerapias = SeguridadDeTipos.GetSafeString(reader, "Fototerapias");
+                    objCuidadosRetorno.Otros = SeguridadDeTipos.GetSafeString(reader, "Otros");
                 }
 
                 reader.Close();
@@ -665,21 +666,21 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objPsicomotorRetorno.IdPsicomotor = Convert.ToInt32(reader["idPsicomotor"]);
-                    objPsicomotorRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objPsicomotorRetorno.SostieneCabeza = Convert.ToBoolean(reader["SostieneCabeza"]);
-                    objPsicomotorRetorno.Sentado = Convert.ToBoolean(reader["Sentado"]);
-                    objPsicomotorRetorno.InicioSentado = Convert.ToInt32(reader["InicioSentado"]);
-                    objPsicomotorRetorno.Gateo = Convert.ToBoolean(reader["Gateo"]);
-                    objPsicomotorRetorno.InicioGateo = Convert.ToInt32(reader["InicioGateo"]);
-                    objPsicomotorRetorno.ControlEsfinter = Convert.ToBoolean(reader["ControlEsfinter"]);
-                    objPsicomotorRetorno.InicioControlEsfinter = Convert.ToInt32(reader["InicioControlEsfinter"]);
-                    objPsicomotorRetorno.Rodado = Convert.ToBoolean(reader["Rodado"]);
-                    objPsicomotorRetorno.InicioRodado = Convert.ToInt32(reader["InicioRodado"]);
-                    objPsicomotorRetorno.Bipedestacion = Convert.ToBoolean(reader["Bipedestacion"]);
-                    objPsicomotorRetorno.InicioBipedestacion = Convert.ToInt32(reader["InicioBipedestacion"]);
-                    objPsicomotorRetorno.Deambulacion = Convert.ToBoolean(reader["Deambulacion"]);
-                    objPsicomotorRetorno.InicioDeambulacion = Convert.ToInt32(reader["InicioDeambulacion"]);
+                    objPsicomotorRetorno.IdPsicomotor = SeguridadDeTipos.GetSafeInt(reader, "idPsicomotor");
+                    objPsicomotorRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPsicomotorRetorno.SostieneCabeza = SeguridadDeTipos.GetSafeBool(reader, "SostieneCabeza");
+                    objPsicomotorRetorno.Sentado = SeguridadDeTipos.GetSafeBool(reader, "Sentado");
+                    objPsicomotorRetorno.InicioSentado = SeguridadDeTipos.GetSafeInt(reader, "InicioSentado");
+                    objPsicomotorRetorno.Gateo = SeguridadDeTipos.GetSafeBool(reader, "Gateo");
+                    objPsicomotorRetorno.InicioGateo = SeguridadDeTipos.GetSafeInt(reader, "InicioGateo");
+                    objPsicomotorRetorno.ControlEsfinter = SeguridadDeTipos.GetSafeBool(reader, "ControlEsfinter");
+                    objPsicomotorRetorno.InicioControlEsfinter = SeguridadDeTipos.GetSafeInt(reader, "InicioControlEsfinter");
+                    objPsicomotorRetorno.Rodado = SeguridadDeTipos.GetSafeBool(reader, "Rodado");
+                    objPsicomotorRetorno.InicioRodado = SeguridadDeTipos.GetSafeInt(reader, "InicioRodado");
+                    objPsicomotorRetorno.Bipedestacion = SeguridadDeTipos.GetSafeBool(reader, "Bipedestacion");
+                    objPsicomotorRetorno.InicioBipedestacion = SeguridadDeTipos.GetSafeInt(reader, "InicioBipedestacion");
+                    objPsicomotorRetorno.Deambulacion = SeguridadDeTipos.GetSafeBool(reader, "Deambulacion");
+                    objPsicomotorRetorno.InicioDeambulacion = SeguridadDeTipos.GetSafeInt(reader, "InicioDeambulacion");
                 }
 
                 reader.Close();
@@ -706,21 +707,21 @@ namespace Pacientes.DataAccess
 
                 while (reader.Read())
                 {
-                    objVacunacionRetorno.IdVacunacion = Convert.ToInt32(reader["idVacunacion"]);
-                    objVacunacionRetorno.IdPaciente = Convert.ToInt32(reader["idPaciente"]);
-                    objVacunacionRetorno.HepatitisA = Convert.ToBoolean(reader["HepatitisA"]);
-                    objVacunacionRetorno.HepatitisB = Convert.ToBoolean(reader["HepatitisB"]);
-                    objVacunacionRetorno.HIB = Convert.ToBoolean(reader["HIB"]);
-                    objVacunacionRetorno.Meningococo = Convert.ToBoolean(reader["Meningococo"]);
-                    objVacunacionRetorno.BPT = Convert.ToBoolean(reader["BPT"]);
-                    objVacunacionRetorno.Poliomielitis = Convert.ToBoolean(reader["Poliomielitis"]);
-                    objVacunacionRetorno.Rotavirus = Convert.ToBoolean(reader["Rotavirus"]);
-                    objVacunacionRetorno.Neumococo = Convert.ToBoolean(reader["Neumococo"]);
-                    objVacunacionRetorno.Influenza = Convert.ToBoolean(reader["InfluenzaEstacionaria"]);
-                    objVacunacionRetorno.MMR = Convert.ToBoolean(reader["MMR"]);
-                    objVacunacionRetorno.Varicela = Convert.ToBoolean(reader["Varicela"]);
-                    objVacunacionRetorno.HPV = Convert.ToBoolean(reader["HPV"]);
-                    objVacunacionRetorno.Tuberculosis = Convert.ToBoolean(reader["Tuberculosis"]);
+                    objVacunacionRetorno.IdVacunacion = SeguridadDeTipos.GetSafeInt(reader, "idVacunacion");
+                    objVacunacionRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objVacunacionRetorno.HepatitisA = SeguridadDeTipos.GetSafeBool(reader, "HepatitisA");
+                    objVacunacionRetorno.HepatitisB = SeguridadDeTipos.GetSafeBool(reader, "HepatitisB");
+                    objVacunacionRetorno.HIB = SeguridadDeTipos.GetSafeBool(reader, "HIB");
+                    objVacunacionRetorno.Meningococo = SeguridadDeTipos.GetSafeBool(reader, "Meningococo");
+                    objVacunacionRetorno.BPT = SeguridadDeTipos.GetSafeBool(reader, "BPT");
+                    objVacunacionRetorno.Poliomielitis = SeguridadDeTipos.GetSafeBool(reader, "Poliomielitis");
+                    objVacunacionRetorno.Rotavirus = SeguridadDeTipos.GetSafeBool(reader, "Rotavirus");
+                    objVacunacionRetorno.Neumococo = SeguridadDeTipos.GetSafeBool(reader, "Neumococo");
+                    objVacunacionRetorno.Influenza = SeguridadDeTipos.GetSafeBool(reader, "InfluenzaEstacionaria");
+                    objVacunacionRetorno.MMR = SeguridadDeTipos.GetSafeBool(reader, "MMR");
+                    objVacunacionRetorno.Varicela = SeguridadDeTipos.GetSafeBool(reader, "Varicela");
+                    objVacunacionRetorno.HPV = SeguridadDeTipos.GetSafeBool(reader, "HPV");
+                    objVacunacionRetorno.Tuberculosis = SeguridadDeTipos.GetSafeBool(reader, "Tuberculosis");
                 }
 
                 reader.Close();
@@ -762,19 +763,19 @@ namespace Pacientes.DataAccess
                 while (reader.Read())
                 {
                     Historial historia = new Historial ();
-                    historia.IdConsulta = int.Parse(reader["idConsulta"].ToString());
-                    historia.IdPaciente = int.Parse(reader["idPaciente"].ToString());
-                    historia.FechaConsulta = DateTime.Parse(reader["FechaConsulta"].ToString());
-                    historia.Motivo = reader["Motivo"].ToString();
-                    historia.Responsabilidad = reader["Responsabilidad"].ToString();
-                    historia.FrecuenciaCardiaca = int.Parse(reader["FrecCardiaca"].ToString());
-                    historia.FrecuenciaRespiratoria = int.Parse(reader["FrecRespiratoria"].ToString());
-                    historia.TensionArterial = reader["TensionArterial"].ToString();
-                    historia.Temperatura = double.Parse(reader["Temperatura"].ToString());
-                    historia.Peso = double.Parse(reader["Peso"].ToString());
-                    historia.Talla = double.Parse(reader["Talla"].ToString());
-                    historia.Diagnostico = reader["Diagnostico"].ToString();
-                    historia.Receta = reader["Descripcion"].ToString();
+                    historia.IdConsulta = SeguridadDeTipos.GetSafeInt(reader, "idConsulta");
+                    historia.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    historia.FechaConsulta = SeguridadDeTipos.GetSafeDateTime(reader, "FechaConsulta");
+                    historia.Motivo = SeguridadDeTipos.GetSafeString(reader, "Motivo");
+                    historia.Responsabilidad = SeguridadDeTipos.GetSafeString(reader, "Responsabilidad");
+                    historia.FrecuenciaCardiaca = SeguridadDeTipos.GetSafeInt(reader, "FrecCardiaca");
+                    historia.FrecuenciaRespiratoria = SeguridadDeTipos.GetSafeInt(reader, "FrecRespiratoria");
+                    historia.TensionArterial = SeguridadDeTipos.GetSafeString(reader, "TensionArterial");
+                    historia.Temperatura = SeguridadDeTipos.GetSafeDouble(reader, "Temperatura");
+                    historia.Peso = SeguridadDeTipos.GetSafeDouble(reader, "Peso");
+                    historia.Talla = SeguridadDeTipos.GetSafeDouble(reader, "Talla");
+                    historia.Diagnostico = SeguridadDeTipos.GetSafeString(reader, "Diagnostico");
+                    historia.Receta = SeguridadDeTipos.GetSafeString(reader, "Descripcion");
                     historial.Add(historia);
                 }
 

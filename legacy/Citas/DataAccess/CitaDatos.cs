@@ -26,13 +26,13 @@ namespace Citas.DataAccess
                 {
                     Cita objCita = new Cita();
 
-                    objCita.IdCita = Int32.Parse(reader["idCita"].ToString());
-                    objCita.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objCita.FechaCita = DateTime.Parse(reader["Fecha"].ToString());
-                    objCita.HoraCita = TimeSpan.Parse(reader["Hora"].ToString());
-                    objCita.PrimeraVez = Boolean.Parse(reader["PrimeraVez"].ToString());
-                    objCita.Telefono = reader["Telefono"].ToString();
-                    objCita.Afiliacion = reader["Afiliacion"].ToString();
+                    objCita.IdCita = SeguridadDeTipos.GetSafeInt(reader, "idCita");
+                    objCita.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objCita.FechaCita = SeguridadDeTipos.GetSafeDateTime(reader, "Fecha");
+                    objCita.HoraCita = TimeSpan.Parse(SeguridadDeTipos.GetSafeString(reader, "Hora");
+                    objCita.PrimeraVez = Boolean.Parse(SeguridadDeTipos.GetSafeString(reader, "PrimeraVez");
+                    objCita.Telefono = SeguridadDeTipos.GetSafeString(reader, "Telefono");
+                    objCita.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
 
                     listaCitas.Add(objCita);
                 }
@@ -63,13 +63,13 @@ namespace Citas.DataAccess
                 {
                     Cita objCita = new Cita();
 
-                    objCita.IdCita = Int32.Parse(reader["idCita"].ToString());
-                    objCita.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objCita.FechaCita = DateTime.Parse(reader["Fecha"].ToString());
-                    objCita.HoraCita = TimeSpan.Parse(reader["Hora"].ToString());
-                    objCita.PrimeraVez = Boolean.Parse(reader["PrimeraVez"].ToString());
-                    objCita.Telefono = reader["Telefono"].ToString();
-                    objCita.Afiliacion = reader["Afiliacion"].ToString();
+                    objCita.IdCita = SeguridadDeTipos.GetSafeInt(reader, "idCita");
+                    objCita.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objCita.FechaCita = SeguridadDeTipos.GetSafeDateTime(reader, "Fecha");
+                    objCita.HoraCita = TimeSpan.Parse(SeguridadDeTipos.GetSafeString(reader, "Hora");
+                    objCita.PrimeraVez = Boolean.Parse(SeguridadDeTipos.GetSafeString(reader, "PrimeraVez");
+                    objCita.Telefono = SeguridadDeTipos.GetSafeString(reader, "Telefono");
+                    objCita.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
 
                     listaCitas.Add(objCita);
                 }
@@ -100,13 +100,13 @@ namespace Citas.DataAccess
                 {
                     Cita objCita = new Cita();
 
-                    objCita.IdCita = Int32.Parse(reader["idCita"].ToString());
-                    objCita.NombrePaciente = reader["NombrePaciente"].ToString();
-                    objCita.FechaCita = DateTime.Parse(reader["Fecha"].ToString());
-                    objCita.HoraCita = TimeSpan.Parse(reader["Hora"].ToString());
-                    objCita.PrimeraVez = Boolean.Parse(reader["PrimeraVez"].ToString());
-                    objCita.Telefono = reader["Telefono"].ToString();
-                    objCita.Afiliacion = reader["Afiliacion"].ToString();
+                    objCita.IdCita = SeguridadDeTipos.GetSafeInt(reader, "idCita");
+                    objCita.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objCita.FechaCita = SeguridadDeTipos.GetSafeDateTime(reader, "Fecha");
+                    objCita.HoraCita = TimeSpan.Parse(SeguridadDeTipos.GetSafeString(reader, "Hora");
+                    objCita.PrimeraVez = Boolean.Parse(SeguridadDeTipos.GetSafeString(reader, "PrimeraVez");
+                    objCita.Telefono = SeguridadDeTipos.GetSafeString(reader, "Telefono");
+                    objCita.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
 
                     listaCitas.Add(objCita);
                 }
@@ -137,8 +137,8 @@ namespace Citas.DataAccess
                 while (reader.Read())
                 {
 
-                    objCitaRetorno.FechaCita = DateTime.Parse(reader["Fecha"].ToString());
-                    objCitaRetorno.HoraCita = TimeSpan.Parse(reader["Hora"].ToString());
+                    objCitaRetorno.FechaCita = SeguridadDeTipos.GetSafeDateTime(reader, "Fecha");
+                    objCitaRetorno.HoraCita = TimeSpan.Parse(SeguridadDeTipos.GetSafeString(reader, "Hora");
                 }
 
                 reader.Close();
@@ -252,7 +252,7 @@ namespace Citas.DataAccess
 
                 while(reader.Read())
                 {
-                    listaFechas.Add(new Fecha(DateTime.Parse(reader["FechaNoHabil"].ToString())));
+                    listaFechas.Add(new Fecha(SeguridadDeTipos.GetSafeDateTime(reader, "FechaNoHabil"].ToString())));
                 }
 
                 reader.Close();
@@ -277,7 +277,7 @@ namespace Citas.DataAccess
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while(reader.Read()){
-                    fechaRetorno = Convert.ToDateTime(reader["FechaNoHabil"].ToString());
+                    fechaRetorno = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNoHabil");
                 }
                 reader.Close();
                 conn.Close();
