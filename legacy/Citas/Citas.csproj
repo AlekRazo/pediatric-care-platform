@@ -75,6 +75,10 @@
       <Project>{71a72433-cc8f-4609-a046-dff8adf4974e}</Project>
       <Name>Estadisticas</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{C5A75012-7D08-46DD-839D-BDC0D3EA6313}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Presentation\FormAgendarCita.resx">

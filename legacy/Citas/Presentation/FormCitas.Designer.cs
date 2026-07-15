@@ -40,15 +40,17 @@
             this.linkLabelCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePickerDiaCita = new System.Windows.Forms.DateTimePicker();
+            this.buttonVerEstadisticas = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVerCitas)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.buttonVerEstadisticas);
             this.panel1.Controls.Add(this.labelNomUser);
             this.panel1.Controls.Add(this.buttonDiasNoHabiles);
             this.panel1.Controls.Add(this.buttonEliminarCita);
@@ -79,7 +81,7 @@
             // 
             this.buttonDiasNoHabiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDiasNoHabiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDiasNoHabiles.Location = new System.Drawing.Point(390, 432);
+            this.buttonDiasNoHabiles.Location = new System.Drawing.Point(350, 432);
             this.buttonDiasNoHabiles.Name = "buttonDiasNoHabiles";
             this.buttonDiasNoHabiles.Size = new System.Drawing.Size(141, 44);
             this.buttonDiasNoHabiles.TabIndex = 19;
@@ -127,9 +129,9 @@
             // 
             // dataGridViewVerCitas
             // 
-            this.dataGridViewVerCitas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewVerCitas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewVerCitas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewVerCitas.Location = new System.Drawing.Point(26, 70);
             this.dataGridViewVerCitas.Name = "dataGridViewVerCitas";
@@ -195,6 +197,17 @@
             this.dateTimePickerDiaCita.TabIndex = 10;
             this.dateTimePickerDiaCita.ValueChanged += new System.EventHandler(this.dateTimePickerDiaCita_ValueChanged);
             // 
+            // buttonVerEstadisticas
+            // 
+            this.buttonVerEstadisticas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonVerEstadisticas.Location = new System.Drawing.Point(499, 432);
+            this.buttonVerEstadisticas.Name = "buttonVerEstadisticas";
+            this.buttonVerEstadisticas.Size = new System.Drawing.Size(127, 44);
+            this.buttonVerEstadisticas.TabIndex = 76;
+            this.buttonVerEstadisticas.Text = "Ver Estadísticas";
+            this.buttonVerEstadisticas.UseVisualStyleBackColor = true;
+            this.buttonVerEstadisticas.Click += new System.EventHandler(this.buttonVerEstadisticas_Click);
+            // 
             // FormCitas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -226,5 +239,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePickerDiaCita;
         private System.Windows.Forms.Label labelNomUser;
+        private System.Windows.Forms.Button buttonVerEstadisticas;
     }
 }

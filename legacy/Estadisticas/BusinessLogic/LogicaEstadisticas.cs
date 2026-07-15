@@ -9,41 +9,60 @@ namespace Estadisticas.BusinessLogic
 {
     public class LogicaEstadisticas
     {
-        public static double calcularIMC(double peso, double talla)
+        public static double ObtenerPercentilPeso(double peso, DateTime fechaNacimiento, DateTime fechaConsulta, string sexo)
         {
-            if (talla <= 0)
-            {
-                return 0;
-            }
-            double imc = peso / (talla * talla);
-            return Math.Round(imc, 2);
-        }
+            int mesEdad = Math.Min(CalcularEdadMeses(fechaNacimiento, fechaConsulta), 60);
+            ParametrosLMS parametros = CrecimientoDatos.obtenerParametrosLMS("Peso", mesEdad, sexo, "Unica");
 
-        public static int calcularPercentil(int tipo, int meses, string sexo, double valor)
-        {
-            string parametro = "";
-
-            if (tipo == 1)
-            {
-                parametro = "Talla";
-            }
-            if(tipo == 2)
-            {
-                parametro = "Peso";
-            }
-            if(tipo == 3)
-            {
-                parametro = "PerimetroCefalico";
-            }
-            else
+            if (parametros == null)
             {
                 return -1;
             }
 
-            LMS lms = EstadisticaDatos.obtenerParametrosPercentil(parametro, meses, sexo, valor);
-
-            double z = (Math.Pow((valor / lms.M), lms.L) - 1) / (lms.L * lms.S);
-            return (int) (z* 100);
+            double z = LogicaPercentiles.calcularZ(peso, parametros);
+            return LogicaPercentiles.calcularPercentil(z);
         }
+
+        public static double ObtenerPercentilTalla(double talla, DateTime fechaNacimiento, DateTime fechaConsulta, string sexo)
+        {
+            int mesEdad = Math.Min(CalcularEdadMeses(fechaNacimiento, fechaConsulta), 60);
+            string medicion = "";
+
+            if (mesEdad < 24)
+            {
+                medicion = "Acostado";
+            }
+            else
+            {
+                medicion = "De_pie";
+            }
+
+            ParametrosLMS parametros = CrecimientoDatos.obtenerParametrosLMS("Talla", mesEdad, sexo, medicion);
+
+            if (parametros == null) return -1;
+
+            double z = LogicaPercentiles.calcularZ(talla, parametros);
+            return LogicaPercentiles.calcularPercentil(z);
+        }
+
+        private static int CalcularEdadMeses(DateTime fechaNacimiento, DateTime fechaConsulta)
+        {
+            int meses = (fechaConsulta.Year - fechaNacimiento.Year) * 12 + (fechaConsulta.Month - fechaNacimiento.Month);
+
+            if (fechaConsulta.Day < fechaNacimiento.Day)
+            {
+                meses--;
+            }
+
+            return meses;
+        }
+
+        //public static List<EstadisticaDiagnostico> obtenerEstadisticasDiagnostico(DateTime fechaInicio, DateTime fechaFin, string filtroPaciente)
+        //{
+        //    return EstadisticaDatos.obtenerEstadisticasDiagnostico(fechaInicio, fechaFin, filtroPaciente);
+        //}
+
+        //public static List<DiagnosticoPatologia> obtenerDiagnosticosPorPatologia(DateTime fechaInicio, DateTime fechaFin);
+        //public static List<PuntoCrecimiento> obtenerCurvaCrecimiento(int idPaciente);
     }
 }

@@ -655,15 +655,6 @@ namespace Pacientes.DataAccess
                 cmd.Parameters.Add(new SqlParameter("@id", idPaciente));
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                //Borrar
-                DataTable dataTable = new DataTable();
-                dataTable.Load(reader);
-
-                // Now you can freely jump to any specific row or check the overall count
-                int totalRows = dataTable.Rows.Count;
-                DataRow firstRow = dataTable.Rows[0];
-
-
                 while (reader.Read())
                 {
                     objPsicomotorRetorno.IdPsicomotor = SeguridadDeTipos.GetSafeInt(reader, "idPsicomotor");

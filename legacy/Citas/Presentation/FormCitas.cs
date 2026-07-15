@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Citas.BusinessLogic;
+using Estadisticas.Presentation;
 
 namespace Citas.Presentation
 {
@@ -147,6 +148,12 @@ namespace Citas.Presentation
         {
             FormDiasNoHabiles frmDias = new FormDiasNoHabiles();
             frmDias.ShowDialog();
+        }
+
+        private void buttonVerEstadisticas_Click(object sender, EventArgs e)
+        {
+            FormEstadisticas frmEstadisticas = new FormEstadisticas();
+            frmEstadisticas.ShowDialog();
         }
     }
 }

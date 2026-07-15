@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Consultas.BusinessLogic;
+using Helpers.Helpers;
 using Recetas.Presentation;
 
 namespace Consultas.Presentation

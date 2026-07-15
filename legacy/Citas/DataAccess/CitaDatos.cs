@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using Citas.BusinessLogic;
 using System.Data;
+using Helpers.Helpers;
 
 namespace Citas.DataAccess
 {
@@ -29,8 +30,8 @@ namespace Citas.DataAccess
                     objCita.IdCita = SeguridadDeTipos.GetSafeInt(reader, "idCita");
                     objCita.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
                     objCita.FechaCita = SeguridadDeTipos.GetSafeDateTime(reader, "Fecha");
-                    objCita.HoraCita = TimeSpan.Parse(SeguridadDeTipos.GetSafeString(reader, "Hora");
-                    objCita.PrimeraVez = Boolean.Parse(SeguridadDeTipos.GetSafeString(reader, "PrimeraVez");
+                    objCita.HoraCita = TimeSpan.Parse(reader["Hora"].ToString());
+                    objCita.PrimeraVez = SeguridadDeTipos.GetSafeBool(reader, "PrimeraVez");
                     objCita.Telefono = SeguridadDeTipos.GetSafeString(reader, "Telefono");
                     objCita.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
 
@@ -66,8 +67,8 @@ namespace Citas.DataAccess
                     objCita.IdCita = SeguridadDeTipos.GetSafeInt(reader, "idCita");
                     objCita.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
                     objCita.FechaCita = SeguridadDeTipos.GetSafeDateTime(reader, "Fecha");
-                    objCita.HoraCita = TimeSpan.Parse(SeguridadDeTipos.GetSafeString(reader, "Hora");
-                    objCita.PrimeraVez = Boolean.Parse(SeguridadDeTipos.GetSafeString(reader, "PrimeraVez");
+                    objCita.HoraCita = TimeSpan.Parse(SeguridadDeTipos.GetSafeString(reader, "Hora"));
+                    objCita.PrimeraVez = SeguridadDeTipos.GetSafeBool(reader, "PrimeraVez");
                     objCita.Telefono = SeguridadDeTipos.GetSafeString(reader, "Telefono");
                     objCita.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
 
@@ -103,8 +104,8 @@ namespace Citas.DataAccess
                     objCita.IdCita = SeguridadDeTipos.GetSafeInt(reader, "idCita");
                     objCita.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
                     objCita.FechaCita = SeguridadDeTipos.GetSafeDateTime(reader, "Fecha");
-                    objCita.HoraCita = TimeSpan.Parse(SeguridadDeTipos.GetSafeString(reader, "Hora");
-                    objCita.PrimeraVez = Boolean.Parse(SeguridadDeTipos.GetSafeString(reader, "PrimeraVez");
+                    objCita.HoraCita = TimeSpan.Parse(reader["Hora"].ToString());
+                    objCita.PrimeraVez = SeguridadDeTipos.GetSafeBool(reader, "PrimeraVez");
                     objCita.Telefono = SeguridadDeTipos.GetSafeString(reader, "Telefono");
                     objCita.Afiliacion = SeguridadDeTipos.GetSafeString(reader, "Afiliacion");
 
@@ -138,7 +139,7 @@ namespace Citas.DataAccess
                 {
 
                     objCitaRetorno.FechaCita = SeguridadDeTipos.GetSafeDateTime(reader, "Fecha");
-                    objCitaRetorno.HoraCita = TimeSpan.Parse(SeguridadDeTipos.GetSafeString(reader, "Hora");
+                    objCitaRetorno.HoraCita = TimeSpan.Parse(reader["Hora"].ToString());
                 }
 
                 reader.Close();
@@ -252,7 +253,7 @@ namespace Citas.DataAccess
 
                 while(reader.Read())
                 {
-                    listaFechas.Add(new Fecha(SeguridadDeTipos.GetSafeDateTime(reader, "FechaNoHabil"].ToString())));
+                    listaFechas.Add(new Fecha(SeguridadDeTipos.GetSafeDateTime(reader, "FechaNoHabil")));
                 }
 
                 reader.Close();

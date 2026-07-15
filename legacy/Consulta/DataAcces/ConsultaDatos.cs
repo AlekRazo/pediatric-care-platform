@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Consultas.BusinessLogic;
 using System.Data.SqlClient;
+using Helpers.Helpers;
 
 namespace Consultas.DataAcces
 {

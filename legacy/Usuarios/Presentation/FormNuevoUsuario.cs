@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpers.Helpers;
+using System;
 using System.Windows.Forms;
 using Usuarios.BusinessLogic;
 

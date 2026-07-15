@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Estadisticas.BusinessLogic
 {
-    public class LMS
+    public class ParametrosLMS
     {
         private double l;
         private double m;

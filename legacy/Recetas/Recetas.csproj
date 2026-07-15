@@ -54,7 +54,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{C5A75012-7D08-46DD-839D-BDC0D3EA6313}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Presentation\FormReceta.resx">
       <DependentUpon>FormReceta.cs</DependentUpon>
