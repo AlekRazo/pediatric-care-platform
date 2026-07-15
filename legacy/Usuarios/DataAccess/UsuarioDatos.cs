@@ -30,6 +30,7 @@ namespace Usuarios.DataAccess
                     objUsuarioRetorno.Contrasena = reader["Contrasena"].ToString();
                 }
 
+                reader.Close();
                 conn.Close();
 
                 return objUsuarioRetorno;

@@ -21,6 +21,34 @@ namespace Usuarios.Presentation
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
+            iniciarSesion();
+        }
+
+        private void linkLabelRecuperarContrasena_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FormRecuperacion formRecuperacion = new FormRecuperacion();
+            this.Hide();
+            formRecuperacion.ShowDialog();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void textBoxContrasena_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                iniciarSesion();
+
+                // Optional: Stop the default Windows beep/ding sound
+                e.Handled = true;
+            }
+        }
+
+        private void iniciarSesion()
+        {
             if (textBoxNombreUsuario.Text == "")
             {
                 MessageBox.Show("El nombre no puede estar vacío.");
@@ -73,18 +101,6 @@ namespace Usuarios.Presentation
                     MessageBox.Show("Inicio inválido. Intente de nuevo.");
                 }
             }
-        }
-
-        private void linkLabelRecuperarContrasena_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            FormRecuperacion formRecuperacion = new FormRecuperacion();
-            this.Hide();
-            formRecuperacion.ShowDialog();
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
     }
 }
