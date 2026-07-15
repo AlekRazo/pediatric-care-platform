@@ -2,6 +2,7 @@
 using Pacientes.BusinessLogic;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -53,7 +54,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -99,7 +100,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -145,7 +146,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -191,7 +192,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -237,7 +238,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -283,7 +284,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -329,7 +330,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -372,7 +373,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -408,7 +409,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -448,7 +449,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -495,7 +496,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -538,7 +539,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -571,7 +572,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -605,7 +606,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -638,7 +639,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -652,6 +653,15 @@ namespace Pacientes.DataAccess
                 SqlCommand cmd = new SqlCommand("SELECT * FROM Psicomotor WHERE idPaciente = @id", conn);
                 cmd.Parameters.Add(new SqlParameter("@id", idPaciente));
                 SqlDataReader reader = cmd.ExecuteReader();
+
+                //Borrar
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                // Now you can freely jump to any specific row or check the overall count
+                int totalRows = dataTable.Rows.Count;
+                DataRow firstRow = dataTable.Rows[0];
+
 
                 while (reader.Read())
                 {
@@ -679,7 +689,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -720,7 +730,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -773,7 +783,7 @@ namespace Pacientes.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
     }

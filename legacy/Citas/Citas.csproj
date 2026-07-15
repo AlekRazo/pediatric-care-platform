@@ -71,7 +71,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Estadisticas\Estadisticas.csproj">
+      <Project>{71a72433-cc8f-4609-a046-dff8adf4974e}</Project>
+      <Name>Estadisticas</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Presentation\FormAgendarCita.resx">
       <DependentUpon>FormAgendarCita.cs</DependentUpon>

@@ -82,6 +82,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Estadisticas\Estadisticas.csproj">
+      <Project>{71a72433-cc8f-4609-a046-dff8adf4974e}</Project>
+      <Name>Estadisticas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Recetas\Recetas.csproj">
       <Project>{9b35b0db-cb13-47ad-af91-fea9130eb72b}</Project>
       <Name>Recetas</Name>

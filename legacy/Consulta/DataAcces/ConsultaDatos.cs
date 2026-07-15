@@ -56,7 +56,7 @@ namespace Consultas.DataAcces
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Consultas.DataAcces
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
     }

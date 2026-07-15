@@ -37,7 +37,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -75,7 +75,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -102,7 +102,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -129,7 +129,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -155,7 +155,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -182,7 +182,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -209,7 +209,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -248,7 +248,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -285,7 +285,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -309,7 +309,7 @@ namespace Usuarios.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
     }

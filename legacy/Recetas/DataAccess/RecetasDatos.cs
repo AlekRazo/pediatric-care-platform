@@ -41,7 +41,7 @@ namespace Recetas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
     }

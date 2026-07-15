@@ -44,7 +44,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -81,7 +81,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -118,7 +118,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -148,7 +148,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -181,7 +181,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -216,7 +216,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -236,7 +236,7 @@ namespace Citas.DataAccess
             }
             catch(Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -262,7 +262,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -284,7 +284,7 @@ namespace Citas.DataAccess
             }
             catch(Exception ex)
             {
-                throw ex;
+                throw;
             }
 
             return fechaRetorno;
@@ -307,7 +307,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -330,7 +330,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -349,7 +349,7 @@ namespace Citas.DataAccess
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
     }
