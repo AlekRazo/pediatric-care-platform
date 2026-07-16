@@ -16,7 +16,7 @@ namespace Estadisticas.DataAccess
     {
         private static SqlConnection conn = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=Pediatria; Integrated Security=True");
 
-        public static List<EstadisticaDiagnostico> obtenerEstadisticasDiagnostico (DateTime fechaInicio, DateTime fechaFin, int idPaciente)
+        public static List<EstadisticaDiagnostico> obtenerEstadisticasDiagnostico (DateTime fechaInicio, DateTime fechaFin, string filtro)
         {
             List<EstadisticaDiagnostico> estadisticas = new List<EstadisticaDiagnostico>();
 
@@ -25,17 +25,22 @@ namespace Estadisticas.DataAccess
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("SELECT CASE WHEN c.Motivo IS NULL OR c.Motivo = '' " +
                     "THEN 'SIN MOTIVO' " +
-                    "ELSE UPPER(Diagnostico) END AS Motivo" +
-                    ", COUNT(c.Motivo) AS Cantidad " +
+                    "ELSE UPPER(Motivo) END AS Motivo" +
+                    ", COUNT(*) AS Cantidad " +
                     "FROM Consulta c " +
                     "RIGHT JOIN Paciente p " +
                     "ON c.idPaciente = p.idPaciente " +
-                    "WHERE p.idPaciente = @idPaciente " +
+                    "WHERE c.FechaConsulta BETWEEN @fechaInicio AND @fechaFin " +
+                    "AND(@filtro = '' " +
+                    "OR p.NombrePaciente LIKE '%' + @filtro + '%' " +
+                    "OR p.NombreMadre LIKE '%' + @filtro + '%' " +
+                    "OR p.NombrePadre LIKE '%' + @filtro + '%' " +
+                    "OR CAST(p.idPaciente AS NVARCHAR(20)) = @filtro) " +
                     "AND c.FechaConsulta BETWEEN @fechaInicio AND @fechaFin " +
                     "GROUP BY c.Motivo " +
-                    "ORDER BY Cantidad DESC");
+                    "ORDER BY Cantidad DESC", conn);
 
-                cmd.Parameters.Add(new SqlParameter("@idPaciente", idPaciente));
+                cmd.Parameters.Add(new SqlParameter("@filtro", filtro));
                 cmd.Parameters.Add(new SqlParameter("@fechaInicio", fechaInicio));
                 cmd.Parameters.Add(new SqlParameter("@fechaFin", fechaFin));
 
@@ -69,11 +74,11 @@ namespace Estadisticas.DataAccess
                 SqlCommand cmd = new SqlCommand("SELECT CASE WHEN Diagnostico IS NULL OR Diagnostico = '' " +
                     "THEN 'SIN DIAGNOSTICO' " +
                     "ELSE UPPER(Diagnostico) END AS Patologia" +
-                    ", COUNT(Diagnostico) AS Cantidad " +
+                    ", COUNT(*) AS Cantidad " +
                     "FROM Consulta " +
                     "WHERE FechaConsulta BETWEEN @fechaInicio AND @fechaFin " +
                     "GROUP BY Diagnostico " +
-                    "ORDER BY Cantidad DESC");
+                    "ORDER BY Cantidad DESC", conn);
 
                 cmd.Parameters.Add(new SqlParameter("@fechaInicio", fechaInicio));
                 cmd.Parameters.Add(new SqlParameter("@fechaFin", fechaFin));
@@ -112,10 +117,10 @@ namespace Estadisticas.DataAccess
                     "FROM Consulta c " +
                     "RIGHT JOIN Paciente p " +
                     "ON c.idPaciente = p.idPaciente " +
-                    "WHERE p.idPaciente = 1 " +
-                    "ORDER BY c.FechaConsulta ASC");
+                    "WHERE p.idPaciente = @idPaciente " +
+                    "ORDER BY c.FechaConsulta ASC", conn);
 
-                cmd.Parameters.Add(new SqlParameter("idPaciente", idPaciente));
+                cmd.Parameters.Add(new SqlParameter("@idPaciente", idPaciente));
 
                 SqlDataReader reader = cmd.ExecuteReader();
 

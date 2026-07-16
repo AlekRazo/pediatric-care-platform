@@ -73,6 +73,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Presentation\FormEstadisticas.resx">
+      <DependentUpon>FormEstadisticas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\FormEstadisticasPaciente.resx">
       <DependentUpon>FormEstadisticasPaciente.cs</DependentUpon>
     </EmbeddedResource>

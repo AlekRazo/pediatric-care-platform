@@ -57,12 +57,19 @@ namespace Estadisticas.BusinessLogic
             return meses;
         }
 
-        //public static List<EstadisticaDiagnostico> obtenerEstadisticasDiagnostico(DateTime fechaInicio, DateTime fechaFin, string filtroPaciente)
-        //{
-        //    return EstadisticaDatos.obtenerEstadisticasDiagnostico(fechaInicio, fechaFin, filtroPaciente);
-        //}
+        public static List<EstadisticaDiagnostico> obtenerEstadisticasDiagnostico(DateTime fechaInicio, DateTime fechaFin, string filtroPaciente)
+        {
+            return EstadisticaDatos.obtenerEstadisticasDiagnostico(fechaInicio, fechaFin, filtroPaciente);
+        }
 
-        //public static List<DiagnosticoPatologia> obtenerDiagnosticosPorPatologia(DateTime fechaInicio, DateTime fechaFin);
-        //public static List<PuntoCrecimiento> obtenerCurvaCrecimiento(int idPaciente);
+        public static List<DiagnosticoPatologia> obtenerDiagnosticosPorPatologia(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return EstadisticaDatos.obtenerDiagnosticosPorPatologia(fechaInicio, fechaFin);
+        }
+
+        public static List<PuntoCrecimiento> obtenerCurvaCrecimiento(int idPaciente)
+        {
+            return EstadisticaDatos.obtenerCurvaCrecimiento(idPaciente);
+        }
     }
 }
