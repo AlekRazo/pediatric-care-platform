@@ -342,7 +342,7 @@ namespace Pacientes.DataAccess
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Cita WHERE idPaciente = @id", conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Paciente WHERE idPaciente = @id", conn);
                 cmd.Parameters.Add(new SqlParameter("@id", idPaciente));
                 SqlDataReader reader = cmd.ExecuteReader();
 

@@ -147,5 +147,35 @@ namespace Estadisticas.DataAccess
                 throw;
             }
         }
+
+        public static Paciente obtenerDatosDePaciente(int idPaciente)
+        {
+            Paciente objPacienteRetorno = new Paciente();
+
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT idPaciente, NombrePaciente, FechaNacimiento, Sexo FROM Paciente WHERE idPaciente = @id", conn);
+                cmd.Parameters.Add(new SqlParameter("@id", idPaciente));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    objPacienteRetorno.IdPaciente = SeguridadDeTipos.GetSafeInt(reader, "idPaciente");
+                    objPacienteRetorno.NombrePaciente = SeguridadDeTipos.GetSafeString(reader, "NombrePaciente");
+                    objPacienteRetorno.FechaNacimiento = SeguridadDeTipos.GetSafeDateTime(reader, "FechaNacimiento");
+                    objPacienteRetorno.Sexo = SeguridadDeTipos.GetSafeString(reader, "Sexo");
+                }
+
+                reader.Close();
+                conn.Close();
+
+                return objPacienteRetorno;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

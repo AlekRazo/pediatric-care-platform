@@ -36,12 +36,13 @@
             this.buttonModificar = new System.Windows.Forms.Button();
             this.buttonAgregar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonHistorial = new System.Windows.Forms.Button();
             this.buttonConsulta = new System.Windows.Forms.Button();
             this.dataGridViewVerPacientes = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonHistorial = new System.Windows.Forms.Button();
+            this.buttonCrecimiento = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVerPacientes)).BeginInit();
             this.SuspendLayout();
@@ -102,10 +103,10 @@
             this.buttonEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonEliminar.Enabled = false;
             this.buttonEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEliminar.Location = new System.Drawing.Point(307, 542);
+            this.buttonEliminar.Location = new System.Drawing.Point(263, 542);
             this.buttonEliminar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEliminar.Name = "buttonEliminar";
-            this.buttonEliminar.Size = new System.Drawing.Size(128, 36);
+            this.buttonEliminar.Size = new System.Drawing.Size(107, 36);
             this.buttonEliminar.TabIndex = 18;
             this.buttonEliminar.Text = "Eliminar";
             this.buttonEliminar.UseVisualStyleBackColor = true;
@@ -117,10 +118,10 @@
             this.buttonModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonModificar.Enabled = false;
             this.buttonModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonModificar.Location = new System.Drawing.Point(171, 542);
+            this.buttonModificar.Location = new System.Drawing.Point(150, 542);
             this.buttonModificar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonModificar.Name = "buttonModificar";
-            this.buttonModificar.Size = new System.Drawing.Size(128, 36);
+            this.buttonModificar.Size = new System.Drawing.Size(107, 36);
             this.buttonModificar.TabIndex = 17;
             this.buttonModificar.Text = "Modificar";
             this.buttonModificar.UseVisualStyleBackColor = true;
@@ -133,7 +134,7 @@
             this.buttonAgregar.Location = new System.Drawing.Point(35, 542);
             this.buttonAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAgregar.Name = "buttonAgregar";
-            this.buttonAgregar.Size = new System.Drawing.Size(128, 36);
+            this.buttonAgregar.Size = new System.Drawing.Size(107, 36);
             this.buttonAgregar.TabIndex = 16;
             this.buttonAgregar.Text = "Agregar";
             this.buttonAgregar.UseVisualStyleBackColor = true;
@@ -144,6 +145,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.buttonCrecimiento);
             this.panel1.Controls.Add(this.buttonHistorial);
             this.panel1.Controls.Add(this.buttonConsulta);
             this.panel1.Controls.Add(this.comboBoxTipoBusqueda);
@@ -163,15 +165,29 @@
             this.panel1.Size = new System.Drawing.Size(997, 606);
             this.panel1.TabIndex = 4;
             // 
+            // buttonHistorial
+            // 
+            this.buttonHistorial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonHistorial.Enabled = false;
+            this.buttonHistorial.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHistorial.Location = new System.Drawing.Point(405, 533);
+            this.buttonHistorial.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonHistorial.Name = "buttonHistorial";
+            this.buttonHistorial.Size = new System.Drawing.Size(137, 54);
+            this.buttonHistorial.TabIndex = 79;
+            this.buttonHistorial.Text = "Ver Historial";
+            this.buttonHistorial.UseVisualStyleBackColor = true;
+            this.buttonHistorial.Click += new System.EventHandler(this.buttonHistorial_Click);
+            // 
             // buttonConsulta
             // 
             this.buttonConsulta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonConsulta.Enabled = false;
-            this.buttonConsulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonConsulta.Location = new System.Drawing.Point(647, 533);
+            this.buttonConsulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonConsulta.Location = new System.Drawing.Point(550, 533);
             this.buttonConsulta.Margin = new System.Windows.Forms.Padding(4);
             this.buttonConsulta.Name = "buttonConsulta";
-            this.buttonConsulta.Size = new System.Drawing.Size(183, 54);
+            this.buttonConsulta.Size = new System.Drawing.Size(137, 54);
             this.buttonConsulta.TabIndex = 78;
             this.buttonConsulta.Text = "Generar Consulta";
             this.buttonConsulta.UseVisualStyleBackColor = true;
@@ -231,19 +247,17 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Paciente:";
             // 
-            // buttonHistorial
+            // buttonCrecimiento
             // 
-            this.buttonHistorial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonHistorial.Enabled = false;
-            this.buttonHistorial.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHistorial.Location = new System.Drawing.Point(456, 532);
-            this.buttonHistorial.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonHistorial.Name = "buttonHistorial";
-            this.buttonHistorial.Size = new System.Drawing.Size(183, 54);
-            this.buttonHistorial.TabIndex = 79;
-            this.buttonHistorial.Text = "Ver Historial";
-            this.buttonHistorial.UseVisualStyleBackColor = true;
-            this.buttonHistorial.Click += new System.EventHandler(this.buttonHistorial_Click);
+            this.buttonCrecimiento.Enabled = false;
+            this.buttonCrecimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCrecimiento.Location = new System.Drawing.Point(694, 533);
+            this.buttonCrecimiento.Name = "buttonCrecimiento";
+            this.buttonCrecimiento.Size = new System.Drawing.Size(137, 54);
+            this.buttonCrecimiento.TabIndex = 80;
+            this.buttonCrecimiento.Text = "Crecimiento";
+            this.buttonCrecimiento.UseVisualStyleBackColor = true;
+            this.buttonCrecimiento.Click += new System.EventHandler(this.buttonCrecimiento_Click);
             // 
             // FormPacientes
             // 
@@ -279,5 +293,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonConsulta;
         private System.Windows.Forms.Button buttonHistorial;
+        private System.Windows.Forms.Button buttonCrecimiento;
     }
 }

@@ -13,34 +13,40 @@ namespace Estadisticas.DataAccess
     {
         private static SqlConnection conn = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=Pediatria; Integrated Security=True");
             
-        public static ParametrosLMS obtenerParametrosLMS(string indicador, int meses, string sexo, string medicion)
+        public static List<ParametrosLMS> obtenerParametrosLMS(string indicador, int meses, string sexo)
         {
+            List<ParametrosLMS> listaParametros = new List<ParametrosLMS>();
+            
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT [L], [M], [S] " +
+                SqlCommand cmd = new SqlCommand("SELECT [Indicador], [MesEdad], [L], [M], [S], [Medicion] " +
                     "FROM [dbo].[CrecimientoOMS] " +
-                    "WHERE [Indicador] = @indicador AND [Sexo] = @sexo AND [MesEdad] = @edad AND [Medicion] = @valor" +
-                    "[idConsulta] = @idConsulta", conn);
+                    "WHERE [Indicador] = @indicador AND [Sexo] = @sexo AND [MesEdad] <= @edad " +
+                    "ORDER BY [MesEdad]", conn);
 
                 cmd.Parameters.Add(new SqlParameter("@indicador", indicador));
                 cmd.Parameters.Add(new SqlParameter("@sexo", sexo));
                 cmd.Parameters.Add(new SqlParameter("@edad", meses));
-                cmd.Parameters.Add(new SqlParameter("@medicion", medicion));
 
-                ParametrosLMS lmsObj = new ParametrosLMS();
+                
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    lmsObj.L = SeguridadDeTipos.GetSafeDouble(reader, "l");
-                    lmsObj.M = SeguridadDeTipos.GetSafeDouble(reader, "m");
-                    lmsObj.S = SeguridadDeTipos.GetSafeDouble(reader, "s");
+                    ParametrosLMS lmsObj = new ParametrosLMS();
+                    lmsObj.Indicador = SeguridadDeTipos.GetSafeString(reader, "Indicador");
+                    lmsObj.MesEdad = SeguridadDeTipos.GetSafeInt(reader, "MesEdad");
+                    lmsObj.L = SeguridadDeTipos.GetSafeDouble(reader, "L");
+                    lmsObj.M = SeguridadDeTipos.GetSafeDouble(reader, "M");
+                    lmsObj.S = SeguridadDeTipos.GetSafeDouble(reader, "S");
+                    lmsObj.Medicion = SeguridadDeTipos.GetSafeString(reader, "Medicion");
+                    listaParametros.Add(lmsObj);
                 }
 
                 conn.Close();
 
-                return lmsObj;
+                return listaParametros;
             }
             catch (Exception ex)
             {

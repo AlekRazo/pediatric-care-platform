@@ -100,6 +100,10 @@
       <Project>{E39E6104-B7FD-4770-B04F-5162684E0329}</Project>
       <Name>Consultas</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Estadisticas\Estadisticas.csproj">
+      <Project>{71a72433-cc8f-4609-a046-dff8adf4974e}</Project>
+      <Name>Estadisticas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Helpers\Helpers.csproj">
       <Project>{c5a75012-7d08-46dd-839d-bdc0d3ea6313}</Project>
       <Name>Helpers</Name>

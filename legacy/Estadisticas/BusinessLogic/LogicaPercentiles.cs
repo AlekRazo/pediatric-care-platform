@@ -7,8 +7,34 @@ using System.Threading.Tasks;
 
 namespace Estadisticas.BusinessLogic
 {
-    class LogicaPercentiles
+    public class LogicaPercentiles
     {
+        public static readonly double[] valoresZPercentiles = { -1.8808, -1.0364, 0.0, 1.0364, 1.8808 };
+        public static readonly string[] nombresPercentiles = { "P3", "P15", "P50", "P85", "P97" };
+        public const double AjusteLongitudEstatura = 0.7; // cm de diferencia entre longitud (acostado) y estatura (de pie), por convención OMS
+
+        public static Paciente obtenerPacientePorId(int idPaciente)
+        {
+            return EstadisticaDatos.obtenerDatosDePaciente(idPaciente);
+        }
+
+        public static List<ParametrosLMS> obtenerParametrosLMS(string parametro, int meses, string sexo)
+        {
+            return CrecimientoDatos.obtenerParametrosLMS(parametro, meses, sexo);
+        }
+
+        public static int calcularEdadMeses(DateTime fechaNacimiento, DateTime fechaConsulta)
+        {
+            int meses = (fechaConsulta.Year - fechaNacimiento.Year) * 12 + (fechaConsulta.Month - fechaNacimiento.Month);
+
+            if (fechaConsulta.Day < fechaNacimiento.Day)
+            {
+                meses--;
+            }
+
+            return meses;
+        }
+
         public static double calcularZ(double valor, ParametrosLMS lms)
         {
             if (lms.L == 0)
@@ -54,6 +80,46 @@ namespace Estadisticas.BusinessLogic
             {
                 return lms.M * Math.Pow((1 + lms.L * lms.S * z), (1 / lms.L));
             }
+        }
+
+        // Dado el mes y la lista completa, devuelve el ParametrosLMS correcto,
+        // resolviendo el traslape Acostado/De_pie del mes 24 para Talla.
+        public static ParametrosLMS seleccionarParametroPorMes(List<ParametrosLMS> lista, string indicador, int mes)
+        {
+            string medicionEsperada = obtenerMedicionEsperada(indicador, mes);
+
+            foreach (ParametrosLMS p in lista)
+            {
+                if (p.MesEdad == mes && p.Medicion == medicionEsperada)
+                {
+                    return p;
+                }
+            }
+
+            return null;
+        }
+
+        // Determina qué técnica de medición corresponde según la edad (corte OMS: 24 meses).
+        public static string obtenerMedicionEsperada(string indicador, int mesEdad)
+        {
+            if (indicador != "Talla")
+            {
+                return "Unica";
+            }
+
+            return mesEdad < 24 ? "Acostado" : "De_pie";
+        }
+
+        // Convierte una longitud (acostado) a su equivalente en estatura (de pie).
+        public static double convertirLongitudAEstatura(double longitud)
+        {
+            return longitud - AjusteLongitudEstatura;
+        }
+
+        // Convierte una estatura (de pie) a su equivalente en longitud (acostado).
+        public static double convertirEstaturaALongitud(double estatura)
+        {
+            return estatura + AjusteLongitudEstatura;
         }
     }
 }

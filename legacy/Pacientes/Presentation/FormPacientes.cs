@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Pacientes.BusinessLogic;
 using Consultas.Presentation;
+using Estadisticas.Presentation;
 
 namespace Pacientes.Presentation
 {
@@ -109,6 +110,7 @@ namespace Pacientes.Presentation
             buttonEliminar.Enabled = true;
             buttonModificar.Enabled = true;
             buttonHistorial.Enabled = true;
+            buttonCrecimiento.Enabled = true;
         }
 
         private void dataGridViewPacientes_DoubleClick(object sender, EventArgs e)
@@ -225,6 +227,12 @@ namespace Pacientes.Presentation
         {
             FormHistorial historial = new FormHistorial(objPaciente);
             historial.ShowDialog();
+        }
+
+        private void buttonCrecimiento_Click(object sender, EventArgs e)
+        {
+            FormEstadisticasPaciente crecimiento = new FormEstadisticasPaciente(objPaciente.IdPaciente);
+            crecimiento.ShowDialog();
         }
     }
 }

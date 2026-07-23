@@ -49,6 +49,7 @@ namespace Estadisticas.Presentation
                 if(diagnosticos.Count == 0)
                 {
                     chartPatologia.Visible = false;
+                    MessageBox.Show("No hay diagnósticos en el rango de fechas seleccionado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
