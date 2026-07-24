@@ -28,59 +28,80 @@ namespace Estadisticas.Presentation
         {
             paciente = LogicaPercentiles.obtenerPacientePorId(idPaciente);
             labelPaciente.Text += " " + paciente.NombrePaciente;
+            int edadMeses  = LogicaPercentiles.calcularEdadMeses(paciente.FechaNacimiento, DateTime.Now);
 
             //Limpieza y preparación de las gráficas
+            generarCurvasPeso(paciente);
+            generarCurvasTalla(paciente);
+
+            if (edadMeses > LogicaPercentiles.edadMesesMaxima)
+            {
+                labelLimitePeso.Text = "Gráficos hasta los 5 años.";
+                labelLimiteTalla.Text = "Gráficos hasta los 5 años.";
+            }
+        }
+
+        private void generarCurvasPeso(Paciente paciente)
+        {
+            List<CurvaPercentil> curvas = LogicaPercentiles.generarCurvasReferencia(paciente, "Peso");
+
             chartPesoPaciente.Series.Clear();
 
-            int edadMeses = LogicaPercentiles.calcularEdadMeses(paciente.FechaNacimiento, DateTime.Now);
-
-            if (edadMeses > 24)
+            if (curvas.Count > 0)
             {
-                edadMeses = 24;
-            }
-
-            List<ParametrosLMS> parametrosLMS = LogicaPercentiles.obtenerParametrosLMS("Peso", edadMeses, paciente.Sexo);
-            List<PuntoCrecimiento> crecimiento = LogicaEstadisticas.obtenerCurvaCrecimiento(idPaciente);
-
-            if (crecimiento.Count > 0)
-            {
-
-                for (int i = 0; i <= 4; i++)
+                foreach (CurvaPercentil curva in curvas)
                 {
-                    double z = LogicaPercentiles.valoresZPercentiles[i];
-                    string nombre = LogicaPercentiles.nombresPercentiles[i];
-                    Series seriePesoReferencia = new Series(nombre);
+                    Series seriePesoReferencia = new Series(curva.Nombre);
                     seriePesoReferencia.ChartArea = chartPesoPaciente.ChartAreas[0].Name;
                     seriePesoReferencia.ChartType = SeriesChartType.Line;
-                    seriePesoReferencia.IsValueShownAsLabel = false;
+                    seriePesoReferencia.IsValueShownAsLabel = curva.EsPaciente;
 
-                    for (int mes = 0; mes <= edadMeses; mes++)
+                    foreach (PuntoReferencia punto in curva.Puntos)
                     {
-                        ParametrosLMS lms = LogicaPercentiles.seleccionarParametroPorMes(parametrosLMS, "Peso", mes);
-                        double pesoEsperado = LogicaPercentiles.obtenerValorEsperado(z, lms);
-                        seriePesoReferencia.Points.AddXY(mes, pesoEsperado);
+                        seriePesoReferencia.Points.AddXY(punto.MesEdad, punto.Valor);
                     }
 
                     chartPesoPaciente.Series.Add(seriePesoReferencia);
                 }
 
-                Series seriePeso = new Series(paciente.NombrePaciente);
-                seriePeso.ChartArea = chartPesoPaciente.ChartAreas[0].Name;
-                seriePeso.ChartType = SeriesChartType.Line;
-                seriePeso.IsValueShownAsLabel = true;
-
-                foreach (PuntoCrecimiento punto in crecimiento)
-                {
-                    seriePeso.Points.AddXY(punto.EdadMeses, punto.Peso);
-                }
-
-                chartPesoPaciente.Series.Add(seriePeso);
                 chartPesoPaciente.ChartAreas[0].AxisX.Interval = 1;
                 chartPesoPaciente.ChartAreas[0].AxisY.LabelStyle.Angle = -45;
             }
             else
             {
-                MessageBox.Show("No hay datos para mostrar.");
+                labelLimitePeso.Text = "No hay datos para mostrar.";
+            }
+        }
+
+        private void generarCurvasTalla(Paciente paciente)
+        {
+            List<CurvaPercentil> curvas = LogicaPercentiles.generarCurvasReferencia(paciente, "Talla");
+
+            chartTallaPaciente.Series.Clear();
+
+            if (curvas.Count > 0)
+            {
+                foreach (CurvaPercentil curva in curvas)
+                {
+                    Series serieTallaReferencia = new Series(curva.Nombre);
+                    serieTallaReferencia.ChartArea = chartTallaPaciente.ChartAreas[0].Name;
+                    serieTallaReferencia.ChartType = SeriesChartType.Line;
+                    serieTallaReferencia.IsValueShownAsLabel = curva.EsPaciente;
+
+                    foreach (PuntoReferencia punto in curva.Puntos)
+                    {
+                        serieTallaReferencia.Points.AddXY(punto.MesEdad, punto.Valor);
+                    }
+
+                    chartTallaPaciente.Series.Add(serieTallaReferencia);
+                }
+
+                chartTallaPaciente.ChartAreas[0].AxisX.Interval = 1;
+                chartTallaPaciente.ChartAreas[0].AxisY.LabelStyle.Angle = -45;
+            }
+            else
+            {
+                labelLimiteTalla.Text = "No hay datos para mostrar.";
             }
         }
     }

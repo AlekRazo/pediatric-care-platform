@@ -24,7 +24,7 @@ namespace Estadisticas.BusinessLogic
             Paciente paciente = LogicaPercentiles.obtenerPacientePorId(idPaciente);
             List<PuntoCrecimiento> crecimiento = EstadisticaDatos.obtenerCurvaCrecimiento(idPaciente);
 
-            foreach (var item in crecimiento)
+            foreach (PuntoCrecimiento item in crecimiento)
             {
                 item.EdadMeses = LogicaPercentiles.calcularEdadMeses(paciente.FechaNacimiento, item.FechaConsulta);
             }

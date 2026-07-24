@@ -36,13 +36,13 @@
             this.buttonModificar = new System.Windows.Forms.Button();
             this.buttonAgregar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonCrecimiento = new System.Windows.Forms.Button();
             this.buttonHistorial = new System.Windows.Forms.Button();
             this.buttonConsulta = new System.Windows.Forms.Button();
             this.dataGridViewVerPacientes = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonCrecimiento = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVerPacientes)).BeginInit();
             this.SuspendLayout();
@@ -165,6 +165,18 @@
             this.panel1.Size = new System.Drawing.Size(997, 606);
             this.panel1.TabIndex = 4;
             // 
+            // buttonCrecimiento
+            // 
+            this.buttonCrecimiento.Enabled = false;
+            this.buttonCrecimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCrecimiento.Location = new System.Drawing.Point(694, 533);
+            this.buttonCrecimiento.Name = "buttonCrecimiento";
+            this.buttonCrecimiento.Size = new System.Drawing.Size(137, 54);
+            this.buttonCrecimiento.TabIndex = 80;
+            this.buttonCrecimiento.Text = "Crecimiento";
+            this.buttonCrecimiento.UseVisualStyleBackColor = true;
+            this.buttonCrecimiento.Click += new System.EventHandler(this.buttonCrecimiento_Click);
+            // 
             // buttonHistorial
             // 
             this.buttonHistorial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -246,18 +258,6 @@
             this.label1.Size = new System.Drawing.Size(97, 24);
             this.label1.TabIndex = 11;
             this.label1.Text = "Paciente:";
-            // 
-            // buttonCrecimiento
-            // 
-            this.buttonCrecimiento.Enabled = false;
-            this.buttonCrecimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCrecimiento.Location = new System.Drawing.Point(694, 533);
-            this.buttonCrecimiento.Name = "buttonCrecimiento";
-            this.buttonCrecimiento.Size = new System.Drawing.Size(137, 54);
-            this.buttonCrecimiento.TabIndex = 80;
-            this.buttonCrecimiento.Text = "Crecimiento";
-            this.buttonCrecimiento.UseVisualStyleBackColor = true;
-            this.buttonCrecimiento.Click += new System.EventHandler(this.buttonCrecimiento_Click);
             // 
             // FormPacientes
             // 

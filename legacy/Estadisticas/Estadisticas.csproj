@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\CurvaPercentil.cs" />
     <Compile Include="BusinessLogic\DiagnosticoPatologia.cs" />
     <Compile Include="BusinessLogic\EstadisticaDiagnostico.cs" />
     <Compile Include="BusinessLogic\Paciente.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="BusinessLogic\LogicaEstadisticas.cs" />
     <Compile Include="BusinessLogic\LogicaPercentiles.cs" />
     <Compile Include="BusinessLogic\PuntoCrecimiento.cs" />
+    <Compile Include="BusinessLogic\PuntoReferencia.cs" />
     <Compile Include="DataAccess\CrecimientoDatos.cs" />
     <Compile Include="DataAccess\EstadisticaDatos.cs" />
     <Compile Include="Presentation\FormEstadisticasPaciente.cs">

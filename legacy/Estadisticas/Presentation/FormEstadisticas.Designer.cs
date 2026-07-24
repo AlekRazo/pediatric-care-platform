@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -233,10 +233,10 @@
             this.chartPatologia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chartPatologia.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartPatologia.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chartPatologia.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartPatologia.Legends.Add(legend2);
             this.chartPatologia.Location = new System.Drawing.Point(8, 83);
             this.chartPatologia.Name = "chartPatologia";
             this.chartPatologia.Size = new System.Drawing.Size(951, 441);

@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Estadisticas.BusinessLogic
 {
     public class LogicaPercentiles
     {
-        public static readonly double[] valoresZPercentiles = { -1.8808, -1.0364, 0.0, 1.0364, 1.8808 };
-        public static readonly string[] nombresPercentiles = { "P3", "P15", "P50", "P85", "P97" };
-        public const double AjusteLongitudEstatura = 0.7; // cm de diferencia entre longitud (acostado) y estatura (de pie), por convención OMS
+        public static int edadMesesMaxima = 60;
+        private static double[] valoresZPercentiles = { -1.8808, -1.0364, 0.0, 1.0364, 1.8808 };
+        private static string[] nombresPercentiles = { "P3", "P15", "P50", "P85", "P97" };
+        private static double AjusteLongitudEstatura = 0.7; // cm de diferencia entre longitud (acostado) y estatura (de pie), por convención OMS
 
         public static Paciente obtenerPacientePorId(int idPaciente)
         {
@@ -120,6 +123,74 @@ namespace Estadisticas.BusinessLogic
         public static double convertirEstaturaALongitud(double estatura)
         {
             return estatura + AjusteLongitudEstatura;
+        }
+
+        public static List<CurvaPercentil> generarCurvasReferencia(Paciente paciente, string indicador)
+        {
+            List<CurvaPercentil> curvas = new List<CurvaPercentil>();
+            int edadMeses = calcularEdadMeses(paciente.FechaNacimiento, DateTime.Now);
+
+            if (edadMeses > edadMesesMaxima)
+            {
+                edadMeses = edadMesesMaxima;
+            }
+
+            List<ParametrosLMS> parametrosLMS = obtenerParametrosLMS(indicador, edadMeses, paciente.Sexo);
+            List<PuntoCrecimiento> crecimiento = LogicaEstadisticas.obtenerCurvaCrecimiento(paciente.IdPaciente);
+
+            if (crecimiento.Count > 0)
+            {
+
+                for (int i = 0; i <= 4; i++)
+                {
+                    double z = valoresZPercentiles[i];
+                    string nombre = nombresPercentiles[i];
+                    CurvaPercentil curva = new CurvaPercentil();
+                    curva.EsPaciente = false;
+                    curva.Nombre = nombre;
+                    curva.Puntos = new List<PuntoReferencia>();
+
+                    for (int mes = 0; mes <= edadMeses; mes++)
+                    {
+                        PuntoReferencia puntoReferencia = new PuntoReferencia();
+                        ParametrosLMS lms = seleccionarParametroPorMes(parametrosLMS, indicador, mes);
+                        double valor = obtenerValorEsperado(z, lms);
+
+                        puntoReferencia.MesEdad = mes;
+                        puntoReferencia.Valor = valor;
+                        curva.Puntos.Add(puntoReferencia);
+                    }
+
+                    curvas.Add(curva);
+                }
+
+                CurvaPercentil curvaCrecimiento = new CurvaPercentil();
+                curvaCrecimiento.EsPaciente = true;
+                curvaCrecimiento.Nombre = paciente.NombrePaciente;
+                curvaCrecimiento.Puntos = new List<PuntoReferencia>();
+
+                foreach (PuntoCrecimiento punto in crecimiento)
+                {
+                    PuntoReferencia puntoReferencia = new PuntoReferencia();
+                    puntoReferencia.MesEdad = punto.EdadMeses;
+                    switch(indicador)
+                    {
+                        case "Peso":
+                            puntoReferencia.Valor = punto.Peso;
+                            break;
+
+                        case "Talla":
+                            puntoReferencia.Valor = punto.Talla;
+                            break;
+                    }
+                    
+                    curvaCrecimiento.Puntos.Add(puntoReferencia);
+                }
+
+                curvas.Add(curvaCrecimiento);
+            }
+
+            return curvas;
         }
     }
 }

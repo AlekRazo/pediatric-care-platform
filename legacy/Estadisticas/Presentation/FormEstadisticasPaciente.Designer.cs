@@ -28,27 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chartPesoPaciente = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chartTallaPaciente = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.labelPaciente = new System.Windows.Forms.Label();
-            this.chartPesoPaciente = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.labelLimiteTalla = new System.Windows.Forms.Label();
+            this.labelLimitePeso = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartPesoPaciente)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTallaPaciente)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartPesoPaciente)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -85,7 +87,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(977, 542);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Estadísticas de Diagnóstico";
+            this.tabPage1.Text = "Peso Vs Edad";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -93,12 +95,26 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.labelLimitePeso);
             this.panel2.Controls.Add(this.chartPesoPaciente);
             this.panel2.Location = new System.Drawing.Point(7, 7);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(963, 528);
             this.panel2.TabIndex = 5;
+            // 
+            // chartPesoPaciente
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartPesoPaciente.ChartAreas.Add(chartArea1);
+            this.chartPesoPaciente.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chartPesoPaciente.Legends.Add(legend1);
+            this.chartPesoPaciente.Location = new System.Drawing.Point(0, 0);
+            this.chartPesoPaciente.Name = "chartPesoPaciente";
+            this.chartPesoPaciente.Size = new System.Drawing.Size(963, 528);
+            this.chartPesoPaciente.TabIndex = 82;
+            this.chartPesoPaciente.Text = "chart1";
             // 
             // tabPage2
             // 
@@ -108,7 +124,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(977, 542);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Gráficas de Patología";
+            this.tabPage2.Text = "Talla Vs Edad";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel3
@@ -116,6 +132,7 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.labelLimiteTalla);
             this.panel3.Controls.Add(this.chartTallaPaciente);
             this.panel3.Location = new System.Drawing.Point(7, 7);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
@@ -125,11 +142,11 @@
             // 
             // chartTallaPaciente
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartTallaPaciente.ChartAreas.Add(chartArea3);
+            chartArea2.Name = "ChartArea1";
+            this.chartTallaPaciente.ChartAreas.Add(chartArea2);
             this.chartTallaPaciente.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chartTallaPaciente.Legends.Add(legend3);
+            legend2.Name = "Legend1";
+            this.chartTallaPaciente.Legends.Add(legend2);
             this.chartTallaPaciente.Location = new System.Drawing.Point(0, 0);
             this.chartTallaPaciente.Name = "chartTallaPaciente";
             this.chartTallaPaciente.Size = new System.Drawing.Size(963, 528);
@@ -147,18 +164,28 @@
             this.labelPaciente.TabIndex = 75;
             this.labelPaciente.Text = "Estadísticas";
             // 
-            // chartPesoPaciente
+            // labelLimiteTalla
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartPesoPaciente.ChartAreas.Add(chartArea4);
-            this.chartPesoPaciente.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.chartPesoPaciente.Legends.Add(legend4);
-            this.chartPesoPaciente.Location = new System.Drawing.Point(0, 0);
-            this.chartPesoPaciente.Name = "chartPesoPaciente";
-            this.chartPesoPaciente.Size = new System.Drawing.Size(963, 528);
-            this.chartPesoPaciente.TabIndex = 82;
-            this.chartPesoPaciente.Text = "chart1";
+            this.labelLimiteTalla.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelLimiteTalla.AutoSize = true;
+            this.labelLimiteTalla.Location = new System.Drawing.Point(916, 512);
+            this.labelLimiteTalla.Name = "labelLimiteTalla";
+            this.labelLimiteTalla.Size = new System.Drawing.Size(0, 16);
+            this.labelLimiteTalla.TabIndex = 7;
+            // 
+            // labelLimitePeso
+            // 
+            this.labelLimitePeso.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelLimitePeso.AutoSize = true;
+            this.labelLimitePeso.Location = new System.Drawing.Point(916, 512);
+            this.labelLimitePeso.Name = "labelLimitePeso";
+            this.labelLimitePeso.Size = new System.Drawing.Size(44, 16);
+            this.labelLimitePeso.TabIndex = 83;
+            this.labelLimitePeso.Text = "label1";
             // 
             // FormEstadisticasPaciente
             // 
@@ -174,10 +201,12 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartPesoPaciente)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTallaPaciente)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartPesoPaciente)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -193,5 +222,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartTallaPaciente;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartPesoPaciente;
+        private System.Windows.Forms.Label labelLimiteTalla;
+        private System.Windows.Forms.Label labelLimitePeso;
     }
 }
