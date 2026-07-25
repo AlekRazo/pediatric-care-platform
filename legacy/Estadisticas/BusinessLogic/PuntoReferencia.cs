@@ -10,6 +10,7 @@ namespace Estadisticas.BusinessLogic
     {
         private double mesEdad;
         private double valor;
+        private double percentil;
 
         public double MesEdad {
             get
@@ -31,6 +32,18 @@ namespace Estadisticas.BusinessLogic
             set
             {
                 valor = value;
+            }
+        }
+
+        public double Percentil
+        {
+            get
+            {
+                return percentil;
+            }
+            set
+            {
+                percentil = value;
             }
         }
     }

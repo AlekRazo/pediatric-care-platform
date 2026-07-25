@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonGenerarReporteDiagnostico = new System.Windows.Forms.Button();
             this.dateTimeFinEstadisticas = new System.Windows.Forms.DateTimePicker();
             this.dateTimeInicioEstadisticas = new System.Windows.Forms.DateTimePicker();
             this.textBoxFiltroPaciente = new System.Windows.Forms.TextBox();
@@ -44,10 +45,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.buttonGrafica = new System.Windows.Forms.Button();
             this.chartPatologia = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dateTimeFinGrafica = new System.Windows.Forms.DateTimePicker();
             this.dateTimeInicioGrafica = new System.Windows.Forms.DateTimePicker();
-            this.buttonGrafica = new System.Windows.Forms.Button();
+            this.buttonGenerarReportePatologia = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -103,6 +105,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.buttonGenerarReporteDiagnostico);
             this.panel2.Controls.Add(this.dateTimeFinEstadisticas);
             this.panel2.Controls.Add(this.dateTimeInicioEstadisticas);
             this.panel2.Controls.Add(this.textBoxFiltroPaciente);
@@ -117,12 +120,26 @@
             this.panel2.Size = new System.Drawing.Size(963, 528);
             this.panel2.TabIndex = 5;
             // 
+            // buttonGenerarReporteDiagnostico
+            // 
+            this.buttonGenerarReporteDiagnostico.Enabled = false;
+            this.buttonGenerarReporteDiagnostico.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGenerarReporteDiagnostico.Location = new System.Drawing.Point(718, 50);
+            this.buttonGenerarReporteDiagnostico.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonGenerarReporteDiagnostico.Name = "buttonGenerarReporteDiagnostico";
+            this.buttonGenerarReporteDiagnostico.Size = new System.Drawing.Size(241, 24);
+            this.buttonGenerarReporteDiagnostico.TabIndex = 81;
+            this.buttonGenerarReporteDiagnostico.Text = "Generar Reporte";
+            this.buttonGenerarReporteDiagnostico.UseVisualStyleBackColor = true;
+            this.buttonGenerarReporteDiagnostico.Click += new System.EventHandler(this.buttonGenerarReporteDiagnostico_Click);
+            // 
             // dateTimeFinEstadisticas
             // 
             this.dateTimeFinEstadisticas.Location = new System.Drawing.Point(510, 16);
             this.dateTimeFinEstadisticas.Name = "dateTimeFinEstadisticas";
             this.dateTimeFinEstadisticas.Size = new System.Drawing.Size(200, 22);
             this.dateTimeFinEstadisticas.TabIndex = 80;
+            this.dateTimeFinEstadisticas.ValueChanged += new System.EventHandler(this.dateTimeFinEstadisticas_ValueChanged);
             // 
             // dateTimeInicioEstadisticas
             // 
@@ -130,6 +147,7 @@
             this.dateTimeInicioEstadisticas.Name = "dateTimeInicioEstadisticas";
             this.dateTimeInicioEstadisticas.Size = new System.Drawing.Size(200, 22);
             this.dateTimeInicioEstadisticas.TabIndex = 79;
+            this.dateTimeInicioEstadisticas.ValueChanged += new System.EventHandler(this.dateTimeInicioEstadisticas_ValueChanged);
             // 
             // textBoxFiltroPaciente
             // 
@@ -139,6 +157,7 @@
             this.textBoxFiltroPaciente.Name = "textBoxFiltroPaciente";
             this.textBoxFiltroPaciente.Size = new System.Drawing.Size(590, 29);
             this.textBoxFiltroPaciente.TabIndex = 78;
+            this.textBoxFiltroPaciente.TextChanged += new System.EventHandler(this.textBoxFiltroPaciente_TextChanged);
             // 
             // label4
             // 
@@ -153,11 +172,11 @@
             // 
             // buttonBuscar
             // 
-            this.buttonBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBuscar.Location = new System.Drawing.Point(834, 4);
+            this.buttonBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBuscar.Location = new System.Drawing.Point(718, 15);
             this.buttonBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonBuscar.Name = "buttonBuscar";
-            this.buttonBuscar.Size = new System.Drawing.Size(125, 46);
+            this.buttonBuscar.Size = new System.Drawing.Size(241, 24);
             this.buttonBuscar.TabIndex = 19;
             this.buttonBuscar.Text = "Buscar";
             this.buttonBuscar.UseVisualStyleBackColor = true;
@@ -216,10 +235,11 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.buttonGrafica);
             this.panel3.Controls.Add(this.chartPatologia);
             this.panel3.Controls.Add(this.dateTimeFinGrafica);
             this.panel3.Controls.Add(this.dateTimeInicioGrafica);
-            this.panel3.Controls.Add(this.buttonGrafica);
+            this.panel3.Controls.Add(this.buttonGenerarReportePatologia);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Location = new System.Drawing.Point(7, 7);
@@ -228,15 +248,27 @@
             this.panel3.Size = new System.Drawing.Size(963, 528);
             this.panel3.TabIndex = 6;
             // 
+            // buttonGrafica
+            // 
+            this.buttonGrafica.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGrafica.Location = new System.Drawing.Point(701, 4);
+            this.buttonGrafica.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonGrafica.Name = "buttonGrafica";
+            this.buttonGrafica.Size = new System.Drawing.Size(125, 46);
+            this.buttonGrafica.TabIndex = 82;
+            this.buttonGrafica.Text = "Buscar";
+            this.buttonGrafica.UseVisualStyleBackColor = true;
+            this.buttonGrafica.Click += new System.EventHandler(this.buttonGrafica_Click);
+            // 
             // chartPatologia
             // 
             this.chartPatologia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Name = "ChartArea1";
-            this.chartPatologia.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartPatologia.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chartPatologia.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartPatologia.Legends.Add(legend1);
             this.chartPatologia.Location = new System.Drawing.Point(8, 83);
             this.chartPatologia.Name = "chartPatologia";
             this.chartPatologia.Size = new System.Drawing.Size(951, 441);
@@ -245,10 +277,11 @@
             // 
             // dateTimeFinGrafica
             // 
-            this.dateTimeFinGrafica.Location = new System.Drawing.Point(510, 16);
+            this.dateTimeFinGrafica.Location = new System.Drawing.Point(494, 16);
             this.dateTimeFinGrafica.Name = "dateTimeFinGrafica";
             this.dateTimeFinGrafica.Size = new System.Drawing.Size(200, 22);
             this.dateTimeFinGrafica.TabIndex = 80;
+            this.dateTimeFinGrafica.ValueChanged += new System.EventHandler(this.dateTimeFinGrafica_ValueChanged);
             // 
             // dateTimeInicioGrafica
             // 
@@ -256,24 +289,26 @@
             this.dateTimeInicioGrafica.Name = "dateTimeInicioGrafica";
             this.dateTimeInicioGrafica.Size = new System.Drawing.Size(200, 22);
             this.dateTimeInicioGrafica.TabIndex = 79;
+            this.dateTimeInicioGrafica.ValueChanged += new System.EventHandler(this.dateTimeInicioGrafica_ValueChanged);
             // 
-            // buttonGrafica
+            // buttonGenerarReportePatologia
             // 
-            this.buttonGrafica.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGrafica.Location = new System.Drawing.Point(834, 4);
-            this.buttonGrafica.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonGrafica.Name = "buttonGrafica";
-            this.buttonGrafica.Size = new System.Drawing.Size(125, 46);
-            this.buttonGrafica.TabIndex = 19;
-            this.buttonGrafica.Text = "Buscar";
-            this.buttonGrafica.UseVisualStyleBackColor = true;
-            this.buttonGrafica.Click += new System.EventHandler(this.buttonGrafica_Click);
+            this.buttonGenerarReportePatologia.Enabled = false;
+            this.buttonGenerarReportePatologia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGenerarReportePatologia.Location = new System.Drawing.Point(834, 4);
+            this.buttonGenerarReportePatologia.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonGenerarReportePatologia.Name = "buttonGenerarReportePatologia";
+            this.buttonGenerarReportePatologia.Size = new System.Drawing.Size(125, 46);
+            this.buttonGenerarReportePatologia.TabIndex = 19;
+            this.buttonGenerarReportePatologia.Text = "Generar Reporte";
+            this.buttonGenerarReportePatologia.UseVisualStyleBackColor = true;
+            this.buttonGenerarReportePatologia.Click += new System.EventHandler(this.buttonGenerarReportePatologia_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(435, 15);
+            this.label5.Location = new System.Drawing.Point(419, 15);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(68, 24);
@@ -345,8 +380,10 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartPatologia;
         private System.Windows.Forms.DateTimePicker dateTimeFinGrafica;
         private System.Windows.Forms.DateTimePicker dateTimeInicioGrafica;
-        private System.Windows.Forms.Button buttonGrafica;
+        private System.Windows.Forms.Button buttonGenerarReportePatologia;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button buttonGenerarReporteDiagnostico;
+        private System.Windows.Forms.Button buttonGrafica;
     }
 }

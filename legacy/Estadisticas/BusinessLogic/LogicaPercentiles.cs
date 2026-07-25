@@ -173,17 +173,23 @@ namespace Estadisticas.BusinessLogic
                 {
                     PuntoReferencia puntoReferencia = new PuntoReferencia();
                     puntoReferencia.MesEdad = punto.EdadMeses;
+                    double valor = 0;
+
                     switch(indicador)
                     {
                         case "Peso":
-                            puntoReferencia.Valor = punto.Peso;
+                            valor = punto.Peso;
                             break;
 
                         case "Talla":
-                            puntoReferencia.Valor = punto.Talla;
+                            valor = punto.Talla;
                             break;
                     }
-                    
+
+                    puntoReferencia.Valor = valor;
+                    ParametrosLMS lmsPunto = seleccionarParametroPorMes(parametrosLMS, indicador, punto.EdadMeses);
+                    double z = calcularZ(valor, lmsPunto);
+                    puntoReferencia.Percentil = calcularPercentil(z);
                     curvaCrecimiento.Puntos.Add(puntoReferencia);
                 }
 
