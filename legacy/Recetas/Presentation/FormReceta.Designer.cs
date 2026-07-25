@@ -43,6 +43,8 @@
             this.labelNomPaciente = new System.Windows.Forms.Label();
             this.buttonCancelar = new System.Windows.Forms.Button();
             this.buttonAceptar = new System.Windows.Forms.Button();
+            this.buttonImprimir = new System.Windows.Forms.Button();
+            this.printDocumentReceta = new System.Drawing.Printing.PrintDocument();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -217,11 +219,29 @@
             this.buttonAceptar.UseVisualStyleBackColor = true;
             this.buttonAceptar.Click += new System.EventHandler(this.buttonAceptar_Click);
             // 
+            // buttonImprimir
+            // 
+            this.buttonImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonImprimir.Location = new System.Drawing.Point(524, 572);
+            this.buttonImprimir.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonImprimir.Name = "buttonImprimir";
+            this.buttonImprimir.Size = new System.Drawing.Size(137, 37);
+            this.buttonImprimir.TabIndex = 74;
+            this.buttonImprimir.Text = "Imprimir Receta";
+            this.buttonImprimir.UseVisualStyleBackColor = true;
+            this.buttonImprimir.Click += new System.EventHandler(this.buttonImprimir_Click);
+            // 
+            // printDocumentReceta
+            // 
+            this.printDocumentReceta.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocumentReceta_PrintPage);
+            // 
             // FormReceta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(968, 622);
+            this.Controls.Add(this.buttonImprimir);
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonAceptar);
             this.Controls.Add(this.panel1);
@@ -255,5 +275,7 @@
         private System.Windows.Forms.Label labelNomPaciente;
         private System.Windows.Forms.Button buttonCancelar;
         private System.Windows.Forms.Button buttonAceptar;
+        private System.Windows.Forms.Button buttonImprimir;
+        private System.Drawing.Printing.PrintDocument printDocumentReceta;
     }
 }
