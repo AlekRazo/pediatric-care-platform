@@ -1,14 +1,8 @@
 ﻿using Helpers.Helpers;
 using Recetas.BusinessLogic;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Recetas.Presentation
@@ -21,6 +15,8 @@ namespace Recetas.Presentation
         double talla;
         DateTime fechaConsulta;
         string nombrePaciente;
+        bool recetaImpresa;
+        bool recetaGuardada;
 
         public FormReceta(string nombrePaciente, int idPaciente, int idConsulta, double peso, double talla, DateTime fechaConsulta)
         {
@@ -31,6 +27,8 @@ namespace Recetas.Presentation
             this.talla = talla;
             this.fechaConsulta = fechaConsulta;
             this.nombrePaciente = nombrePaciente;
+            recetaImpresa = false;
+            recetaGuardada = false;
         }
 
         private void FormReceta_Load(object sender, EventArgs e)
@@ -43,33 +41,65 @@ namespace Recetas.Presentation
 
         private void buttonAceptar_Click(object sender, EventArgs e)
         {
-            Receta objReceta = new Receta();
-
             if (Validaciones.esNumeroDecimal(textBoxPeso.Text))
             {
                 if (Validaciones.esNumeroDecimal(textBoxTalla.Text))
                 {
                     if (dateTimePickerFecha.Value.Date >= DateTime.Today.Date)
                     {
-                        objReceta.IdPaciente = idPaciente;
-                        objReceta.IdConsulta = idConsulta;
-                        objReceta.FechaConsulta = dateTimePickerFecha.Value;
-                        objReceta.Peso = Double.Parse(textBoxPeso.Text);
-                        objReceta.Talla = Double.Parse(textBoxTalla.Text);
-                        objReceta.Descripcion = textBoxReceta.Text;
-
-                        DialogResult result1 = MessageBox.Show("¿Está seguro que desea guardar la receta?", "Receta", MessageBoxButtons.YesNo);
-
-                        if (result1 == DialogResult.Yes)
+                        if (recetaGuardada == false)
                         {
-                            int result = LogicaReceta.nuevaReceta(objReceta);
+                            DialogResult result1 = MessageBox.Show("¿Está seguro que desea guardar la receta?", "Receta", MessageBoxButtons.YesNo);
 
-                            if (result > 0)
+                            if (result1 == DialogResult.Yes)
                             {
-                                MessageBox.Show("Receta registrada");
+                                Receta objReceta = new Receta();
+                                objReceta.IdPaciente = idPaciente;
+                                objReceta.IdConsulta = idConsulta;
+                                objReceta.FechaConsulta = dateTimePickerFecha.Value;
+                                objReceta.Peso = Double.Parse(textBoxPeso.Text);
+                                objReceta.Talla = Double.Parse(textBoxTalla.Text);
+                                objReceta.Descripcion = textBoxReceta.Text;
 
+                                try
+                                {
+                                    int result = LogicaReceta.nuevaReceta(objReceta);
+
+                                    if (result > 0)
+                                    {
+                                        MessageBox.Show("Receta registrada");
+                                        recetaGuardada = true;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("No se pudo registrar la receta. Intenta de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        return;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("No se pudo guardar la receta. Intenta de nuevo.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                return; // decidió no guardar todavía; no hay nada más que hacer en este clic
+                            }
+                        }
+
+                        if (recetaImpresa == false)
+                        {
+                            DialogResult result2 = MessageBox.Show("¿Está seguro que desea salir sin imprimir la receta?", "Receta", MessageBoxButtons.YesNo);
+
+                            if(result2 == DialogResult.Yes)
+                            {
                                 Close();
                             }
+                        }
+                        else
+                        {
+                            Close();
                         }
                     }
                     else
@@ -88,11 +118,6 @@ namespace Recetas.Presentation
             }
         }
 
-        private void FormReceta_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void buttonImprimir_Click(object sender, EventArgs e)
         {
             PrintDialog dialogoImprimir = new PrintDialog();
@@ -101,6 +126,7 @@ namespace Recetas.Presentation
             if (dialogoImprimir.ShowDialog() == DialogResult.OK)
             {
                 printDocumentReceta.Print();
+                recetaImpresa = true;
             }
         }
 

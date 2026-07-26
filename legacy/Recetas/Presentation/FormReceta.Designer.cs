@@ -247,8 +247,7 @@
             this.Controls.Add(this.panel1);
             this.Location = new System.Drawing.Point(16, 15);
             this.Name = "FormReceta";
-            this.Text = "FormReceta";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormReceta_FormClosed);
+            this.Text = "Surtir Receta";
             this.Load += new System.EventHandler(this.FormReceta_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
