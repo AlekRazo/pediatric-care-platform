@@ -327,6 +327,7 @@
             this.tabControl1.Controls.Add(this.Embarazo);
             this.tabControl1.Controls.Add(this.Vacunas);
             this.tabControl1.Controls.Add(this.Citas);
+            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(4, 33);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
@@ -405,6 +406,7 @@
             // radioButtonMasculino
             // 
             this.radioButtonMasculino.AutoSize = true;
+            this.radioButtonMasculino.Enabled = false;
             this.radioButtonMasculino.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonMasculino.Location = new System.Drawing.Point(8, 18);
             this.radioButtonMasculino.Margin = new System.Windows.Forms.Padding(4);
@@ -419,6 +421,7 @@
             // radioButtonFemenino
             // 
             this.radioButtonFemenino.AutoSize = true;
+            this.radioButtonFemenino.Enabled = false;
             this.radioButtonFemenino.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonFemenino.Location = new System.Drawing.Point(67, 18);
             this.radioButtonFemenino.Margin = new System.Windows.Forms.Padding(4);
@@ -450,6 +453,7 @@
             // 
             // textBoxCP
             // 
+            this.textBoxCP.Enabled = false;
             this.textBoxCP.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCP.Location = new System.Drawing.Point(201, 283);
             this.textBoxCP.Margin = new System.Windows.Forms.Padding(4);
@@ -484,6 +488,7 @@
             // 
             // textBoxObservaciones
             // 
+            this.textBoxObservaciones.Enabled = false;
             this.textBoxObservaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxObservaciones.Location = new System.Drawing.Point(720, 126);
             this.textBoxObservaciones.Margin = new System.Windows.Forms.Padding(4);
@@ -505,6 +510,7 @@
             // 
             // textBoxOtro
             // 
+            this.textBoxOtro.Enabled = false;
             this.textBoxOtro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOtro.Location = new System.Drawing.Point(721, 351);
             this.textBoxOtro.Margin = new System.Windows.Forms.Padding(4);
@@ -528,6 +534,7 @@
             // checkBoxTutor
             // 
             this.checkBoxTutor.AutoSize = true;
+            this.checkBoxTutor.Enabled = false;
             this.checkBoxTutor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxTutor.Location = new System.Drawing.Point(623, 177);
             this.checkBoxTutor.Margin = new System.Windows.Forms.Padding(4);
@@ -539,6 +546,7 @@
             // 
             // textBoxSeguro
             // 
+            this.textBoxSeguro.Enabled = false;
             this.textBoxSeguro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSeguro.Location = new System.Drawing.Point(720, 238);
             this.textBoxSeguro.Margin = new System.Windows.Forms.Padding(4);
@@ -549,6 +557,7 @@
             // 
             // textBoxTutor
             // 
+            this.textBoxTutor.Enabled = false;
             this.textBoxTutor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTutor.Location = new System.Drawing.Point(720, 175);
             this.textBoxTutor.Margin = new System.Windows.Forms.Padding(4);
@@ -559,6 +568,7 @@
             // 
             // dateTimePickerFechaNac
             // 
+            this.dateTimePickerFechaNac.Enabled = false;
             this.dateTimePickerFechaNac.Location = new System.Drawing.Point(31, 372);
             this.dateTimePickerFechaNac.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerFechaNac.Name = "dateTimePickerFechaNac";
@@ -568,6 +578,7 @@
             // 
             // textBoxLugarNac
             // 
+            this.textBoxLugarNac.Enabled = false;
             this.textBoxLugarNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxLugarNac.Location = new System.Drawing.Point(259, 545);
             this.textBoxLugarNac.Margin = new System.Windows.Forms.Padding(4);
@@ -577,6 +588,7 @@
             // 
             // textBoxTelCel
             // 
+            this.textBoxTelCel.Enabled = false;
             this.textBoxTelCel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTelCel.Location = new System.Drawing.Point(217, 464);
             this.textBoxTelCel.Margin = new System.Windows.Forms.Padding(4);
@@ -587,6 +599,7 @@
             // 
             // textBoxTelCasa
             // 
+            this.textBoxTelCasa.Enabled = false;
             this.textBoxTelCasa.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTelCasa.Location = new System.Drawing.Point(217, 418);
             this.textBoxTelCasa.Margin = new System.Windows.Forms.Padding(4);
@@ -597,6 +610,7 @@
             // 
             // textBoxDomicilio
             // 
+            this.textBoxDomicilio.Enabled = false;
             this.textBoxDomicilio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDomicilio.Location = new System.Drawing.Point(201, 190);
             this.textBoxDomicilio.Margin = new System.Windows.Forms.Padding(4);
@@ -608,6 +622,7 @@
             // 
             // textBoxNombrePadre
             // 
+            this.textBoxNombrePadre.Enabled = false;
             this.textBoxNombrePadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNombrePadre.Location = new System.Drawing.Point(201, 138);
             this.textBoxNombrePadre.Margin = new System.Windows.Forms.Padding(4);
@@ -618,6 +633,7 @@
             // 
             // textBoxNombreMadre
             // 
+            this.textBoxNombreMadre.Enabled = false;
             this.textBoxNombreMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNombreMadre.Location = new System.Drawing.Point(201, 75);
             this.textBoxNombreMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -640,6 +656,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
+            this.label14.Enabled = false;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(623, 241);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -749,6 +766,7 @@
             // 
             // textBoxNombre
             // 
+            this.textBoxNombre.Enabled = false;
             this.textBoxNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNombre.Location = new System.Drawing.Point(201, 21);
             this.textBoxNombre.Margin = new System.Windows.Forms.Padding(4);
@@ -834,6 +852,7 @@
             // 
             // numericUpDownNumCesarea
             // 
+            this.numericUpDownNumCesarea.Enabled = false;
             this.numericUpDownNumCesarea.Location = new System.Drawing.Point(179, 545);
             this.numericUpDownNumCesarea.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownNumCesarea.Name = "numericUpDownNumCesarea";
@@ -842,6 +861,7 @@
             // 
             // numericUpDownNumEmbarazo
             // 
+            this.numericUpDownNumEmbarazo.Enabled = false;
             this.numericUpDownNumEmbarazo.Location = new System.Drawing.Point(179, 481);
             this.numericUpDownNumEmbarazo.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownNumEmbarazo.Name = "numericUpDownNumEmbarazo";
@@ -883,6 +903,7 @@
             // 
             // textBoxToxicomaniasMadre
             // 
+            this.textBoxToxicomaniasMadre.Enabled = false;
             this.textBoxToxicomaniasMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxToxicomaniasMadre.Location = new System.Drawing.Point(709, 190);
             this.textBoxToxicomaniasMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -903,6 +924,7 @@
             // 
             // numericUpDownNumPartos
             // 
+            this.numericUpDownNumPartos.Enabled = false;
             this.numericUpDownNumPartos.Location = new System.Drawing.Point(179, 513);
             this.numericUpDownNumPartos.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownNumPartos.Name = "numericUpDownNumPartos";
@@ -955,6 +977,7 @@
             // 
             // textBoxEstadoSaludActualMadre
             // 
+            this.textBoxEstadoSaludActualMadre.Enabled = false;
             this.textBoxEstadoSaludActualMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEstadoSaludActualMadre.Location = new System.Drawing.Point(524, 433);
             this.textBoxEstadoSaludActualMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -976,6 +999,7 @@
             // 
             // textBoxDismorfologicosMadre
             // 
+            this.textBoxDismorfologicosMadre.Enabled = false;
             this.textBoxDismorfologicosMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDismorfologicosMadre.Location = new System.Drawing.Point(709, 238);
             this.textBoxDismorfologicosMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -985,6 +1009,7 @@
             // 
             // textBoxAlergiasMadre
             // 
+            this.textBoxAlergiasMadre.Enabled = false;
             this.textBoxAlergiasMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAlergiasMadre.Location = new System.Drawing.Point(159, 380);
             this.textBoxAlergiasMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -994,6 +1019,7 @@
             // 
             // textBoxOtrosMadre
             // 
+            this.textBoxOtrosMadre.Enabled = false;
             this.textBoxOtrosMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOtrosMadre.Location = new System.Drawing.Point(159, 426);
             this.textBoxOtrosMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1004,6 +1030,7 @@
             // checkBoxCancerMadre
             // 
             this.checkBoxCancerMadre.AutoSize = true;
+            this.checkBoxCancerMadre.Enabled = false;
             this.checkBoxCancerMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCancerMadre.Location = new System.Drawing.Point(43, 331);
             this.checkBoxCancerMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1016,6 +1043,7 @@
             // checkBoxDismorfologicosMadre
             // 
             this.checkBoxDismorfologicosMadre.AutoSize = true;
+            this.checkBoxDismorfologicosMadre.Enabled = false;
             this.checkBoxDismorfologicosMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDismorfologicosMadre.Location = new System.Drawing.Point(269, 240);
             this.checkBoxDismorfologicosMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1028,6 +1056,7 @@
             // checkBoxDiabetesMadre
             // 
             this.checkBoxDiabetesMadre.AutoSize = true;
+            this.checkBoxDiabetesMadre.Enabled = false;
             this.checkBoxDiabetesMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDiabetesMadre.Location = new System.Drawing.Point(43, 286);
             this.checkBoxDiabetesMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1040,6 +1069,7 @@
             // checkBoxHipertensionMadre
             // 
             this.checkBoxHipertensionMadre.AutoSize = true;
+            this.checkBoxHipertensionMadre.Enabled = false;
             this.checkBoxHipertensionMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHipertensionMadre.Location = new System.Drawing.Point(269, 193);
             this.checkBoxHipertensionMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1052,6 +1082,7 @@
             // checkBoxAlcoholismoMadre
             // 
             this.checkBoxAlcoholismoMadre.AutoSize = true;
+            this.checkBoxAlcoholismoMadre.Enabled = false;
             this.checkBoxAlcoholismoMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlcoholismoMadre.Location = new System.Drawing.Point(43, 240);
             this.checkBoxAlcoholismoMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1064,6 +1095,7 @@
             // checkBoxTabaquismoMadre
             // 
             this.checkBoxTabaquismoMadre.AutoSize = true;
+            this.checkBoxTabaquismoMadre.Enabled = false;
             this.checkBoxTabaquismoMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxTabaquismoMadre.Location = new System.Drawing.Point(43, 193);
             this.checkBoxTabaquismoMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1075,6 +1107,7 @@
             // 
             // dateTimePickerFechaNacMadre
             // 
+            this.dateTimePickerFechaNacMadre.Enabled = false;
             this.dateTimePickerFechaNacMadre.Location = new System.Drawing.Point(264, 25);
             this.dateTimePickerFechaNacMadre.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerFechaNacMadre.Name = "dateTimePickerFechaNacMadre";
@@ -1084,6 +1117,7 @@
             // 
             // textBoxMedicamentoActualMadre
             // 
+            this.textBoxMedicamentoActualMadre.Enabled = false;
             this.textBoxMedicamentoActualMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxMedicamentoActualMadre.Location = new System.Drawing.Point(524, 321);
             this.textBoxMedicamentoActualMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1094,6 +1128,7 @@
             // 
             // textBoxTipoCancerMadre
             // 
+            this.textBoxTipoCancerMadre.Enabled = false;
             this.textBoxTipoCancerMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTipoCancerMadre.Location = new System.Drawing.Point(159, 331);
             this.textBoxTipoCancerMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1103,6 +1138,7 @@
             // 
             // textBoxOcupacionMadre
             // 
+            this.textBoxOcupacionMadre.Enabled = false;
             this.textBoxOcupacionMadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOcupacionMadre.Location = new System.Drawing.Point(160, 79);
             this.textBoxOcupacionMadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1238,6 +1274,7 @@
             // 
             // textBoxToxicomaniasPadre
             // 
+            this.textBoxToxicomaniasPadre.Enabled = false;
             this.textBoxToxicomaniasPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxToxicomaniasPadre.Location = new System.Drawing.Point(704, 186);
             this.textBoxToxicomaniasPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1258,6 +1295,7 @@
             // 
             // textBoxEstadoSaludActualPadre
             // 
+            this.textBoxEstadoSaludActualPadre.Enabled = false;
             this.textBoxEstadoSaludActualPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEstadoSaludActualPadre.Location = new System.Drawing.Point(519, 430);
             this.textBoxEstadoSaludActualPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1279,6 +1317,7 @@
             // 
             // textBoxDismorfologicosPadre
             // 
+            this.textBoxDismorfologicosPadre.Enabled = false;
             this.textBoxDismorfologicosPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDismorfologicosPadre.Location = new System.Drawing.Point(704, 234);
             this.textBoxDismorfologicosPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1288,6 +1327,7 @@
             // 
             // textBoxAlergiasPadre
             // 
+            this.textBoxAlergiasPadre.Enabled = false;
             this.textBoxAlergiasPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAlergiasPadre.Location = new System.Drawing.Point(153, 377);
             this.textBoxAlergiasPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1297,6 +1337,7 @@
             // 
             // textBoxOtrosPadre
             // 
+            this.textBoxOtrosPadre.Enabled = false;
             this.textBoxOtrosPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOtrosPadre.Location = new System.Drawing.Point(153, 420);
             this.textBoxOtrosPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1307,6 +1348,7 @@
             // checkBoxCancerPadre
             // 
             this.checkBoxCancerPadre.AutoSize = true;
+            this.checkBoxCancerPadre.Enabled = false;
             this.checkBoxCancerPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCancerPadre.Location = new System.Drawing.Point(37, 329);
             this.checkBoxCancerPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1319,6 +1361,7 @@
             // checkBoxDismorfologicosPadre
             // 
             this.checkBoxDismorfologicosPadre.AutoSize = true;
+            this.checkBoxDismorfologicosPadre.Enabled = false;
             this.checkBoxDismorfologicosPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDismorfologicosPadre.Location = new System.Drawing.Point(264, 236);
             this.checkBoxDismorfologicosPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1331,6 +1374,7 @@
             // checkBoxDiabetesPadre
             // 
             this.checkBoxDiabetesPadre.AutoSize = true;
+            this.checkBoxDiabetesPadre.Enabled = false;
             this.checkBoxDiabetesPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDiabetesPadre.Location = new System.Drawing.Point(37, 282);
             this.checkBoxDiabetesPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1343,6 +1387,7 @@
             // checkBoxHipertensionPadre
             // 
             this.checkBoxHipertensionPadre.AutoSize = true;
+            this.checkBoxHipertensionPadre.Enabled = false;
             this.checkBoxHipertensionPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHipertensionPadre.Location = new System.Drawing.Point(264, 190);
             this.checkBoxHipertensionPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1355,6 +1400,7 @@
             // checkBoxAlcoholismoPadre
             // 
             this.checkBoxAlcoholismoPadre.AutoSize = true;
+            this.checkBoxAlcoholismoPadre.Enabled = false;
             this.checkBoxAlcoholismoPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlcoholismoPadre.Location = new System.Drawing.Point(37, 236);
             this.checkBoxAlcoholismoPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1367,6 +1413,7 @@
             // checkBoxTabaquismoPadre
             // 
             this.checkBoxTabaquismoPadre.AutoSize = true;
+            this.checkBoxTabaquismoPadre.Enabled = false;
             this.checkBoxTabaquismoPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxTabaquismoPadre.Location = new System.Drawing.Point(37, 190);
             this.checkBoxTabaquismoPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1378,6 +1425,7 @@
             // 
             // dateTimePickerFechaNacPadre
             // 
+            this.dateTimePickerFechaNacPadre.Enabled = false;
             this.dateTimePickerFechaNacPadre.Location = new System.Drawing.Point(259, 21);
             this.dateTimePickerFechaNacPadre.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerFechaNacPadre.Name = "dateTimePickerFechaNacPadre";
@@ -1387,6 +1435,7 @@
             // 
             // textBoxMedicamentoActualPadre
             // 
+            this.textBoxMedicamentoActualPadre.Enabled = false;
             this.textBoxMedicamentoActualPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxMedicamentoActualPadre.Location = new System.Drawing.Point(519, 318);
             this.textBoxMedicamentoActualPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1397,6 +1446,7 @@
             // 
             // textBoxTipoCancerPadre
             // 
+            this.textBoxTipoCancerPadre.Enabled = false;
             this.textBoxTipoCancerPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTipoCancerPadre.Location = new System.Drawing.Point(153, 329);
             this.textBoxTipoCancerPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1406,6 +1456,7 @@
             // 
             // textBoxOcupacionPadre
             // 
+            this.textBoxOcupacionPadre.Enabled = false;
             this.textBoxOcupacionPadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOcupacionPadre.Location = new System.Drawing.Point(155, 75);
             this.textBoxOcupacionPadre.Margin = new System.Windows.Forms.Padding(4);
@@ -1539,6 +1590,7 @@
             // 
             // numericUpDownMesTomate
             // 
+            this.numericUpDownMesTomate.Enabled = false;
             this.numericUpDownMesTomate.Location = new System.Drawing.Point(759, 151);
             this.numericUpDownMesTomate.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesTomate.Name = "numericUpDownMesTomate";
@@ -1547,6 +1599,7 @@
             // 
             // numericUpDownCitricos
             // 
+            this.numericUpDownCitricos.Enabled = false;
             this.numericUpDownCitricos.Location = new System.Drawing.Point(505, 151);
             this.numericUpDownCitricos.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownCitricos.Name = "numericUpDownCitricos";
@@ -1577,6 +1630,7 @@
             // 
             // numericUpDownMesVerduras
             // 
+            this.numericUpDownMesVerduras.Enabled = false;
             this.numericUpDownMesVerduras.Location = new System.Drawing.Point(759, 82);
             this.numericUpDownMesVerduras.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesVerduras.Name = "numericUpDownMesVerduras";
@@ -1585,6 +1639,7 @@
             // 
             // numericUpDownMesFrutas
             // 
+            this.numericUpDownMesFrutas.Enabled = false;
             this.numericUpDownMesFrutas.Location = new System.Drawing.Point(505, 82);
             this.numericUpDownMesFrutas.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesFrutas.Name = "numericUpDownMesFrutas";
@@ -1593,6 +1648,7 @@
             // 
             // numericUpDownMesCereal
             // 
+            this.numericUpDownMesCereal.Enabled = false;
             this.numericUpDownMesCereal.Location = new System.Drawing.Point(304, 82);
             this.numericUpDownMesCereal.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesCereal.Name = "numericUpDownMesCereal";
@@ -1601,6 +1657,7 @@
             // 
             // numericUpDownMesFormula
             // 
+            this.numericUpDownMesFormula.Enabled = false;
             this.numericUpDownMesFormula.Location = new System.Drawing.Point(227, 201);
             this.numericUpDownMesFormula.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesFormula.Name = "numericUpDownMesFormula";
@@ -1631,6 +1688,7 @@
             // 
             // numericUpDownMesPecho
             // 
+            this.numericUpDownMesPecho.Enabled = false;
             this.numericUpDownMesPecho.Location = new System.Drawing.Point(56, 116);
             this.numericUpDownMesPecho.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesPecho.Name = "numericUpDownMesPecho";
@@ -1639,6 +1697,7 @@
             // 
             // textBoxTipoFormula
             // 
+            this.textBoxTipoFormula.Enabled = false;
             this.textBoxTipoFormula.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTipoFormula.Location = new System.Drawing.Point(13, 196);
             this.textBoxTipoFormula.Margin = new System.Windows.Forms.Padding(4);
@@ -1650,6 +1709,7 @@
             // checkBoxVerduras
             // 
             this.checkBoxVerduras.AutoSize = true;
+            this.checkBoxVerduras.Enabled = false;
             this.checkBoxVerduras.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxVerduras.Location = new System.Drawing.Point(736, 20);
             this.checkBoxVerduras.Margin = new System.Windows.Forms.Padding(4);
@@ -1662,6 +1722,7 @@
             // checkBoxFrutas
             // 
             this.checkBoxFrutas.AutoSize = true;
+            this.checkBoxFrutas.Enabled = false;
             this.checkBoxFrutas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxFrutas.Location = new System.Drawing.Point(500, 20);
             this.checkBoxFrutas.Margin = new System.Windows.Forms.Padding(4);
@@ -1674,6 +1735,7 @@
             // checkBoxCereal
             // 
             this.checkBoxCereal.AutoSize = true;
+            this.checkBoxCereal.Enabled = false;
             this.checkBoxCereal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCereal.Location = new System.Drawing.Point(297, 20);
             this.checkBoxCereal.Margin = new System.Windows.Forms.Padding(4);
@@ -1697,6 +1759,7 @@
             // checkBoxPecho
             // 
             this.checkBoxPecho.AutoSize = true;
+            this.checkBoxPecho.Enabled = false;
             this.checkBoxPecho.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxPecho.Location = new System.Drawing.Point(17, 59);
             this.checkBoxPecho.Margin = new System.Windows.Forms.Padding(4);
@@ -1760,6 +1823,7 @@
             // 
             // numericUpDownMesDeambulacion
             // 
+            this.numericUpDownMesDeambulacion.Enabled = false;
             this.numericUpDownMesDeambulacion.Location = new System.Drawing.Point(765, 300);
             this.numericUpDownMesDeambulacion.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesDeambulacion.Name = "numericUpDownMesDeambulacion";
@@ -1798,6 +1862,7 @@
             // 
             // numericUpDownMesEsfinteres
             // 
+            this.numericUpDownMesEsfinteres.Enabled = false;
             this.numericUpDownMesEsfinteres.Location = new System.Drawing.Point(385, 300);
             this.numericUpDownMesEsfinteres.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesEsfinteres.Name = "numericUpDownMesEsfinteres";
@@ -1817,6 +1882,7 @@
             // 
             // numericUpDownMesGatear
             // 
+            this.numericUpDownMesGatear.Enabled = false;
             this.numericUpDownMesGatear.Location = new System.Drawing.Point(41, 300);
             this.numericUpDownMesGatear.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesGatear.Name = "numericUpDownMesGatear";
@@ -1875,6 +1941,7 @@
             // checkBoxGatear
             // 
             this.checkBoxGatear.AutoSize = true;
+            this.checkBoxGatear.Enabled = false;
             this.checkBoxGatear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxGatear.Location = new System.Drawing.Point(17, 239);
             this.checkBoxGatear.Margin = new System.Windows.Forms.Padding(4);
@@ -1887,6 +1954,7 @@
             // checkBoxSentarse
             // 
             this.checkBoxSentarse.AutoSize = true;
+            this.checkBoxSentarse.Enabled = false;
             this.checkBoxSentarse.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxSentarse.Location = new System.Drawing.Point(17, 112);
             this.checkBoxSentarse.Margin = new System.Windows.Forms.Padding(4);
@@ -1899,6 +1967,7 @@
             // checkBoxRodar
             // 
             this.checkBoxRodar.AutoSize = true;
+            this.checkBoxRodar.Enabled = false;
             this.checkBoxRodar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxRodar.Location = new System.Drawing.Point(297, 112);
             this.checkBoxRodar.Margin = new System.Windows.Forms.Padding(4);
@@ -1911,6 +1980,7 @@
             // checkBoxSostieneCabeza
             // 
             this.checkBoxSostieneCabeza.AutoSize = true;
+            this.checkBoxSostieneCabeza.Enabled = false;
             this.checkBoxSostieneCabeza.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxSostieneCabeza.Location = new System.Drawing.Point(17, 64);
             this.checkBoxSostieneCabeza.Margin = new System.Windows.Forms.Padding(4);
@@ -1923,6 +1993,7 @@
             // checkBoxDeambulacion
             // 
             this.checkBoxDeambulacion.AutoSize = true;
+            this.checkBoxDeambulacion.Enabled = false;
             this.checkBoxDeambulacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxDeambulacion.Location = new System.Drawing.Point(713, 239);
             this.checkBoxDeambulacion.Margin = new System.Windows.Forms.Padding(4);
@@ -1935,6 +2006,7 @@
             // checkBoxBipedestacion
             // 
             this.checkBoxBipedestacion.AutoSize = true;
+            this.checkBoxBipedestacion.Enabled = false;
             this.checkBoxBipedestacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxBipedestacion.Location = new System.Drawing.Point(715, 112);
             this.checkBoxBipedestacion.Margin = new System.Windows.Forms.Padding(4);
@@ -1947,6 +2019,7 @@
             // checkBoxControlEsfinteres
             // 
             this.checkBoxControlEsfinteres.AutoSize = true;
+            this.checkBoxControlEsfinteres.Enabled = false;
             this.checkBoxControlEsfinteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxControlEsfinteres.Location = new System.Drawing.Point(311, 239);
             this.checkBoxControlEsfinteres.Margin = new System.Windows.Forms.Padding(4);
@@ -2022,6 +2095,7 @@
             // checkBoxMultiple
             // 
             this.checkBoxMultiple.AutoSize = true;
+            this.checkBoxMultiple.Enabled = false;
             this.checkBoxMultiple.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMultiple.Location = new System.Drawing.Point(283, 134);
             this.checkBoxMultiple.Margin = new System.Windows.Forms.Padding(4);
@@ -2034,6 +2108,7 @@
             // comboBoxTipoNac
             // 
             this.comboBoxTipoNac.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTipoNac.Enabled = false;
             this.comboBoxTipoNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxTipoNac.FormattingEnabled = true;
             this.comboBoxTipoNac.Items.AddRange(new object[] {
@@ -2080,6 +2155,7 @@
             // 
             // textBoxTallaNac
             // 
+            this.textBoxTallaNac.Enabled = false;
             this.textBoxTallaNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTallaNac.Location = new System.Drawing.Point(251, 268);
             this.textBoxTallaNac.Margin = new System.Windows.Forms.Padding(4);
@@ -2089,6 +2165,7 @@
             // 
             // textBoxPesoNac
             // 
+            this.textBoxPesoNac.Enabled = false;
             this.textBoxPesoNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPesoNac.Location = new System.Drawing.Point(251, 222);
             this.textBoxPesoNac.Margin = new System.Windows.Forms.Padding(4);
@@ -2098,6 +2175,7 @@
             // 
             // textBoxIndicaciones
             // 
+            this.textBoxIndicaciones.Enabled = false;
             this.textBoxIndicaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxIndicaciones.Location = new System.Drawing.Point(177, 336);
             this.textBoxIndicaciones.Margin = new System.Windows.Forms.Padding(4);
@@ -2140,6 +2218,7 @@
             // 
             // textBoxHospital
             // 
+            this.textBoxHospital.Enabled = false;
             this.textBoxHospital.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxHospital.Location = new System.Drawing.Point(137, 44);
             this.textBoxHospital.Margin = new System.Windows.Forms.Padding(4);
@@ -2206,6 +2285,7 @@
             // 
             // textBoxOtrosPosnatal
             // 
+            this.textBoxOtrosPosnatal.Enabled = false;
             this.textBoxOtrosPosnatal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOtrosPosnatal.Location = new System.Drawing.Point(683, 130);
             this.textBoxOtrosPosnatal.Margin = new System.Windows.Forms.Padding(4);
@@ -2215,6 +2295,7 @@
             // 
             // textBoxFototerapias
             // 
+            this.textBoxFototerapias.Enabled = false;
             this.textBoxFototerapias.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFototerapias.Location = new System.Drawing.Point(683, 91);
             this.textBoxFototerapias.Margin = new System.Windows.Forms.Padding(4);
@@ -2249,6 +2330,7 @@
             // radioButtonSiIncubadora
             // 
             this.radioButtonSiIncubadora.AutoSize = true;
+            this.radioButtonSiIncubadora.Enabled = false;
             this.radioButtonSiIncubadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonSiIncubadora.Location = new System.Drawing.Point(8, 18);
             this.radioButtonSiIncubadora.Margin = new System.Windows.Forms.Padding(4);
@@ -2263,6 +2345,7 @@
             // radioButtonNoIncubadora
             // 
             this.radioButtonNoIncubadora.AutoSize = true;
+            this.radioButtonNoIncubadora.Enabled = false;
             this.radioButtonNoIncubadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonNoIncubadora.Location = new System.Drawing.Point(64, 18);
             this.radioButtonNoIncubadora.Margin = new System.Windows.Forms.Padding(4);
@@ -2299,6 +2382,7 @@
             // radioButtonSiRespirador
             // 
             this.radioButtonSiRespirador.AutoSize = true;
+            this.radioButtonSiRespirador.Enabled = false;
             this.radioButtonSiRespirador.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonSiRespirador.Location = new System.Drawing.Point(8, 18);
             this.radioButtonSiRespirador.Margin = new System.Windows.Forms.Padding(4);
@@ -2313,6 +2397,7 @@
             // radioButtonNoRespirador
             // 
             this.radioButtonNoRespirador.AutoSize = true;
+            this.radioButtonNoRespirador.Enabled = false;
             this.radioButtonNoRespirador.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonNoRespirador.Location = new System.Drawing.Point(64, 18);
             this.radioButtonNoRespirador.Margin = new System.Windows.Forms.Padding(4);
@@ -2338,6 +2423,7 @@
             // radioButtonSiVigilancia
             // 
             this.radioButtonSiVigilancia.AutoSize = true;
+            this.radioButtonSiVigilancia.Enabled = false;
             this.radioButtonSiVigilancia.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonSiVigilancia.Location = new System.Drawing.Point(8, 18);
             this.radioButtonSiVigilancia.Margin = new System.Windows.Forms.Padding(4);
@@ -2352,6 +2438,7 @@
             // radioButtonNoVigilancia
             // 
             this.radioButtonNoVigilancia.AutoSize = true;
+            this.radioButtonNoVigilancia.Enabled = false;
             this.radioButtonNoVigilancia.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonNoVigilancia.Location = new System.Drawing.Point(64, 18);
             this.radioButtonNoVigilancia.Margin = new System.Windows.Forms.Padding(4);
@@ -2419,6 +2506,7 @@
             // 
             // textBoxEnfermedades
             // 
+            this.textBoxEnfermedades.Enabled = false;
             this.textBoxEnfermedades.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEnfermedades.Location = new System.Drawing.Point(48, 340);
             this.textBoxEnfermedades.Margin = new System.Windows.Forms.Padding(4);
@@ -2428,6 +2516,7 @@
             // 
             // numericUpDownMesControl
             // 
+            this.numericUpDownMesControl.Enabled = false;
             this.numericUpDownMesControl.Location = new System.Drawing.Point(287, 177);
             this.numericUpDownMesControl.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownMesControl.Name = "numericUpDownMesControl";
@@ -2460,6 +2549,7 @@
             // radioButtonSiPlaneado
             // 
             this.radioButtonSiPlaneado.AutoSize = true;
+            this.radioButtonSiPlaneado.Enabled = false;
             this.radioButtonSiPlaneado.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonSiPlaneado.Location = new System.Drawing.Point(8, 18);
             this.radioButtonSiPlaneado.Margin = new System.Windows.Forms.Padding(4);
@@ -2474,6 +2564,7 @@
             // radioButtonNoPlaneado
             // 
             this.radioButtonNoPlaneado.AutoSize = true;
+            this.radioButtonNoPlaneado.Enabled = false;
             this.radioButtonNoPlaneado.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonNoPlaneado.Location = new System.Drawing.Point(67, 18);
             this.radioButtonNoPlaneado.Margin = new System.Windows.Forms.Padding(4);
@@ -2509,6 +2600,7 @@
             // comboBoxMetFertilizacion
             // 
             this.comboBoxMetFertilizacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMetFertilizacion.Enabled = false;
             this.comboBoxMetFertilizacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxMetFertilizacion.FormattingEnabled = true;
             this.comboBoxMetFertilizacion.Items.AddRange(new object[] {
@@ -2533,6 +2625,7 @@
             // 
             // textBoxResponsableControl
             // 
+            this.textBoxResponsableControl.Enabled = false;
             this.textBoxResponsableControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxResponsableControl.Location = new System.Drawing.Point(48, 258);
             this.textBoxResponsableControl.Margin = new System.Windows.Forms.Padding(4);
@@ -2602,6 +2695,7 @@
             // checkBoxHepatitisA
             // 
             this.checkBoxHepatitisA.AutoSize = true;
+            this.checkBoxHepatitisA.Enabled = false;
             this.checkBoxHepatitisA.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHepatitisA.Location = new System.Drawing.Point(51, 54);
             this.checkBoxHepatitisA.Margin = new System.Windows.Forms.Padding(4);
@@ -2614,6 +2708,7 @@
             // checkBoxInfluenza
             // 
             this.checkBoxInfluenza.AutoSize = true;
+            this.checkBoxInfluenza.Enabled = false;
             this.checkBoxInfluenza.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxInfluenza.Location = new System.Drawing.Point(51, 346);
             this.checkBoxInfluenza.Margin = new System.Windows.Forms.Padding(4);
@@ -2626,6 +2721,7 @@
             // checkBoxNeumococo
             // 
             this.checkBoxNeumococo.AutoSize = true;
+            this.checkBoxNeumococo.Enabled = false;
             this.checkBoxNeumococo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxNeumococo.Location = new System.Drawing.Point(51, 311);
             this.checkBoxNeumococo.Margin = new System.Windows.Forms.Padding(4);
@@ -2638,6 +2734,7 @@
             // checkBoxRotavirus
             // 
             this.checkBoxRotavirus.AutoSize = true;
+            this.checkBoxRotavirus.Enabled = false;
             this.checkBoxRotavirus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxRotavirus.Location = new System.Drawing.Point(51, 274);
             this.checkBoxRotavirus.Margin = new System.Windows.Forms.Padding(4);
@@ -2650,6 +2747,7 @@
             // checkBoxPoliomelitis
             // 
             this.checkBoxPoliomelitis.AutoSize = true;
+            this.checkBoxPoliomelitis.Enabled = false;
             this.checkBoxPoliomelitis.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxPoliomelitis.Location = new System.Drawing.Point(51, 238);
             this.checkBoxPoliomelitis.Margin = new System.Windows.Forms.Padding(4);
@@ -2662,6 +2760,7 @@
             // checkBoxTuberculosis
             // 
             this.checkBoxTuberculosis.AutoSize = true;
+            this.checkBoxTuberculosis.Enabled = false;
             this.checkBoxTuberculosis.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxTuberculosis.Location = new System.Drawing.Point(51, 489);
             this.checkBoxTuberculosis.Margin = new System.Windows.Forms.Padding(4);
@@ -2674,6 +2773,7 @@
             // checkBoxHPV
             // 
             this.checkBoxHPV.AutoSize = true;
+            this.checkBoxHPV.Enabled = false;
             this.checkBoxHPV.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHPV.Location = new System.Drawing.Point(51, 454);
             this.checkBoxHPV.Margin = new System.Windows.Forms.Padding(4);
@@ -2686,6 +2786,7 @@
             // checkBoxVaricela
             // 
             this.checkBoxVaricela.AutoSize = true;
+            this.checkBoxVaricela.Enabled = false;
             this.checkBoxVaricela.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxVaricela.Location = new System.Drawing.Point(51, 417);
             this.checkBoxVaricela.Margin = new System.Windows.Forms.Padding(4);
@@ -2698,6 +2799,7 @@
             // checkBoxMMR
             // 
             this.checkBoxMMR.AutoSize = true;
+            this.checkBoxMMR.Enabled = false;
             this.checkBoxMMR.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMMR.Location = new System.Drawing.Point(51, 380);
             this.checkBoxMMR.Margin = new System.Windows.Forms.Padding(4);
@@ -2710,6 +2812,7 @@
             // checkBoxBPT
             // 
             this.checkBoxBPT.AutoSize = true;
+            this.checkBoxBPT.Enabled = false;
             this.checkBoxBPT.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxBPT.Location = new System.Drawing.Point(51, 203);
             this.checkBoxBPT.Margin = new System.Windows.Forms.Padding(4);
@@ -2722,6 +2825,7 @@
             // checkBoxMeningococo
             // 
             this.checkBoxMeningococo.AutoSize = true;
+            this.checkBoxMeningococo.Enabled = false;
             this.checkBoxMeningococo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMeningococo.Location = new System.Drawing.Point(51, 166);
             this.checkBoxMeningococo.Margin = new System.Windows.Forms.Padding(4);
@@ -2734,6 +2838,7 @@
             // checkBoxHIB
             // 
             this.checkBoxHIB.AutoSize = true;
+            this.checkBoxHIB.Enabled = false;
             this.checkBoxHIB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHIB.Location = new System.Drawing.Point(51, 129);
             this.checkBoxHIB.Margin = new System.Windows.Forms.Padding(4);
@@ -2746,6 +2851,7 @@
             // checkBoxHepatitisB
             // 
             this.checkBoxHepatitisB.AutoSize = true;
+            this.checkBoxHepatitisB.Enabled = false;
             this.checkBoxHepatitisB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHepatitisB.Location = new System.Drawing.Point(51, 95);
             this.checkBoxHepatitisB.Margin = new System.Windows.Forms.Padding(4);
@@ -2779,6 +2885,7 @@
             // checkBoxAlergiaRopa
             // 
             this.checkBoxAlergiaRopa.AutoSize = true;
+            this.checkBoxAlergiaRopa.Enabled = false;
             this.checkBoxAlergiaRopa.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlergiaRopa.Location = new System.Drawing.Point(20, 162);
             this.checkBoxAlergiaRopa.Margin = new System.Windows.Forms.Padding(4);
@@ -2842,6 +2949,7 @@
             // checkBoxAlergiaFlora
             // 
             this.checkBoxAlergiaFlora.AutoSize = true;
+            this.checkBoxAlergiaFlora.Enabled = false;
             this.checkBoxAlergiaFlora.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlergiaFlora.Location = new System.Drawing.Point(20, 126);
             this.checkBoxAlergiaFlora.Margin = new System.Windows.Forms.Padding(4);
@@ -2854,6 +2962,7 @@
             // checkBoxAlergiaAlimentos
             // 
             this.checkBoxAlergiaAlimentos.AutoSize = true;
+            this.checkBoxAlergiaAlimentos.Enabled = false;
             this.checkBoxAlergiaAlimentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlergiaAlimentos.Location = new System.Drawing.Point(20, 89);
             this.checkBoxAlergiaAlimentos.Margin = new System.Windows.Forms.Padding(4);
@@ -2866,6 +2975,7 @@
             // checkBoxAlergiaMedicamento
             // 
             this.checkBoxAlergiaMedicamento.AutoSize = true;
+            this.checkBoxAlergiaMedicamento.Enabled = false;
             this.checkBoxAlergiaMedicamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAlergiaMedicamento.Location = new System.Drawing.Point(20, 54);
             this.checkBoxAlergiaMedicamento.Margin = new System.Windows.Forms.Padding(4);
@@ -2906,7 +3016,7 @@
             this.ClientSize = new System.Drawing.Size(1115, 954);
             this.Controls.Add(this.panel7);
             this.Name = "FormHistorial";
-            this.Text = "FormHistorial";
+            this.Text = "Historial";
             this.Load += new System.EventHandler(this.FormHistorial_Load);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();

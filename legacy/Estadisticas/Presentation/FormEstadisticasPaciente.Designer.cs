@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonGuardarEstadísticas = new System.Windows.Forms.Button();
+            this.buttonGuardarGraficas = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -43,8 +45,6 @@
             this.labelLimiteTalla = new System.Windows.Forms.Label();
             this.chartTallaPaciente = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.labelPaciente = new System.Windows.Forms.Label();
-            this.buttonGuardarGraficas = new System.Windows.Forms.Button();
-            this.buttonGuardarEstadísticas = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -69,6 +69,28 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(997, 606);
             this.panel1.TabIndex = 5;
+            // 
+            // buttonGuardarEstadísticas
+            // 
+            this.buttonGuardarEstadísticas.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGuardarEstadísticas.Location = new System.Drawing.Point(634, 7);
+            this.buttonGuardarEstadísticas.Name = "buttonGuardarEstadísticas";
+            this.buttonGuardarEstadísticas.Size = new System.Drawing.Size(175, 23);
+            this.buttonGuardarEstadísticas.TabIndex = 78;
+            this.buttonGuardarEstadísticas.Text = "Guardar Estadísticas";
+            this.buttonGuardarEstadísticas.UseVisualStyleBackColor = true;
+            this.buttonGuardarEstadísticas.Click += new System.EventHandler(this.buttonGuardarEstadísticas_Click);
+            // 
+            // buttonGuardarGraficas
+            // 
+            this.buttonGuardarGraficas.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGuardarGraficas.Location = new System.Drawing.Point(815, 7);
+            this.buttonGuardarGraficas.Name = "buttonGuardarGraficas";
+            this.buttonGuardarGraficas.Size = new System.Drawing.Size(175, 23);
+            this.buttonGuardarGraficas.TabIndex = 77;
+            this.buttonGuardarGraficas.Text = "Guardar Gráficas";
+            this.buttonGuardarGraficas.UseVisualStyleBackColor = true;
+            this.buttonGuardarGraficas.Click += new System.EventHandler(this.buttonGuardarGraficas_Click);
             // 
             // tabControl1
             // 
@@ -121,11 +143,11 @@
             // 
             // chartPesoPaciente
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartPesoPaciente.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.chartPesoPaciente.ChartAreas.Add(chartArea1);
             this.chartPesoPaciente.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chartPesoPaciente.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.chartPesoPaciente.Legends.Add(legend1);
             this.chartPesoPaciente.Location = new System.Drawing.Point(0, 0);
             this.chartPesoPaciente.Name = "chartPesoPaciente";
             this.chartPesoPaciente.Size = new System.Drawing.Size(963, 528);
@@ -169,11 +191,11 @@
             // 
             // chartTallaPaciente
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartTallaPaciente.ChartAreas.Add(chartArea4);
+            chartArea2.Name = "ChartArea1";
+            this.chartTallaPaciente.ChartAreas.Add(chartArea2);
             this.chartTallaPaciente.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.chartTallaPaciente.Legends.Add(legend4);
+            legend2.Name = "Legend1";
+            this.chartTallaPaciente.Legends.Add(legend2);
             this.chartTallaPaciente.Location = new System.Drawing.Point(0, 0);
             this.chartTallaPaciente.Name = "chartTallaPaciente";
             this.chartTallaPaciente.Size = new System.Drawing.Size(963, 528);
@@ -191,28 +213,6 @@
             this.labelPaciente.TabIndex = 75;
             this.labelPaciente.Text = "Estadísticas";
             // 
-            // buttonGuardarGraficas
-            // 
-            this.buttonGuardarGraficas.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGuardarGraficas.Location = new System.Drawing.Point(815, 7);
-            this.buttonGuardarGraficas.Name = "buttonGuardarGraficas";
-            this.buttonGuardarGraficas.Size = new System.Drawing.Size(175, 23);
-            this.buttonGuardarGraficas.TabIndex = 77;
-            this.buttonGuardarGraficas.Text = "Guardar Gráficas";
-            this.buttonGuardarGraficas.UseVisualStyleBackColor = true;
-            this.buttonGuardarGraficas.Click += new System.EventHandler(this.buttonGuardarGraficas_Click);
-            // 
-            // buttonGuardarEstadísticas
-            // 
-            this.buttonGuardarEstadísticas.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGuardarEstadísticas.Location = new System.Drawing.Point(634, 7);
-            this.buttonGuardarEstadísticas.Name = "buttonGuardarEstadísticas";
-            this.buttonGuardarEstadísticas.Size = new System.Drawing.Size(175, 23);
-            this.buttonGuardarEstadísticas.TabIndex = 78;
-            this.buttonGuardarEstadísticas.Text = "Guardar Estadísticas";
-            this.buttonGuardarEstadísticas.UseVisualStyleBackColor = true;
-            this.buttonGuardarEstadísticas.Click += new System.EventHandler(this.buttonGuardarEstadísticas_Click);
-            // 
             // FormEstadisticasPaciente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -220,7 +220,7 @@
             this.ClientSize = new System.Drawing.Size(1025, 631);
             this.Controls.Add(this.panel1);
             this.Name = "FormEstadisticasPaciente";
-            this.Text = "FormEstadisticas";
+            this.Text = "Estadisticas por Paciente";
             this.Load += new System.EventHandler(this.FormEstadisticasPaciente_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

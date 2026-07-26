@@ -344,7 +344,7 @@
             this.ClientSize = new System.Drawing.Size(1025, 631);
             this.Controls.Add(this.panel1);
             this.Name = "FormEstadisticas";
-            this.Text = "FormEstadisticas";
+            this.Text = "Estadisticas";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);

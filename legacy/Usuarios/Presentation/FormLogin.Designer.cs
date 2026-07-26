@@ -54,9 +54,10 @@
             this.panel1.Controls.Add(this.textBoxNombreUsuario);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(7, 7);
+            this.panel1.Location = new System.Drawing.Point(9, 9);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(294, 268);
+            this.panel1.Size = new System.Drawing.Size(392, 330);
             this.panel1.TabIndex = 4;
             // 
             // label3
@@ -66,9 +67,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(67, 18);
+            this.label3.Location = new System.Drawing.Point(89, 22);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(160, 24);
+            this.label3.Size = new System.Drawing.Size(201, 29);
             this.label3.TabIndex = 8;
             this.label3.Text = "Inicio de Sesión";
             // 
@@ -78,9 +80,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(168, 179);
+            this.btnCancelar.Location = new System.Drawing.Point(224, 220);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(97, 37);
+            this.btnCancelar.Size = new System.Drawing.Size(129, 46);
             this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -92,9 +95,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnIniciarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIniciarSesion.Location = new System.Drawing.Point(29, 179);
+            this.btnIniciarSesion.Location = new System.Drawing.Point(39, 220);
+            this.btnIniciarSesion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnIniciarSesion.Name = "btnIniciarSesion";
-            this.btnIniciarSesion.Size = new System.Drawing.Size(120, 37);
+            this.btnIniciarSesion.Size = new System.Drawing.Size(160, 46);
             this.btnIniciarSesion.TabIndex = 6;
             this.btnIniciarSesion.Text = "Iniciar Sesión";
             this.btnIniciarSesion.UseVisualStyleBackColor = true;
@@ -106,9 +110,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelRecuperarContrasena.AutoSize = true;
-            this.linkLabelRecuperarContrasena.Location = new System.Drawing.Point(147, 237);
+            this.linkLabelRecuperarContrasena.Location = new System.Drawing.Point(196, 292);
+            this.linkLabelRecuperarContrasena.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLabelRecuperarContrasena.Name = "linkLabelRecuperarContrasena";
-            this.linkLabelRecuperarContrasena.Size = new System.Drawing.Size(119, 13);
+            this.linkLabelRecuperarContrasena.Size = new System.Drawing.Size(147, 16);
             this.linkLabelRecuperarContrasena.TabIndex = 5;
             this.linkLabelRecuperarContrasena.TabStop = true;
             this.linkLabelRecuperarContrasena.Text = "¿Olvidó su contraseña?";
@@ -120,9 +125,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxContrasena.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxContrasena.Location = new System.Drawing.Point(134, 103);
+            this.textBoxContrasena.Location = new System.Drawing.Point(179, 127);
+            this.textBoxContrasena.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxContrasena.Name = "textBoxContrasena";
-            this.textBoxContrasena.Size = new System.Drawing.Size(132, 24);
+            this.textBoxContrasena.Size = new System.Drawing.Size(175, 29);
             this.textBoxContrasena.TabIndex = 3;
             this.textBoxContrasena.UseSystemPasswordChar = true;
             this.textBoxContrasena.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxContrasena_KeyPress);
@@ -133,9 +139,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxNombreUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNombreUsuario.Location = new System.Drawing.Point(134, 73);
+            this.textBoxNombreUsuario.Location = new System.Drawing.Point(179, 90);
+            this.textBoxNombreUsuario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxNombreUsuario.Name = "textBoxNombreUsuario";
-            this.textBoxNombreUsuario.Size = new System.Drawing.Size(132, 24);
+            this.textBoxNombreUsuario.Size = new System.Drawing.Size(175, 29);
             this.textBoxNombreUsuario.TabIndex = 2;
             // 
             // label2
@@ -145,9 +152,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(28, 104);
+            this.label2.Location = new System.Drawing.Point(37, 128);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 18);
+            this.label2.Size = new System.Drawing.Size(122, 24);
             this.label2.TabIndex = 1;
             this.label2.Text = "Contraseña:";
             // 
@@ -158,23 +166,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(28, 74);
+            this.label1.Location = new System.Drawing.Point(37, 91);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 18);
+            this.label1.Size = new System.Drawing.Size(91, 24);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre:";
             // 
             // FormLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(308, 282);
+            this.ClientSize = new System.Drawing.Size(411, 347);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormLogin";
-            this.Text = "FormLogin";
+            this.Text = "Pediatría";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
