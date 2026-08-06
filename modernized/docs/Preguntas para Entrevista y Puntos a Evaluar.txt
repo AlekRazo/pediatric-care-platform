@@ -1,0 +1,35 @@
+Horario de Trabajo
+|Jueves  |3pm-6pm|
+|Viernes |1pm-3pm|
+
+/***************************************************** Puntos a administrar *******************************************************/
+-Agregar usurios (empleados) se deben mantener los anteriores o se deben actualizar.
+-Guardar contrasenias (recuperar contrasenia solo el administrador).
+-Usuario administrador debe aparecer una tabla de contrasenias de usuarios empleados.
+-Mostrar en rojo aviso de login incorrecto (tanto en usuario como en contrasenia) a introducir datos.
+-Quitar opcion en el menu de seleccionar impresora y para al momento de mandar imprimir mediante al hacer un clic en un boton imprimir, que aparezca una ventana con una vista previa y ahi se seleccionara el nombre o tipo de impresora.
+-Preguntar ala recepcionista los datos para hacer citas (agrega citas para consultas).
+-Cancelar citas (quieres agendarla de nuevo? en un extra frame).
+-Politica de fecha limite de tiempo para sacar cita (ejemplo cita para 12 de abril del 2020).
+(sabado de 10am - 2pm)
+-Validar que no se puedan hacer citas en Domingo y dias festivos (preguntar al Dr. sobre sus vacaciones).
+-Migracion de base de datos, sobre el Lotus a nuestro sistema (se puede bajar a un excel?).
+
+/****************************************************** "Preguntar al Doctor" ******************************************************/
+-Preguntar al Dr. que datos tienes los empleados y pacientes (si tienen una unica clave en el sistema).
+-Preguntar al Dr. sobre el precio de la consulta. ($500, $600 1ra vez)
+-Preguntar al Dr. sobre como llevan el inventario de la medicina.
+-Preguntar al Dr. de las recetas (si les da recetas alos pacientes).
+-Preguntar al Dr. el manejo de las consultas , los estados (estados pendientes, las citas no llegan a su fecha)(al cancelar, el doctor no puede y cancela = salga mensaje cancelacion).
+-Preguntar al Dr. citas que no se realizaron (si las citas quedaron pendiente que aparezca frame RECORDATORIO (se va hacer la cita?, se va a realizar?) se van a estar un estado pendiente, estado futuro, cada que aparezca un RECORDATORIO, si se quiere re-agendar, o se quiere cancelar o seguir en estado pendiente).
+si son los unicos datos que el registra?
+-Preguntar al Dr. si son los unicos datos que registra en la consulta? (peso, altura, percentiles).
+-Preguntar al Dr. como funciona lotus
+
+/*********************************************** Modelo de de Desarrollo de Software ***************************************************/
+Prototipos--- agendar fechas con el cliente para mostrar avances.
+
+
+/********************************************* Cosas a Realizar en la entrevista *********************************************************/
+Video grabar y poner atencion del sistema actual y preguntar que es lo que quiere definidamente, buscar maneras de entrevistar.
+
