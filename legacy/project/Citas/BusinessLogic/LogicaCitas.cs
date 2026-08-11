@@ -90,7 +90,7 @@ namespace Citas.BusinessLogic
 
         public static int actualizarCita(Cita objCita)
         {
-            if (objCita.FechaCita > DateTime.Today.Date)
+            if (objCita.FechaCita >= DateTime.Today.Date)
             {
                 DateTime limite = DateTime.Today.AddDays(60);
 

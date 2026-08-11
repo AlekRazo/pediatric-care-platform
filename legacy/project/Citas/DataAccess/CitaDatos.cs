@@ -165,7 +165,7 @@ namespace Citas.DataAccess
                 string afiliacion = objCita.Afiliacion;
 
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Cita VALUES (@nombre, @fecha, @hora, @primeraVez, @telefono, @afiliacion)", conn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO Cita ([NombrePaciente],[Fecha],[Hora],[PrimeraVez],[Telefono],[Afiliacion]) VALUES (@nombre, @fecha, @hora, @primeraVez, @telefono, @afiliacion)", conn);
 
                 cmd.Parameters.Add(new SqlParameter("@nombre", nombre));
                 cmd.Parameters.Add(new SqlParameter("@fecha", fecha));
