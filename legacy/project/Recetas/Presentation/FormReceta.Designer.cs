@@ -138,9 +138,9 @@
             this.labelDiagnostico.Location = new System.Drawing.Point(28, 117);
             this.labelDiagnostico.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDiagnostico.Name = "labelDiagnostico";
-            this.labelDiagnostico.Size = new System.Drawing.Size(125, 24);
+            this.labelDiagnostico.Size = new System.Drawing.Size(133, 24);
             this.labelDiagnostico.TabIndex = 117;
-            this.labelDiagnostico.Text = "Diagnostico:";
+            this.labelDiagnostico.Text = "Prescripción:";
             // 
             // label6
             // 

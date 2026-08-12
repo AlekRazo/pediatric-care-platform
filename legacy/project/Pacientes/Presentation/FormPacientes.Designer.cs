@@ -167,6 +167,7 @@
             // 
             // buttonCrecimiento
             // 
+            this.buttonCrecimiento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCrecimiento.Enabled = false;
             this.buttonCrecimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCrecimiento.Location = new System.Drawing.Point(694, 533);
