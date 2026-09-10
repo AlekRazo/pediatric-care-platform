@@ -23,7 +23,7 @@ INSERT INTO [dbo].[roles] ([id],[rol]) VALUES (3,'Recepcionista','');
 GO
 
 CREATE TABLE [dbo].[usuarios] (
-	[id] BIGINT IDENTITY(1, 1) NOT NULL,
+	[id] UNIQUEIDENTIFIER NOT NULL,
 	[nombre] VARCHAR(50) NOT NULL,
 	[correo_electronico] VARCHAR(50) NULL,
 	[contrasena_hash] VARCHAR(255) NOT NULL,

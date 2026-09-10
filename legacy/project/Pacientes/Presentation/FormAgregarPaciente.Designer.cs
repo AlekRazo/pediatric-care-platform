@@ -246,6 +246,7 @@
             this.checkBoxAlergiaMedicamento = new System.Windows.Forms.CheckBox();
             this.buttonCancelar = new System.Windows.Forms.Button();
             this.buttonGuardar = new System.Windows.Forms.Button();
+            this.textBoxIndicacionesPostNatal = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.Datos.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -306,7 +307,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1029, 702);
+            this.tabControl1.Size = new System.Drawing.Size(1029, 833);
             this.tabControl1.TabIndex = 65;
             // 
             // Datos
@@ -316,7 +317,7 @@
             this.Datos.Margin = new System.Windows.Forms.Padding(4);
             this.Datos.Name = "Datos";
             this.Datos.Padding = new System.Windows.Forms.Padding(4);
-            this.Datos.Size = new System.Drawing.Size(1021, 673);
+            this.Datos.Size = new System.Drawing.Size(1021, 804);
             this.Datos.TabIndex = 0;
             this.Datos.Text = "Datos";
             this.Datos.UseVisualStyleBackColor = true;
@@ -362,7 +363,7 @@
             this.panel1.Location = new System.Drawing.Point(4, 4);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1005, 661);
+            this.panel1.Size = new System.Drawing.Size(1005, 792);
             this.panel1.TabIndex = 1;
             // 
             // groupBoxSexo
@@ -750,7 +751,7 @@
             this.Madre.Margin = new System.Windows.Forms.Padding(4);
             this.Madre.Name = "Madre";
             this.Madre.Padding = new System.Windows.Forms.Padding(4);
-            this.Madre.Size = new System.Drawing.Size(1021, 708);
+            this.Madre.Size = new System.Drawing.Size(1021, 804);
             this.Madre.TabIndex = 1;
             this.Madre.Text = "Ant.Madre";
             this.Madre.UseVisualStyleBackColor = true;
@@ -796,7 +797,7 @@
             this.panel6.Location = new System.Drawing.Point(4, 4);
             this.panel6.Margin = new System.Windows.Forms.Padding(4);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1011, 593);
+            this.panel6.Size = new System.Drawing.Size(1011, 796);
             this.panel6.TabIndex = 3;
             // 
             // numericUpDownNumAborto
@@ -1137,7 +1138,7 @@
             this.Padre.Location = new System.Drawing.Point(4, 25);
             this.Padre.Margin = new System.Windows.Forms.Padding(4);
             this.Padre.Name = "Padre";
-            this.Padre.Size = new System.Drawing.Size(1021, 708);
+            this.Padre.Size = new System.Drawing.Size(1021, 804);
             this.Padre.TabIndex = 2;
             this.Padre.Text = "Ant.Padre";
             this.Padre.UseVisualStyleBackColor = true;
@@ -1175,7 +1176,7 @@
             this.panel5.Location = new System.Drawing.Point(4, 4);
             this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1069, 593);
+            this.panel5.Size = new System.Drawing.Size(1013, 796);
             this.panel5.TabIndex = 2;
             // 
             // label37
@@ -1440,7 +1441,7 @@
             this.Alimentos.Location = new System.Drawing.Point(4, 25);
             this.Alimentos.Margin = new System.Windows.Forms.Padding(4);
             this.Alimentos.Name = "Alimentos";
-            this.Alimentos.Size = new System.Drawing.Size(1021, 708);
+            this.Alimentos.Size = new System.Drawing.Size(1021, 804);
             this.Alimentos.TabIndex = 3;
             this.Alimentos.Text = "Alimentos";
             this.Alimentos.UseVisualStyleBackColor = true;
@@ -1456,7 +1457,7 @@
             this.panel4.Location = new System.Drawing.Point(4, 4);
             this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1011, 593);
+            this.panel4.Size = new System.Drawing.Size(1011, 796);
             this.panel4.TabIndex = 4;
             // 
             // groupBox2
@@ -1948,7 +1949,7 @@
             this.Embarazo.Location = new System.Drawing.Point(4, 25);
             this.Embarazo.Margin = new System.Windows.Forms.Padding(4);
             this.Embarazo.Name = "Embarazo";
-            this.Embarazo.Size = new System.Drawing.Size(1021, 708);
+            this.Embarazo.Size = new System.Drawing.Size(1021, 804);
             this.Embarazo.TabIndex = 4;
             this.Embarazo.Text = "Embarazo";
             this.Embarazo.UseVisualStyleBackColor = true;
@@ -1966,7 +1967,7 @@
             this.panel3.Location = new System.Drawing.Point(4, 4);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1011, 832);
+            this.panel3.Size = new System.Drawing.Size(1011, 796);
             this.panel3.TabIndex = 3;
             // 
             // groupBox5
@@ -2136,6 +2137,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.textBoxIndicacionesPostNatal);
             this.groupBox4.Controls.Add(this.label63);
             this.groupBox4.Controls.Add(this.label21);
             this.groupBox4.Controls.Add(this.textBoxOtrosPosnatal);
@@ -2152,7 +2154,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(967, 353);
+            this.groupBox4.Size = new System.Drawing.Size(967, 326);
             this.groupBox4.TabIndex = 109;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Post-Natal";
@@ -2533,7 +2535,7 @@
             this.Vacunas.Location = new System.Drawing.Point(4, 25);
             this.Vacunas.Margin = new System.Windows.Forms.Padding(4);
             this.Vacunas.Name = "Vacunas";
-            this.Vacunas.Size = new System.Drawing.Size(1021, 708);
+            this.Vacunas.Size = new System.Drawing.Size(1021, 804);
             this.Vacunas.TabIndex = 5;
             this.Vacunas.Text = "Vacunas";
             this.Vacunas.UseVisualStyleBackColor = true;
@@ -2546,7 +2548,7 @@
             this.panel2.Location = new System.Drawing.Point(4, 4);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1011, 593);
+            this.panel2.Size = new System.Drawing.Size(1011, 796);
             this.panel2.TabIndex = 5;
             // 
             // groupBox8
@@ -2858,7 +2860,7 @@
             // 
             this.buttonCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancelar.Location = new System.Drawing.Point(899, 724);
+            this.buttonCancelar.Location = new System.Drawing.Point(899, 855);
             this.buttonCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(137, 37);
@@ -2871,7 +2873,7 @@
             // 
             this.buttonGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGuardar.Location = new System.Drawing.Point(753, 724);
+            this.buttonGuardar.Location = new System.Drawing.Point(753, 855);
             this.buttonGuardar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonGuardar.Name = "buttonGuardar";
             this.buttonGuardar.Size = new System.Drawing.Size(137, 37);
@@ -2880,11 +2882,19 @@
             this.buttonGuardar.UseVisualStyleBackColor = true;
             this.buttonGuardar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonGuardar_MouseClick);
             // 
+            // textBoxIndicacionesPostNatal
+            // 
+            this.textBoxIndicacionesPostNatal.Location = new System.Drawing.Point(23, 232);
+            this.textBoxIndicacionesPostNatal.Multiline = true;
+            this.textBoxIndicacionesPostNatal.Name = "textBoxIndicacionesPostNatal";
+            this.textBoxIndicacionesPostNatal.Size = new System.Drawing.Size(877, 67);
+            this.textBoxIndicacionesPostNatal.TabIndex = 162;
+            // 
             // FormAgregarPaciente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1061, 775);
+            this.ClientSize = new System.Drawing.Size(1061, 906);
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.tabControl1);
@@ -3177,5 +3187,6 @@
         private System.Windows.Forms.CheckBox checkBoxMultiple;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBoxIndicacionesPostNatal;
     }
 }
