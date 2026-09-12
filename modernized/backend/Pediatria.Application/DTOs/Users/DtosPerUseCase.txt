@@ -1,0 +1,47 @@
+# 1 - Login
+Request: LoginUserRequestDto
+Response: LoginUserResponseDto
+
+# 2 - Password Recovery
+Request: PasswordRecoveryRequestDto
+Response: string
+
+# 3 - Logout
+Request: Token in headers
+Response: string
+
+# 4 - Search Users
+Request: UsersRequestDto
+Response: List<UserResponseDto>
+
+# 5 - Get User
+Request: Guid
+Response: UserResponseDto
+
+# 6
+Request: 
+Response: 
+
+# 7
+Request: 
+Response: 
+
+# 8
+Request: 
+Response: 
+
+# 9
+Request: 
+Response: 
+
+# 10
+Request: 
+Response: 
+
+# 11
+Request: 
+Response: 
+
+# 12
+Request: 
+Response: 

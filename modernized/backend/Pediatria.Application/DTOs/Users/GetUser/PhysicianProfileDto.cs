@@ -1,4 +1,4 @@
-namespace Pediatria.Application.DTOs.Users.GetUsers;
+namespace Pediatria.Application.DTOs.Users.GetUser;
 
 public class PhysicianDto : ProfileDto
 {
