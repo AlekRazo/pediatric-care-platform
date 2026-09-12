@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Pediatria.Application/Pediatria.Application.csproj" />
+  <Project Path="Pediatria.Domain/Pediatria.Domain.csproj" />
+  <Project Path="Pediatria.Infrastructure/Pediatria.Infrastructure.csproj" />
+  <Project Path="Pediatria.WebAPI/Pediatria.WebAPI.csproj" />
+</Solution>

@@ -1,6 +1,0 @@
-@Pediatria_HostAddress = http://localhost:5057
-
-GET {{Pediatria_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
