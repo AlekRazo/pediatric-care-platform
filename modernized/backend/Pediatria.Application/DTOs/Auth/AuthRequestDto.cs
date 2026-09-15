@@ -1,6 +1,6 @@
 namespace Pediatria.Application.DTOs.Auth;
 
-public class LoginRequestDto
+public class AuthRequestDto
 {
     public string Email { get; set; } = string.Empty;
 

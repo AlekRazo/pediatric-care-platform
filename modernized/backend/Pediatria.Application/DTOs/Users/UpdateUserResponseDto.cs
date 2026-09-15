@@ -1,9 +1,0 @@
-namespace Pediatria.Application.DTOs.Users;
-
-public class UpdateUserResponseDto
-{
-    public Guid Id { get; set; }
-    public string Username { get; set; } = null!;
-    public string Email { get; set; } = null!;
-    public bool Active { get; set; }
-}
