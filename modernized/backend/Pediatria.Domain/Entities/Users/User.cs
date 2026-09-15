@@ -11,9 +11,10 @@ public sealed class User
     public DateTime CreatedAt { get; set; }
     public DateTime? LastLoginAt { get; set; }
     public DateTime? DeactivatedAt { get; set; }
-    public Role Role { get; set; } = null!;
     public Physician? Physician { get; set; }
     public Receptionist? Receptionist { get; set; }
+
+    public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     public ICollection<RefreshToken> RefreshTokens { get; } = new List<RefreshToken>();
     public ICollection<PasswordReset> PasswordResets { get; } = new List<PasswordReset>();
     public ICollection<PasswordReset> AdminPasswordResets { get; } = new List<PasswordReset>();

@@ -1,4 +1,4 @@
-namespace Pediatria.Application.DTOs.Users.PasswordRecovery;
+namespace Pediatria.Application.DTOs.Users;
 
 public class PasswordRecoveryRequestDto
 {

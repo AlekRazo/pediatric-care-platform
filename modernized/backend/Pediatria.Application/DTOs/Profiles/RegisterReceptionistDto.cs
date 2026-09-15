@@ -1,6 +1,6 @@
-namespace Pediatria.Application.DTOs.Users.GetUser;
+namespace Pediatria.Application.DTOs.Users;
 
-public class ReceptionistDto : ProfileDto
+public class RegisterReceptionistDto
 {
     public string FullName { get; set; } = null!;
     public DateOnly BirthDate { get; set; }

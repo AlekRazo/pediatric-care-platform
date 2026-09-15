@@ -1,8 +1,10 @@
 namespace Pediatria.Application.DTOs.Users;
 
-public class UpdateUserUserRequestDto
+public class GetUserResponseDto
 {
     public string Username { get; set; } = null!;
     public string Email { get; set; } = null!;
-    public bool? Active { get; set; }
+    public bool IsActive { get; set; }
+
+    public List<string> Roles { get; set; } = new List<string>();
 }

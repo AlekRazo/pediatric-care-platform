@@ -1,6 +1,6 @@
 using Pediatria.Domain.Entities.Users;
 
-namespace Pediatria.Domain.Entities;
+namespace Pediatria.Domain.Entities.Users;
 
 public sealed class AuditLog
 {

@@ -1,4 +1,4 @@
-namespace Pediatria.Application.DTOs;
+namespace Pediatria.Application.DTOs.Common;
 
 
 public class ApiResponse<T>

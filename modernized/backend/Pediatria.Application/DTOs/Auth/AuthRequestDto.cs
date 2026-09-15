@@ -1,4 +1,4 @@
-namespace Pediatria.Application.DTOs.Users.Login;
+namespace Pediatria.Application.DTOs.Auth;
 
 public class LoginRequestDto
 {

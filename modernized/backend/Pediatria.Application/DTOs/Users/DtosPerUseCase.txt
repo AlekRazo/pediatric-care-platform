@@ -1,47 +1,31 @@
-# 1 - Login
+# 1 - Login (USC-USR-001)
 Request: LoginUserRequestDto
 Response: LoginUserResponseDto
 
-# 2 - Password Recovery
+# 2 - Password Recovery (USC-USR-002)
 Request: PasswordRecoveryRequestDto
 Response: string
 
-# 3 - Logout
+# 3 - Logout (USC-USR-003)
 Request: Token in headers
 Response: string
 
-# 4 - Search Users
+# 4 - Search Users (USC-USR-004)
 Request: UsersRequestDto
-Response: List<UserResponseDto>
+Response: List<GetUserResponseDto>
 
-# 5 - Get User
+# 5 - Get User (USC-USR-005)
 Request: Guid
-Response: UserResponseDto
+Response: GetUserResponseDto
 
-# 6
-Request: 
-Response: 
+# 6 - Register User (USC-USR-006, USC-USR-007, USC-USR-008)
+Request: RegisterUserRequestDto
+Response: RegisterUserResponseDto
 
-# 7
-Request: 
-Response: 
+# 7 - Modify User (USC-USR-009, USC-USR-010, USC-USR-011)
+Request: UpdateUserRequestDto
+Response: UpdateUserResponseDto
 
-# 8
-Request: 
-Response: 
-
-# 9
-Request: 
-Response: 
-
-# 10
-Request: 
-Response: 
-
-# 11
-Request: 
-Response: 
-
-# 12
-Request: 
-Response: 
+# 8 - Delete User
+Request: Guid
+Response: string

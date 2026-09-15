@@ -8,26 +8,23 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\mrazo\\.nuget\\packages\\": {},
-    "C:\\Program Files\\DevExpress 24.1\\Components\\Offline Packages": {},
+    "C:\\Users\\Manuel\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mrazo\\Downloads\\Portfolio\\Pediatria\\modernized\\backend\\Pediatria.Domain\\Pediatria.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Manuel\\Desktop\\Project Portfolio\\repos\\pediatric-care-platform\\modernized\\backend\\Pediatria.Domain\\Pediatria.Domain.csproj",
       "projectName": "Pediatria.Domain",
-      "projectPath": "C:\\Users\\mrazo\\Downloads\\Portfolio\\Pediatria\\modernized\\backend\\Pediatria.Domain\\Pediatria.Domain.csproj",
-      "packagesPath": "C:\\Users\\mrazo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mrazo\\Downloads\\Portfolio\\Pediatria\\modernized\\backend\\Pediatria.Domain\\obj\\",
+      "projectPath": "C:\\Users\\Manuel\\Desktop\\Project Portfolio\\repos\\pediatric-care-platform\\modernized\\backend\\Pediatria.Domain\\Pediatria.Domain.csproj",
+      "packagesPath": "C:\\Users\\Manuel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Manuel\\Desktop\\Project Portfolio\\repos\\pediatric-care-platform\\modernized\\backend\\Pediatria.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\DevExpress 24.1\\Components\\Offline Packages",
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\mrazo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 24.1.config",
+        "C:\\Users\\Manuel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -36,8 +33,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\DevExpress 24.1\\Components\\System\\Components\\Packages": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -57,7 +52,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.400"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net10.0": {
@@ -79,7 +74,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.400/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
