@@ -38,8 +38,7 @@ GO
 
 CREATE DATABASE [PediatricsV2];
 GO
-ALTER DATABASE [PediatricsV2] SET READ_COMMITTED_SNAPSHOT ON;
-GO
+
 USE [PediatricsV2];
 GO
 
@@ -47,124 +46,152 @@ GO
    1. USERS  (REQ-USR-001 to 016 / REQ-SEC-001 to 005)
    ===================================================================== */
 
-CREATE TABLE dbo.roles (
-    id      INT IDENTITY(1,1) PRIMARY KEY,
-    name    NVARCHAR(30) NOT NULL UNIQUE
-        CHECK (name IN (N'Administrador', N'Medico', N'Recepcionista'))
+CREATE TABLE [dbo].[roles] (
+    [id]    INT IDENTITY(1,1) NOT NULL,
+    [name]  NVARCHAR(30) NOT NULL,
+    CONSTRAINT [PK_roles] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_roles_name] UNIQUE ([name]),
+    CONSTRAINT [CK_roles_name] CHECK ([name] IN (N'Administrador', N'Medico', N'Recepcionista'))
 );
 GO
-INSERT INTO dbo.roles (name) VALUES (N'Administrador'), (N'Medico'), (N'Recepcionista');
+
+INSERT INTO [dbo].[roles] ([name]) VALUES (N'Administrador'), (N'Medico'), (N'Recepcionista');
 GO
 
 -- Base authentication table. GUID: it's the natural JWT "sub" and avoids
 -- user enumeration on admin endpoints (REQ-USR-006/007).
-CREATE TABLE dbo.users (
-    id                  UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    username            NVARCHAR(50)  NOT NULL UNIQUE,
-    email               NVARCHAR(100) NOT NULL UNIQUE,           -- REQ-USR-003: recovery by email
-    password_hash       NVARCHAR(256) NOT NULL,                  -- REQ-SEC-004: never plain text
-    active              BIT NOT NULL DEFAULT 1,
-    created_at          DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
-    last_login_at       DATETIME2(0) NULL,
-    deactivated_at      DATETIME2(0) NULL                        -- REQ-USR-015: logical deletion, not physical
+CREATE TABLE [dbo].[users] (
+    [id]             UNIQUEIDENTIFIER NOT NULL,
+    [username]       NVARCHAR(50) NOT NULL,
+    [email]          NVARCHAR(100) NOT NULL,
+    [password_hash]  NVARCHAR(256) NOT NULL,
+    [active]         BIT NOT NULL CONSTRAINT [DF_users_active] DEFAULT 1,
+    [created_at]     DATETIME2(0) NOT NULL CONSTRAINT [DF_users_created_at] DEFAULT SYSUTCDATETIME(),
+    [last_login_at]  DATETIME2(0) NULL,
+    [deactivated_at] DATETIME2(0) NULL,
+    CONSTRAINT [PK_users] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_users_username] UNIQUE ([username]),
+    CONSTRAINT [UQ_users_email] UNIQUE ([email])
 );
 GO
-CREATE INDEX IX_active_users ON dbo.users(id) WHERE active = 1;
+
+CREATE INDEX [IX_active_users] ON [dbo].[users]([id]) WHERE [active] = 1;
 GO
 
-CREATE TABLE dbo.users_role(
-    user_id           UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.users(id),
-    role_id           INT NOT NULL REFERENCES dbo.roles(id),   -- REQ-USR-005
-    CONSTRAINT PK_OrderItems PRIMARY KEY (user_id, role_id)
+CREATE TABLE [dbo].[user_roles] (
+    [user_id] UNIQUEIDENTIFIER NOT NULL,
+    [role_id] INT NOT NULL,
+    CONSTRAINT [PK_user_roles] PRIMARY KEY ([user_id], [role_id]),
+    CONSTRAINT [FK_user_roles_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]),
+    CONSTRAINT [FK_user_roles_roles] FOREIGN KEY ([role_id]) REFERENCES [dbo].[roles]([id])
 );
 GO
 
 -- Extended physician profile (1:1 with users, shared PK).
-CREATE TABLE dbo.physicians (
-    user_id                       UNIQUEIDENTIFIER NOT NULL PRIMARY KEY
-        REFERENCES dbo.users(id) ON DELETE CASCADE,
-    full_name                     NVARCHAR(100) NOT NULL,
-    birth_date                    DATE NOT NULL,
-    gender                        NVARCHAR(10) NOT NULL CHECK (gender IN (N'Masculino', N'Femenino', N'Otro')),
-    professional_license_number   NVARCHAR(20) NOT NULL UNIQUE,        -- REQ-USR-010
-    educational_institution       NVARCHAR(100) NOT NULL,
-    specialty                     NVARCHAR(100) NOT NULL,
-    signature                     VARBINARY(MAX) NULL                  -- REQ-USR-009 / REQ-REC-002 (signature on prescription)
+CREATE TABLE [dbo].[physicians] (
+    [user_id]                      UNIQUEIDENTIFIER NOT NULL,
+    [full_name]                    NVARCHAR(100) NOT NULL,
+    [birth_date]                   DATE NOT NULL,
+    [gender]                       NVARCHAR(10) NOT NULL,
+    [professional_license_number]  NVARCHAR(20) NOT NULL,
+    [educational_institution]      NVARCHAR(100) NOT NULL,
+    [specialty]                    NVARCHAR(100) NOT NULL,
+    [signature]                    VARBINARY(MAX) NULL,
+    CONSTRAINT [PK_physicians] PRIMARY KEY ([user_id]),
+    CONSTRAINT [FK_physicians_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]) ON DELETE CASCADE,
+    CONSTRAINT [CK_physicians_gender] CHECK ([gender] IN (N'Masculino', N'Femenino', N'Otro')),
+    CONSTRAINT [UQ_physicians_professional_license_number] UNIQUE ([professional_license_number])
 );
 GO
 
 -- Extended receptionist profile (1:1 with users).
-CREATE TABLE dbo.receptionists (
-    user_id           UNIQUEIDENTIFIER NOT NULL PRIMARY KEY
-        REFERENCES dbo.users(id) ON DELETE CASCADE,
-    full_name         NVARCHAR(100) NOT NULL,
-    birth_date        DATE NOT NULL,
-    gender            NVARCHAR(10) NOT NULL CHECK (gender IN (N'Masculino', N'Femenino', N'Otro'))
+CREATE TABLE [dbo].[receptionists] (
+    [user_id]    UNIQUEIDENTIFIER NOT NULL,
+    [full_name]  NVARCHAR(100) NOT NULL,
+    [birth_date] DATE NOT NULL,
+    [gender]     NVARCHAR(10) NOT NULL,
+    CONSTRAINT [PK_receptionists] PRIMARY KEY ([user_id]),
+    CONSTRAINT [FK_receptionists_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]) ON DELETE CASCADE,
+    CONSTRAINT [CK_receptionists_gender] CHECK ([gender] IN (N'Masculino', N'Femenino', N'Otro'))
 );
 GO
 
 -- Clinic/office info, editable by the admin without touching code (REQ-SOP-003)
 -- and used to print the prescription (REQ-REC-002).
-CREATE TABLE dbo.clinic (
-    id        INT NOT NULL PRIMARY KEY CHECK (id = 1),   -- single row (singleton pattern)
-    name      NVARCHAR(100) NOT NULL,
-    address   NVARCHAR(150) NOT NULL,
-    phone     NVARCHAR(15)  NOT NULL
+CREATE TABLE [dbo].[clinic] (
+    [id]      INT NOT NULL,
+    [name]    NVARCHAR(100) NOT NULL,
+    [address] NVARCHAR(150) NOT NULL,
+    [phone]   NVARCHAR(15) NOT NULL,
+    CONSTRAINT [PK_clinic] PRIMARY KEY ([id]),
+    CONSTRAINT [CK_clinic_id] CHECK ([id] = 1)
 );
 GO
 
-CREATE TABLE dbo.refresh_tokens (
-    id                 UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    user_id            UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.users(id) ON DELETE CASCADE,
-    token_hash         NVARCHAR(256) NOT NULL,
-    created_at         DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
-    expires_at         DATETIME2(0) NOT NULL,
-    revoked            BIT NOT NULL DEFAULT 0,
-    created_by_ip      NVARCHAR(45) NULL
+CREATE TABLE [dbo].[refresh_tokens] (
+    [id]            UNIQUEIDENTIFIER NOT NULL,
+    [user_id]       UNIQUEIDENTIFIER NOT NULL,
+    [token_hash]    NVARCHAR(256) NOT NULL,
+    [created_at]    DATETIME2(0) NOT NULL CONSTRAINT [DF_refresh_tokens_created_at] DEFAULT SYSUTCDATETIME(),
+    [expires_at]    DATETIME2(0) NOT NULL,
+    [revoked]       BIT NOT NULL CONSTRAINT [DF_refresh_tokens_revoked] DEFAULT 0,
+    [created_by_ip] NVARCHAR(45) NULL,
+    CONSTRAINT [PK_refresh_tokens] PRIMARY KEY ([id]),
+    CONSTRAINT [FK_refresh_tokens_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]) ON DELETE CASCADE
 );
 GO
-CREATE INDEX IX_refresh_tokens_user ON dbo.refresh_tokens(user_id) WHERE revoked = 0;
+
+CREATE INDEX [IX_refresh_tokens_user] ON [dbo].[refresh_tokens]([user_id]) WHERE [revoked] = 0;
 GO
 
 -- Password recovery: temporary password generated by the admin,
 -- expires in 24h, forces a change on next login.
-CREATE TABLE dbo.password_resets (
-    id                    UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    user_id               UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.users(id) ON DELETE CASCADE,
-    admin_id              UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.users(id),
-    temp_password_hash    NVARCHAR(256) NOT NULL,
-    created_at            DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
-    expires_at            DATETIME2(0) NOT NULL,       -- created_at + 24h, computed in the application
-    used                  BIT NOT NULL DEFAULT 0
+CREATE TABLE [dbo].[audit_log] (
+    [id]         BIGINT IDENTITY(1,1) NOT NULL,
+    [user_id]    UNIQUEIDENTIFIER NULL,
+    [entity]     NVARCHAR(50) NOT NULL,
+    [entity_id]  NVARCHAR(50) NULL,
+    [action]     NVARCHAR(30) NOT NULL,
+    [timestamp]  DATETIME2(0) NOT NULL CONSTRAINT [DF_audit_log_timestamp] DEFAULT SYSUTCDATETIME(),
+    [ip_address] NVARCHAR(45) NULL,
+    [details]    NVARCHAR(500) NULL,
+    CONSTRAINT [PK_audit_log] PRIMARY KEY ([id]),
+    CONSTRAINT [FK_audit_log_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]),
+    CONSTRAINT [CK_audit_log_action] CHECK ([action] IN (N'Acceso', N'Creación', N'Modificación', N'Eliminación'))
 );
 GO
 
 -- Unified audit log (REQ-USR-016, REQ-PAC-020, REQ-SOP-005).
 -- BIGINT IDENTITY: high-volume append-only table, a GUID adds no value here.
-CREATE TABLE dbo.audit_log (
-    id            BIGINT IDENTITY(1,1) PRIMARY KEY,
-    user_id       UNIQUEIDENTIFIER NULL REFERENCES dbo.users(id),  -- NULL: failed attempt before authentication
-    entity        NVARCHAR(50) NOT NULL,      -- 'User' | 'Patient' | 'Consultation' | 'Prescription' | 'Appointment'
-    entity_id     NVARCHAR(50) NULL,          -- GUID or integer as text; agnostic to PK type
-    action        NVARCHAR(30) NOT NULL
-        CHECK (action IN (N'Acceso', N'Creación', N'Modificación', N'Eliminación')),
-    timestamp     DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
-    ip_address    NVARCHAR(45) NULL,
-    details       NVARCHAR(500) NULL
+CREATE TABLE [dbo].[audit_log] (
+    [id]         BIGINT IDENTITY(1,1) NOT NULL,
+    [user_id]    UNIQUEIDENTIFIER NULL,
+    [entity]     NVARCHAR(50) NOT NULL,
+    [entity_id]  NVARCHAR(50) NULL,
+    [action]     NVARCHAR(30) NOT NULL,
+    [timestamp]  DATETIME2(0) NOT NULL CONSTRAINT [DF_audit_log_timestamp] DEFAULT SYSUTCDATETIME(),
+    [ip_address] NVARCHAR(45) NULL,
+    [details]    NVARCHAR(500) NULL,
+    CONSTRAINT [PK_audit_log] PRIMARY KEY ([id]),
+    CONSTRAINT [FK_audit_log_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]),
+    CONSTRAINT [CK_audit_log_action] CHECK ([action] IN (N'Acceso', N'Creación', N'Modificación', N'Eliminación'))
 );
 GO
-CREATE INDEX IX_audit_log_entity ON dbo.audit_log(entity, entity_id);
-CREATE INDEX IX_audit_log_user_timestamp ON dbo.audit_log(user_id, timestamp);
+
+CREATE INDEX [IX_audit_log_entity] ON [dbo].[audit_log]([entity], [entity_id]);
+CREATE INDEX [IX_audit_log_user_timestamp] ON [dbo].[audit_log]([user_id], [timestamp]);
 GO
 
 /* =====================================================================
    2. APPOINTMENTS  (REQ-CIT-001 to 013)
    ===================================================================== */
 
-CREATE TABLE dbo.unavailable_days (
-    id      INT IDENTITY(1,1) PRIMARY KEY,
-    date    DATE NOT NULL UNIQUE,
-    reason  NVARCHAR(100) NULL
+CREATE TABLE [dbo].[unavailable_days] (
+    [id]     INT IDENTITY(1,1) NOT NULL,
+    [date]   DATE NOT NULL,
+    [reason] NVARCHAR(100) NULL,
+    CONSTRAINT [PK_unavailable_days] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_unavailable_days_date] UNIQUE ([date])
 );
 GO
 
@@ -175,22 +202,25 @@ GO
 -- exist yet at this point in the script (appointments are documented
 -- before patients in the requirements). The real constraint is added
 -- further below with ALTER TABLE, once dbo.patients is created.
-CREATE TABLE dbo.appointments (
-    id               UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    patient_id       UNIQUEIDENTIFIER NULL,
-    patient_name     NVARCHAR(100) NOT NULL,
-    date             DATE NOT NULL,
-    time             TIME(0) NOT NULL,
-    is_first_visit   BIT NOT NULL DEFAULT 0,
-    phone            NVARCHAR(15) NULL,
-    affiliation      NVARCHAR(20) NULL CHECK (affiliation IN (N'Carl''s Jr', N'Pemex', N'Ninguno')),
-    status           NVARCHAR(20) NOT NULL DEFAULT N'Programada'
-        CHECK (status IN (N'Programada', N'Reagendada', N'Cancelada', N'Atendida')),
-    created_at       DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME()
-    -- Note: the "no Sundays" (REQ-CIT-011) and "20-minute time slots"
-    -- (REQ-CIT-003) business rules are validated in the domain layer
-    -- (HorarioCita Value Object), not here. The DB only keeps the data-
-    -- integrity constraints (status/affiliation enums).
+
+-- Note: the "no Sundays" (REQ-CIT-011) and "20-minute time slots"
+-- (REQ-CIT-003) business rules are validated in the domain layer
+-- (HorarioCita Value Object), not here. The DB only keeps the data-
+-- integrity constraints (status/affiliation enums).
+CREATE TABLE [dbo].[appointments] (
+    [id]             UNIQUEIDENTIFIER NOT NULL,
+    [patient_id]     UNIQUEIDENTIFIER NULL,
+    [patient_name]   NVARCHAR(100) NOT NULL,
+    [date]           DATE NOT NULL,
+    [time]           TIME(0) NOT NULL,
+    [is_first_visit] BIT NOT NULL CONSTRAINT [DF_appointments_is_first_visit] DEFAULT 0,
+    [phone]          NVARCHAR(15) NULL,
+    [affiliation]    NVARCHAR(20) NULL,
+    [status]         NVARCHAR(20) NOT NULL CONSTRAINT [DF_appointments_status] DEFAULT N'Programada',
+    [created_at]     DATETIME2(0) NOT NULL CONSTRAINT [DF_appointments_created_at] DEFAULT SYSUTCDATETIME(),
+    CONSTRAINT [PK_appointments] PRIMARY KEY ([id]),
+    CONSTRAINT [CK_appointments_affiliation] CHECK ([affiliation] IN (N'Carl''s Jr', N'Pemex', N'Ninguno')),
+    CONSTRAINT [CK_appointments_status] CHECK ([status] IN (N'Programada', N'Reagendada', N'Cancelada', N'Atendida'))
 );
 GO
 
@@ -200,281 +230,347 @@ GO
 
 -- GUID as technical/API PK; record_number as a legal, independent,
 -- NOT NULL UNIQUE sequential number (REQ-PAC-003).
-CREATE TABLE dbo.patients (
-    id                        UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    record_number             INT IDENTITY(1000,1) NOT NULL UNIQUE,
-    full_name                 NVARCHAR(100) NOT NULL,
-    birth_date                DATE NOT NULL,
-    gender                    NVARCHAR(10) NOT NULL CHECK (gender IN (N'Masculino', N'Femenino')),
-    curp                      CHAR(18) NOT NULL UNIQUE,                -- NOM-004
-    address                   NVARCHAR(150) NOT NULL,
-    postal_code               CHAR(5) NOT NULL,
-    birth_place               NVARCHAR(100) NOT NULL,
-    ethnic_group              NVARCHAR(50) NULL,                       -- NOM-004
-    blood_type                NVARCHAR(3) NULL
-        CHECK (blood_type IN (N'A+', N'A-', N'B+', N'B-', N'AB+', N'AB-', N'O+', N'O-')),
-    guardian_name             NVARCHAR(100) NULL,
-    guardian_relationship     NVARCHAR(30) NULL,
-    guardian_phone            NVARCHAR(15) NULL,
-    affiliation               NVARCHAR(20) NULL CHECK (affiliation IN (N'Pemex', N'Carl''s Jr', N'Ninguno')),
-    private_insurance_number  NVARCHAR(30) NULL,
-    other_insurance_type      NVARCHAR(50) NULL,
-    insurance_number          NVARCHAR(30) NULL,
-    general_notes             NVARCHAR(MAX) NULL,
-    assigned_physician_id        UNIQUEIDENTIFIER NULL REFERENCES dbo.physicians(user_id),
-    created_at                DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
-    active                    BIT NOT NULL DEFAULT 1,              -- logical deletion: 5-year retention
-    deactivated_at            DATETIME2(0) NULL
+CREATE TABLE [dbo].[patients] (
+    [id]                       UNIQUEIDENTIFIER NOT NULL,
+    [record_number]            INT IDENTITY(1000,1) NOT NULL,
+    [full_name]                NVARCHAR(100) NOT NULL,
+    [birth_date]               DATE NOT NULL,
+    [gender]                   NVARCHAR(10) NOT NULL,
+    [curp]                     CHAR(18) NOT NULL,
+    [address]                  NVARCHAR(150) NOT NULL,
+    [postal_code]              CHAR(5) NOT NULL,
+    [birth_place]              NVARCHAR(100) NOT NULL,
+    [ethnic_group]             NVARCHAR(50) NULL,
+    [blood_type]               NVARCHAR(3) NULL,
+    [guardian_name]            NVARCHAR(100) NULL,
+    [guardian_relationship]    NVARCHAR(30) NULL,
+    [guardian_phone]           NVARCHAR(15) NULL,
+    [affiliation]              NVARCHAR(20) NULL,
+    [private_insurance_number] NVARCHAR(30) NULL,
+    [other_insurance_type]     NVARCHAR(50) NULL,
+    [insurance_number]         NVARCHAR(30) NULL,
+    [general_notes]            NVARCHAR(MAX) NULL,
+    [assigned_physician_id]    UNIQUEIDENTIFIER NULL,
+    [created_at]               DATETIME2(0) NOT NULL CONSTRAINT [DF_patients_created_at] DEFAULT SYSUTCDATETIME(),
+    [active]                   BIT NOT NULL CONSTRAINT [DF_patients_active] DEFAULT 1,
+    [deactivated_at]           DATETIME2(0) NULL,
+    CONSTRAINT [PK_patients] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_patients_record_number] UNIQUE ([record_number]),
+    CONSTRAINT [UQ_patients_curp] UNIQUE ([curp]),
+    CONSTRAINT [CK_patients_gender] CHECK ([gender] IN (N'Masculino', N'Femenino')),
+    CONSTRAINT [CK_patients_blood_type] CHECK ([blood_type] IN (N'A+', N'A-', N'B+', N me'B-', N'AB+', N'AB-', N'O+', N'O-')),
+    CONSTRAINT [CK_patients_affiliation] CHECK ([affiliation] IN (N'Pemex', N'Carl''s Jr', N'Ninguno')),
+    CONSTRAINT [FK_patients_physicians] FOREIGN KEY ([assigned_physician_id]) REFERENCES [dbo].[physicians]([user_id])
 );
 GO
 
 -- Now that dbo.patients exists, add the real FK for appointments.
-ALTER TABLE dbo.appointments
-    ADD CONSTRAINT FK_appointments_patient FOREIGN KEY (patient_id)
-    REFERENCES dbo.patients(id) ON DELETE SET NULL;
-GO
-CREATE INDEX IX_appointments_patient ON dbo.appointments(patient_id);
-CREATE UNIQUE INDEX UX_appointments_date_time_active ON dbo.appointments(date, time)
-    WHERE status <> N'Cancelada';   -- REQ-CIT-013: no double-booking (IN is not valid in filtered index predicates)
+ALTER TABLE [dbo].[appointments]
+    ADD CONSTRAINT [FK_appointments_patient] FOREIGN KEY ([patient_id])
+    REFERENCES [dbo].[patients]([id]) ON DELETE SET NULL;
 GO
 
-CREATE INDEX IX_patients_name ON dbo.patients(full_name);          -- REQ-PAC-001
-CREATE INDEX IX_patients_physician ON dbo.patients(assigned_physician_id);
+CREATE INDEX [IX_appointments_patient] ON [dbo].[appointments]([patient_id]);
+CREATE UNIQUE INDEX [UX_appointments_date_time_active] ON [dbo].[appointments]([date], [time]) WHERE [status] <> N'Cancelada';
+GO
+
+-- REQ-PAC-001
+CREATE INDEX [IX_patients_name] ON [dbo].[patients]([full_name]);
+CREATE INDEX [IX_patients_physician] ON [dbo].[patients]([assigned_physician_id]);
 GO
 
 -- REQ-PAC-004: pathological history (1:1)
-CREATE TABLE dbo.pathological_history (
-    id                                INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id                        UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    previous_illnesses                BIT NULL, previous_illnesses_type                NVARCHAR(200) NULL,
-    sequelae                          BIT NULL, sequelae_type                          NVARCHAR(200) NULL,
-    hospitalizations                  BIT NULL, hospitalizations_type                  NVARCHAR(200) NULL,
-    surgeries                         BIT NULL, surgeries_type                         NVARCHAR(200) NULL,
-    transfusions                      BIT NULL, transfusions_type                      NVARCHAR(200) NULL,
-    fractures                         BIT NULL, fractures_type                         NVARCHAR(200) NULL,
-    trauma_accidents                  BIT NULL, trauma_accidents_type                  NVARCHAR(200) NULL,
-    childhood_exanthematous_diseases  BIT NULL, childhood_exanthematous_diseases_type  NVARCHAR(200) NULL,
-    chronic_degenerative_diseases     BIT NULL, chronic_degenerative_diseases_type     NVARCHAR(200) NULL
+CREATE TABLE [dbo].[pathological_history] (
+    [id]                                INT IDENTITY(1,1) NOT NULL,
+    [patient_id]                        UNIQUEIDENTIFIER NOT NULL,
+    [previous_illnesses]                BIT NULL,
+    [previous_illnesses_type]           NVARCHAR(200) NULL,
+    [sequelae]                          BIT NULL,
+    [sequelae_type]                     NVARCHAR(200) NULL,
+    [hospitalizations]                  BIT NULL,
+    [hospitalizations_type]             NVARCHAR(200) NULL,
+    [surgeries]                         BIT NULL,
+    [surgeries_type]                    NVARCHAR(200) NULL,
+    [transfusions]                      BIT NULL,
+    [transfusions_type]                 NVARCHAR(200) NULL,
+    [fractures]                         BIT NULL,
+    [fractures_type]                    NVARCHAR(200) NULL,
+    [trauma_accidents]                  BIT NULL,
+    [trauma_accidents_type]             NVARCHAR(200) NULL,
+    [childhood_exanthematous_diseases] BIT NULL,
+    [childhood_exanthematous_diseases_type] NVARCHAR(200) NULL,
+    [chronic_degenerative_diseases]    BIT NULL,
+    [chronic_degenerative_diseases_type] NVARCHAR(200) NULL,
+    CONSTRAINT [PK_pathological_history] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_pathological_history_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_pathological_history_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE
 );
 GO
 
 -- REQ-PAC-005: non-pathological history (1:1)
-CREATE TABLE dbo.non_pathological_history (
-    id                     INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id             UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    housing_type           NVARCHAR(100) NULL,
-    utilities              NVARCHAR(200) NULL,
-    overcrowding           NVARCHAR(100) NULL,
-    hygiene_habits         NVARCHAR(200) NULL,
-    dietary_habits         NVARCHAR(200) NULL,
-    education_level        NVARCHAR(100) NULL,
-    pet_exposure           BIT NULL, pet_exposure_type      NVARCHAR(200) NULL,
-    physical_activity      BIT NULL, physical_activity_type NVARCHAR(200) NULL
+CREATE TABLE [dbo].[non_pathological_history] (
+    [id]                     INT IDENTITY(1,1) NOT NULL,
+    [patient_id]             UNIQUEIDENTIFIER NOT NULL,
+    [housing_type]           NVARCHAR(100) NULL,
+    [utilities]              NVARCHAR(200) NULL,
+    [overcrowding]           NVARCHAR(100) NULL,
+    [hygiene_habits]         NVARCHAR(200) NULL,
+    [dietary_habits]         NVARCHAR(200) NULL,
+    [education_level]        NVARCHAR(100) NULL,
+    [pet_exposure]           BIT NULL,
+    [pet_exposure_type]      NVARCHAR(200) NULL,
+    [physical_activity]      BIT NULL,
+    [physical_activity_type] NVARCHAR(200) NULL,
+    CONSTRAINT [PK_non_pathological_history] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_non_pathological_history_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_non_pathological_history_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE
 );
 GO
 
 -- REQ-PAC-006 / REQ-PAC-007: family history, father / mother.
 -- Split into two tables because the fields aren't symmetric (mother
 -- adds obstetric history), avoiding meaningless NULL columns on the father.
-CREATE TABLE dbo.family_history_father (
-    id                       INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id               UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    full_name                NVARCHAR(100) NULL,
-    birth_date                DATE NULL,
-    occupation                NVARCHAR(50) NULL,
-    smoking                   BIT NULL,
-    alcohol_use                BIT NULL,
-    substance_use               BIT NULL, substance_use_type         NVARCHAR(200) NULL,
-    hypertension                BIT NULL,
-    dysmorphic_features          BIT NULL, dysmorphic_features_type  NVARCHAR(200) NULL,
-    diabetes                     BIT NULL, diabetes_type             NVARCHAR(100) NULL,   -- NOM-004: type of diabetes
-    cancer                       BIT NULL, cancer_type               NVARCHAR(200) NULL,
-    allergies                    BIT NULL, allergies_type            NVARCHAR(200) NULL,
-    other_conditions              BIT NULL, other_conditions_type    NVARCHAR(200) NULL,
-    medications                   BIT NULL, medications_type         NVARCHAR(200) NULL,
-    current_health_status         NVARCHAR(100) NULL
+CREATE TABLE [dbo].[family_history_mother] (
+    [id]                      INT IDENTITY(1,1) NOT NULL,
+    [patient_id]              UNIQUEIDENTIFIER NOT NULL,
+    [full_name]               NVARCHAR(100) NULL,
+    [birth_date]              DATE NULL,
+    [occupation]              NVARCHAR(50) NULL,
+    [smoking]                 BIT NULL,
+    [alcohol_use]             BIT NULL,
+    [substance_use]           BIT NULL,
+    [substance_use_type]      NVARCHAR(200) NULL,
+    [hypertension]            BIT NULL,
+    [dysmorphic_features]     BIT NULL,
+    [dysmorphic_features_type] NVARCHAR(200) NULL,
+    [diabetes]                BIT NULL,
+    [diabetes_type]           NVARCHAR(100) NULL,
+    [cancer]                  BIT NULL,
+    [cancer_type]             NVARCHAR(200) NULL,
+    [allergies]               BIT NULL,
+    [allergies_type]          NVARCHAR(200) NULL,
+    [other_conditions]        BIT NULL,
+    [other_conditions_type]   NVARCHAR(200) NULL,
+    [medications]             BIT NULL,
+    [medications_type]        NVARCHAR(200) NULL,
+    [current_health_status]   NVARCHAR(100) NULL,
+    [pregnancy_count]         INT NULL,
+    [vaginal_births_count]    INT NULL,
+    [c_section_count]        INT NULL,
+    [miscarriage_count]       INT NULL,
+    CONSTRAINT [PK_family_history_mother] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_family_history_mother_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_family_history_mother_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE
 );
 GO
 
-CREATE TABLE dbo.family_history_mother (
-    id                       INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id               UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    full_name                NVARCHAR(100) NULL,
-    birth_date                DATE NULL,
-    occupation                NVARCHAR(50) NULL,
-    smoking                   BIT NULL,
-    alcohol_use                BIT NULL,
-    substance_use               BIT NULL, substance_use_type         NVARCHAR(200) NULL,
-    hypertension                BIT NULL,
-    dysmorphic_features          BIT NULL, dysmorphic_features_type  NVARCHAR(200) NULL,
-    diabetes                     BIT NULL, diabetes_type             NVARCHAR(100) NULL,
-    cancer                       BIT NULL, cancer_type               NVARCHAR(200) NULL,
-    allergies                    BIT NULL, allergies_type            NVARCHAR(200) NULL,
-    other_conditions              BIT NULL, other_conditions_type    NVARCHAR(200) NULL,
-    medications                   BIT NULL, medications_type         NVARCHAR(200) NULL,
-    current_health_status         NVARCHAR(100) NULL,
-    pregnancy_count                INT NULL,
-    vaginal_births_count            INT NULL,
-    c_section_count                 INT NULL,
-    miscarriage_count                INT NULL
+CREATE TABLE [dbo].[family_history_father] (
+    [id]                      INT IDENTITY(1,1) NOT NULL,
+    [patient_id]              UNIQUEIDENTIFIER NOT NULL,
+    [full_name]               NVARCHAR(100) NULL,
+    [birth_date]              DATE NULL,
+    [occupation]              NVARCHAR(50) NULL,
+    [smoking]                 BIT NULL,
+    [alcohol_use]             BIT NULL,
+    [substance_use]           BIT NULL,
+    [substance_use_type]      NVARCHAR(200) NULL,
+    [hypertension]            BIT NULL,
+    [dysmorphic_features]     BIT NULL,
+    [dysmorphic_features_type] NVARCHAR(200) NULL,
+    [diabetes]                BIT NULL,
+    [diabetes_type]           NVARCHAR(100) NULL,
+    [cancer]                  BIT NULL,
+    [cancer_type]             NVARCHAR(200) NULL,
+    [allergies]               BIT NULL,
+    [allergies_type]          NVARCHAR(200) NULL,
+    [other_conditions]        BIT NULL,
+    [other_conditions_type]   NVARCHAR(200) NULL,
+    [medications]             BIT NULL,
+    [medications_type]        NVARCHAR(200) NULL,
+    [current_health_status]   NVARCHAR(100) NULL,
+    CONSTRAINT [PK_family_history_father] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_family_history_father_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_family_history_father_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE
 );
 GO
 
 -- REQ-PAC-008
-CREATE TABLE dbo.prenatal_history (
-    id                          INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id                  UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    planned_pregnancy            BIT NULL,
-    fertilization_method         NVARCHAR(50) NULL CHECK (fertilization_method IN (N'Fecundación in vitro', N'Inseminación artificial', N'Ninguno')),
-    prenatal_care                 BIT NULL,
-    prenatal_care_start_date      DATE NULL,
-    prenatal_care_provider        NVARCHAR(50) NULL,
-    maternal_conditions           BIT NULL,
-    condition_start_date          DATE NULL,
-    condition_resolution_date     DATE NULL
+CREATE TABLE [dbo].[prenatal_history] (
+    [id]                        INT IDENTITY(1,1) NOT NULL,
+    [patient_id]                UNIQUEIDENTIFIER NOT NULL,
+    [planned_pregnancy]          BIT NULL,
+    [fertilization_method]       NVARCHAR(50) NULL,
+    [prenatal_care]               BIT NULL,
+    [prenatal_care_start_date]    DATE NULL,
+    [prenatal_care_provider]      NVARCHAR(50) NULL,
+    [maternal_conditions]         BIT NULL,
+    [condition_start_date]        DATE NULL,
+    [condition_resolution_date]   DATE NULL,
+    CONSTRAINT [PK_prenatal_history] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_prenatal_history_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_prenatal_history_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE,
+    CONSTRAINT [CK_prenatal_history_fertilization_method] CHECK ([fertilization_method] IN (N'Fecundación in vitro', N'Inseminación artificial', N'Ninguno'))
 );
 GO
 
 -- REQ-PAC-009
-CREATE TABLE dbo.birth_history (
-    id                    INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id            UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    hospital              NVARCHAR(100) NULL,
-    birth_type            NVARCHAR(20) NULL CHECK (birth_type IN (N'Natural', N'Cesárea')),
-    delivery_type         NVARCHAR(20) NULL CHECK (delivery_type IN (N'Único', N'Múltiple')),
-    birth_height_cm       DECIMAL(4,1) NULL,
-    birth_weight_kg       DECIMAL(4,2) NULL
+CREATE TABLE [dbo].[birth_history] (
+    [id]              INT IDENTITY(1,1) NOT NULL,
+    [patient_id]      UNIQUEIDENTIFIER NOT NULL,
+    [hospital]        NVARCHAR(100) NULL,
+    [birth_type]      NVARCHAR(20) NULL,
+    [delivery_type]   NVARCHAR(20) NULL,
+    [birth_height_cm] DECIMAL(4,1) NULL,
+    [birth_weight_kg] DECIMAL(4,2) NULL,
+    CONSTRAINT [PK_birth_history] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_birth_history_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_birth_history_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE,
+    CONSTRAINT [CK_birth_history_birth_type] CHECK ([birth_type] IN (N'Natural', N'Cesárea')),
+    CONSTRAINT [CK_birth_history_delivery_type] CHECK ([delivery_type] IN (N'Único', N'Múltiple'))
 );
 GO
 
 -- REQ-PAC-010
-CREATE TABLE dbo.postnatal_history (
-    id                       INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id               UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    required_monitoring       BIT NULL,
-    required_ventilator        BIT NULL,
-    required_incubator         BIT NULL,
-    required_phototherapy      BIT NULL,
-    phototherapy_count          INT NULL,
-    other_treatments              NVARCHAR(300) NULL
+CREATE TABLE [dbo].[postnatal_history] (
+    [id]                    INT IDENTITY(1,1) NOT NULL,
+    [patient_id]            UNIQUEIDENTIFIER NOT NULL,
+    [required_monitoring]   BIT NULL,
+    [required_ventilator]    BIT NULL,
+    [required_incubator]     BIT NULL,
+    [required_phototherapy]  BIT NULL,
+    [phototherapy_count]      INT NULL,
+    [other_treatments]      NVARCHAR(300) NULL,
+    CONSTRAINT [PK_postnatal_history] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_postnatal_history_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_postnatal_history_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE
 );
 GO
 
 -- REQ-PAC-011
-CREATE TABLE dbo.feeding_history (
-    id                INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id        UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    breastfeeding     BIT NULL, breastfeeding_months     INT NULL,
-    formula           BIT NULL, formula_start_age        INT NULL,
-    cereal            BIT NULL, cereal_start_age         INT NULL,
-    fruits            BIT NULL, fruits_start_age         INT NULL,
-    citrus            BIT NULL, citrus_start_age         INT NULL,
-    vegetables        BIT NULL, vegetables_start_age     INT NULL,
-    tomato            BIT NULL, tomato_start_age         INT NULL
+CREATE TABLE [dbo].[feeding_history] (
+    [id]                    INT IDENTITY(1,1) NOT NULL,
+    [patient_id]            UNIQUEIDENTIFIER NOT NULL,
+    [breastfeeding]         BIT NULL,
+    [breastfeeding_months]  INT NULL,
+    [formula]               BIT NULL,
+    [formula_start_age]     INT NULL,
+    [cereal]                BIT NULL,
+    [cereal_start_age]      INT NULL,
+    [fruits]                BIT NULL,
+    [fruits_start_age]      INT NULL,
+    [citrus]                BIT NULL,
+    [citrus_start_age]      INT NULL,
+    [vegetables]            BIT NULL,
+    [vegetables_start_age]  INT NULL,
+    [tomato]                BIT NULL,
+    [tomato_start_age]      INT NULL,
+    CONSTRAINT [PK_feeding_history] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_feeding_history_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_feeding_history_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE
 );
 GO
 
 -- REQ-PAC-012
-CREATE TABLE dbo.psychomotor_development (
-    id                              INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id                      UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    bladder_bowel_control           BIT NULL, bladder_bowel_control_age_months INT NULL,
-    standing                        BIT NULL, standing_age_months              INT NULL,
-    walking                         BIT NULL, walking_age_months               INT NULL,
-    head_control                    BIT NULL, head_control_age_months          INT NULL,
-    rolling_over                    BIT NULL, rolling_over_age_months          INT NULL,
-    sitting                         BIT NULL, sitting_age_months               INT NULL,
-    crawling                        BIT NULL, crawling_age_months              INT NULL
+CREATE TABLE [dbo].[psychomotor_development] (
+    [id]                                INT IDENTITY(1,1) NOT NULL,
+    [patient_id]                        UNIQUEIDENTIFIER NOT NULL,
+    [bladder_bowel_control]             BIT NULL,
+    [bladder_bowel_control_age_months]   INT NULL,
+    [standing]                          BIT NULL,
+    [standing_age_months]                INT NULL,
+    [walking]                           BIT NULL,
+    [walking_age_months]                 INT NULL,
+    [head_control]                      BIT NULL,
+    [head_control_age_months]            INT NULL,
+    [rolling_over]                      BIT NULL,
+    [rolling_over_age_months]            INT NULL,
+    [sitting]                           BIT NULL,
+    [sitting_age_months]                 INT NULL,
+    [crawling]                          BIT NULL,
+    [crawling_age_months]                INT NULL,
+    CONSTRAINT [PK_psychomotor_development] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_psychomotor_development_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_psychomotor_development_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE
 );
 GO
 
 -- REQ-PAC-013
-CREATE TABLE vaccines (
-    id          INT IDENTITY(1,1) PRIMARY KEY,
-    name        VARCHAR(100) NOT NULL, -- E.g. 'Hepatitis B', 'Influenza', 'DPT'
-    name_en     VARCHAR(100) NOT NULL,
-    disease     VARCHAR(150) NOT NULL, -- E.g. 'Hepatitis B', 'Seasonal influenza', 'Diphtheria, pertussis and tetanus'
-    disease_en     VARCHAR(150) NOT NULL,
-    active      BIT NOT NULL DEFAULT 1
+CREATE TABLE [dbo].[vaccines] (
+    [id]          INT IDENTITY(1,1) NOT NULL,
+    [name]        VARCHAR(100) NOT NULL,
+    [name_en]     VARCHAR(100) NOT NULL,
+    [disease]     VARCHAR(150) NOT NULL,
+    [disease_en]  VARCHAR(150) NOT NULL,
+    [active]      BIT NOT NULL CONSTRAINT [DF_vaccines_active] DEFAULT 1,
+    CONSTRAINT [PK_vaccines] PRIMARY KEY ([id])
 );
+GO
 
 -- REQ-PAC-013 (Optimized)
-CREATE TABLE vaccinations (
-    id                    INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id            UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    vaccine_id            INT NOT NULL REFERENCES vaccines(id),
-
+CREATE TABLE [dbo].[vaccinations] (
+    [id]                  INT IDENTITY(1,1) NOT NULL,
+    [patient_id]          UNIQUEIDENTIFIER NOT NULL,
+    [vaccine_id]          INT NOT NULL,
     -- NOM requires clarity on doses/dates where available
-    dose_number           INT NOT NULL DEFAULT 1, -- 1 for a single dose, or 1, 2, 3 for multi-dose schedules
-    is_booster            BIT NOT NULL DEFAULT 1,  -- flags an annual or periodic booster
-    administered_date     DATE NULL,               -- may be NULL if the patient doesn't recall the exact day but confirms having had it
-
+    [dose_number]         INT NOT NULL CONSTRAINT [DF_vaccinations_dose_number] DEFAULT 1, -- 1 for a single dose, or 1, 2, 3 for multi-dose schedules
+    [is_booster]          BIT NOT NULL CONSTRAINT [DF_vaccinations_is_booster] DEFAULT 1, -- flags an annual or periodic booster
+    [administered_date]   DATE NULL, -- may be NULL if the patient doesn't recall the exact day but confirms having had it
     -- Regulatory support: how did the physician verify this information?
-    verification_method   VARCHAR(50) CHECK (verification_method IN ('CARTILLA', 'INTERROGATORIO', 'EXPEDIENTE_PREVIO')),
-
-    notes                 VARCHAR(200) NULL,              -- for adverse reactions, lot number, or brand (e.g. Pfizer, Abdala)
-    created_at            DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
-
-    -- Prevents an exact duplicate of the same dose of the same vaccine for the same patient
-    CONSTRAINT uq_patient_vaccine_dose UNIQUE (patient_id, vaccine_id, dose_number, is_booster)
+    [verification_method] VARCHAR(50) NULL,
+    [notes]               VARCHAR(200) NULL, -- for adverse reactions, lot number, or brand (e.g. Pfizer, Abdala)
+    [created_at]          DATETIME2(0) NOT NULL CONSTRAINT [DF_vaccinations_created_at] DEFAULT SYSUTCDATETIME(),
+    CONSTRAINT [PK_vaccinations] PRIMARY KEY ([id]),
+    CONSTRAINT [FK_vaccinations_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_vaccinations_vaccines] FOREIGN KEY ([vaccine_id]) REFERENCES [dbo].[vaccines]([id]),
+    CONSTRAINT [CK_vaccinations_verification_method] CHECK ([verification_method] IN ('CARTILLA', 'INTERROGATORIO', 'EXPEDIENTE_PREVIO')),
+    CONSTRAINT [UQ_vaccinations_patient_vaccine_dose] UNIQUE ([patient_id], [vaccine_id], [dose_number], [is_booster]) -- Prevents an exact duplicate of the same dose of the same vaccine for the same patient
 );
+GO
 
-/* CREATE TABLE dbo.vaccinations (
-    id                       INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id               UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    hepatitis_a              BIT NULL,
-    hepatitis_b              BIT NULL,
-    hib                      BIT NULL,
-    meningococcus            BIT NULL,
-    dpt                      BIT NULL,
-    poliomyelitis            BIT NULL,
-    rotavirus                BIT NULL,
-    pneumococcus             BIT NULL,
-    influenza                BIT NULL,
-    mmr                      BIT NULL,
-    varicella                BIT NULL,
-    hpv                      BIT NULL,
-    tuberculosis             BIT NULL
-); */
-
-INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES
 -- Infant / Basic schedule (aligned to the National Immunization Card, ages 0 to 9)
 -- Esquema Infantil / Básico (Alineado a Cartilla Nacional de 0 a 9 años)
-('BCG', 'BCG', 'Tuberculosis meníngea y miliar', 'Meningeal and miliary tuberculosis'),
-('Hepatitis B', 'Hepatitis B', 'Infección por el virus de la Hepatitis B', 'Hepatitis B infection'),
-('Hexavalente Celular / DPaT+VPI+Hib+HB', 'Hexavalent Cellular / DPaT+IPV+Hib+HB', 'Difteria, Tétanos, Tos ferina, Poliomielitis, Haemophilus influenzae tipo b y Hepatitis B', 'Diphtheria, tetanus, pertussis, poliomyelitis, Haemophilus influenzae type b and hepatitis B'),
-('Rotavirus', 'Rotavirus', 'Diarrea severa por Rotavirus', 'Severe rotavirus diarrhea'),
-('Neumocócica Conjugada', 'Pneumococcal Conjugate', 'Infecciones neumocócicas (Neumonía, Meningitis)', 'Pneumococcal infections (pneumonia, meningitis)'),
-('Influenza Estacional', 'Seasonal Influenza', 'Influenza (Gripe estacional)', 'Seasonal influenza (flu)'),
-('SRP (Triple Viral)', 'MMR (Triple Viral)', 'Sarampión, Rúbeola y Parotiditis (Paperas)', 'Measles, rubella and mumps'),
-('DPT (Triple Bacteriana)', 'DPT (Triple Bacterial)', 'Difteria, Tos ferina y Tétanos', 'Diphtheria, pertussis and tetanus'),
-('OPV (Sabin)', 'OPV (Sabin)', 'Poliomielitis anterior aguda', 'Acute anterior poliomyelitis'),
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('BCG', 'BCG', 'Tuberculosis meníngea y miliar', 'Meningeal and miliary tuberculosis')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Hepatitis B', 'Hepatitis B', 'Infección por el virus de la Hepatitis B', 'Hepatitis B infection')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Hexavalente Celular / DPaT+VPI+Hib+HB', 'Hexavalent Cellular / DPaT+IPV+Hib+HB', 'Difteria, Tétanos, Tos ferina, Poliomielitis, Haemophilus influenzae tipo b y Hepatitis B', 'Diphtheria, tetanus, pertussis, poliomyelitis, Haemophilus influenzae type b and hepatitis B')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Rotavirus', 'Rotavirus', 'Diarrea severa por Rotavirus', 'Severe rotavirus diarrhea')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Neumocócica Conjugada', 'Pneumococcal Conjugate', 'Infecciones neumocócicas (Neumonía, Meningitis)', 'Pneumococcal infections (pneumonia, meningitis)')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Influenza Estacional', 'Seasonal Influenza', 'Influenza (Gripe estacional)', 'Seasonal influenza (flu)')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('SRP (Triple Viral)', 'MMR (Triple Viral)', 'Sarampión, Rúbeola y Parotiditis (Paperas)', 'Measles, rubella and mumps')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('DPT (Triple Bacteriana)', 'DPT (Triple Bacterial)', 'Difteria, Tos ferina y Tétanos', 'Diphtheria, pertussis and tetanus')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('OPV (Sabin)', 'OPV (Sabin)', 'Poliomielitis anterior aguda', 'Acute anterior poliomyelitis')
 
 -- Adolescent and adult schedule (ages 10 to 59)
 -- Esquema de Adolescentes y Adultos (10 a 59 años)
-('SR (Doble Viral)', 'SR (Double Viral)', 'Sarampión y Rúbeola', 'Measles and rubella'),
-('Td (Tétanos y Difteria)', 'Td (Tetanus and Diphtheria)', 'Tétanos y Difteria', 'Tetanus and diphtheria'),
-('VPH (Virus del Papiloma Humano)', 'HPV (Human Papillomavirus)', 'Infección por VPH y Cáncer Cervicouterino', 'HPV infection and cervical cancer'),
-('Tdpa', 'Tdap', 'Tétanos, Difteria y Tos ferina acelular (Especialmente en embarazadas)', 'Tetanus, diphtheria and acellular pertussis (especially for pregnant women)'),
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('SR (Doble Viral)', 'SR (Double Viral)', 'Sarampión y Rúbeola', 'Measles and rubella')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Td (Tétanos y Difteria)', 'Td (Tetanus and Diphtheria)', 'Tétanos y Difteria', 'Tetanus and diphtheria')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('VPH (Virus del Papiloma Humano)', 'HPV (Human Papillomavirus)', 'Infección por VPH y Cáncer Cervicouterino', 'HPV infection and cervical cancer')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Tdpa', 'Tdap', 'Tétanos, Difteria y Tos ferina acelular (Especialmente en embarazadas)', 'Tetanus, diphtheria and acellular pertussis (especially for pregnant women)')
 
 -- Other vaccines common in the Mexican setting and for older adults
 -- Otras vacunas comunes en el medio mexicano y adultos mayores
-('Meningocócica', 'Meningococcal', 'Meningitis por Neisseria meningitidis', 'Meningitis caused by Neisseria meningitidis'),
-('Hepatitis A', 'Hepatitis A', 'Infección por el virus de la Hepatitis A', 'Hepatitis A virus infection'),
-('Varicela', 'Varicella', 'Varicela y sus complicaciones', 'Chickenpox and its complications'),
-('Neumocócica Polisacárida (23 Valente)', 'Pneumococcal Polysaccharide (23-valent)', 'Infecciones neumocócicas en adultos mayores y grupos de riesgo', 'Pneumococcal infections in older adults and at-risk groups'),
-('COVID-19', 'COVID-19', 'Infección por el virus SARS-CoV-2 (Coronavirus)', 'SARS-CoV-2 virus infection (Coronavirus)');
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Meningocócica', 'Meningococcal', 'Meningitis por Neisseria meningitidis', 'Meningitis caused by Neisseria meningitidis')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Hepatitis A', 'Hepatitis A', 'Infección por el virus de la Hepatitis A', 'Hepatitis A virus infection')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Varicela', 'Varicella', 'Varicela y sus complicaciones', 'Chickenpox and its complications')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('Neumocócica Polisacárida (23 Valente)', 'Pneumococcal Polysaccharide (23-valent)', 'Infecciones neumocócicas en adultos mayores y grupos de riesgo', 'Pneumococcal infections in older adults and at-risk groups')
+INSERT INTO vaccines (name, name_en, disease, disease_en) VALUES ('COVID-19', 'COVID-19', 'Infección por el virus SARS-CoV-2 (Coronavirus)', 'SARS-CoV-2 virus infection (Coronavirus)')
 
 GO
 
 -- REQ-PAC-014
-CREATE TABLE dbo.allergies (
-    id                INT IDENTITY(1,1) PRIMARY KEY,
-    patient_id        UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.patients(id) ON DELETE CASCADE,
-    medications       BIT NULL, medication_agents NVARCHAR(200) NULL,
-    food              BIT NULL, food_agents        NVARCHAR(200) NULL,
-    pollen            BIT NULL, pollen_agents      NVARCHAR(200) NULL,
-    fabric            BIT NULL, fabric_agents      NVARCHAR(200) NULL
+CREATE TABLE [dbo].[allergies] (
+    [id]                INT IDENTITY(1,1) NOT NULL,
+    [patient_id]        UNIQUEIDENTIFIER NOT NULL,
+    [medications]       BIT NULL,
+    [medication_agents] NVARCHAR(200) NULL,
+    [food]              BIT NULL,
+    [food_agents]       NVARCHAR(200) NULL,
+    [pollen]            BIT NULL,
+    [pollen_agents]     NVARCHAR(200) NULL,
+    [fabric]            BIT NULL,
+    [fabric_agents]     NVARCHAR(200) NULL,
+    CONSTRAINT [PK_allergies] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_allergies_patient_id] UNIQUE ([patient_id]),
+    CONSTRAINT [FK_allergies_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]) ON DELETE CASCADE
 );
 GO
 
@@ -482,68 +578,78 @@ GO
    4. CONSULTATIONS  (REQ-CON-001 to 008)
    ===================================================================== */
 
-CREATE TABLE dbo.consultations (
-    id                            UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    patient_id                    UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.patients(id),   -- no CASCADE: medical-legal record
-    physician_id                     UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.physicians(user_id), -- REQ-CON-003/004
-    consultation_date             DATE NOT NULL,
-    consultation_time             TIME(0) NOT NULL DEFAULT CONVERT(TIME(0), SYSUTCDATETIME()),
-    reason                        NVARCHAR(100) NOT NULL,
-    heart_rate                    INT NOT NULL,
-    respiratory_rate              INT NOT NULL,
-    systolic_pressure             INT NOT NULL,
-    diastolic_pressure            INT NOT NULL,
-    temperature                   DECIMAL(4,1) NOT NULL,
-    weight                        DECIMAL(5,2) NOT NULL,
-    height                        DECIMAL(5,2) NOT NULL,
-    general_appearance            NVARCHAR(300) NULL,
-    skin_and_appendages           NVARCHAR(300) NULL,
-    head                          NVARCHAR(300) NULL,
-    neck                          NVARCHAR(300) NULL,
-    chest                         NVARCHAR(300) NULL,
-    abdomen                       NVARCHAR(300) NULL,
-    extremities                   NVARCHAR(300) NULL,
-    image                         VARBINARY(MAX) NULL,
-    previous_test_results         NVARCHAR(MAX) NULL,
-    diagnosis                     NVARCHAR(MAX) NOT NULL,
-    icd10_diagnosis                NVARCHAR(10) NULL,             -- NOM-004
-    present_illness                 NVARCHAR(MAX) NULL,           -- NOM-004
-    prognosis                       NVARCHAR(MAX) NOT NULL,
-    treatment_instructions           NVARCHAR(MAX) NULL,
-    created_at                       DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
-    active                           BIT NOT NULL DEFAULT 1
+CREATE TABLE [dbo].[consultations] (
+    [id]                     UNIQUEIDENTIFIER NOT NULL,
+    [patient_id]             UNIQUEIDENTIFIER NOT NULL,
+    [physician_id]           UNIQUEIDENTIFIER NOT NULL,
+    [consultation_date]      DATE NOT NULL,
+    [consultation_time]      TIME(0) NOT NULL CONSTRAINT [DF_consultations_consultation_time] DEFAULT CONVERT(TIME(0), SYSUTCDATETIME()),
+    [reason]                 NVARCHAR(100) NOT NULL,
+    [heart_rate]             INT NOT NULL,
+    [respiratory_rate]       INT NOT NULL,
+    [systolic_pressure]      INT NOT NULL,
+    [diastolic_pressure]     INT NOT NULL,
+    [temperature]            DECIMAL(4,1) NOT NULL,
+    [weight]                 DECIMAL(5,2) NOT NULL,
+    [height]                 DECIMAL(5,2) NOT NULL,
+    [general_appearance]     NVARCHAR(300) NULL,
+    [skin_and_appendages]    NVARCHAR(300) NULL,
+    [head]                   NVARCHAR(300) NULL,
+    [neck]                   NVARCHAR(300) NULL,
+    [chest]                  NVARCHAR(300) NULL,
+    [abdomen]                NVARCHAR(300) NULL,
+    [extremities]            NVARCHAR(300) NULL,
+    [image]                  VARBINARY(MAX) NULL,
+    [previous_test_results]  NVARCHAR(MAX) NULL,
+    [diagnosis]              NVARCHAR(MAX) NOT NULL,
+    [icd10_diagnosis]        NVARCHAR(10) NULL,
+    [present_illness]        NVARCHAR(MAX) NULL,
+    [prognosis]              NVARCHAR(MAX) NOT NULL,
+    [treatment_instructions] NVARCHAR(MAX) NULL,
+    [created_at]             DATETIME2(0) NOT NULL CONSTRAINT [DF_consultations_created_at] DEFAULT SYSUTCDATETIME(),
+    [active]                 BIT NOT NULL CONSTRAINT [DF_consultations_active] DEFAULT 1,
+    CONSTRAINT [PK_consultations] PRIMARY KEY ([id]),
+    CONSTRAINT [FK_consultations_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]),
+    CONSTRAINT [FK_consultations_physicians] FOREIGN KEY ([physician_id]) REFERENCES [dbo].[physicians]([user_id])
 );
 GO
-CREATE INDEX IX_consultations_patient ON dbo.consultations(patient_id, consultation_date DESC);   -- REQ-CON-007
-CREATE INDEX IX_consultations_physician ON dbo.consultations(physician_id);
+
+-- REQ-CON-007
+CREATE INDEX [IX_consultations_patient] ON [dbo].[consultations]([patient_id], [consultation_date] DESC);
+CREATE INDEX [IX_consultations_physician] ON [dbo].[consultations]([physician_id]);
 GO
 
 -- REQ-CON-001: previous treatments, 0..N list
-CREATE TABLE dbo.consultation_previous_treatments (
-    id                     INT IDENTITY(1,1) PRIMARY KEY,
-    consultation_id        UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.consultations(id) ON DELETE CASCADE,
-    brand_name             NVARCHAR(100) NULL,
-    active_ingredient      NVARCHAR(100) NULL,
-    dose                   NVARCHAR(50) NULL,
-    route                  NVARCHAR(30) NULL,
-    frequency              NVARCHAR(50) NULL,
-    administration_date    DATE NULL,
-    administration_time    TIME(0) NULL
+CREATE TABLE [dbo].[consultation_previous_treatments] (
+    [id]                  INT IDENTITY(1,1) NOT NULL,
+    [consultation_id]     UNIQUEIDENTIFIER NOT NULL,
+    [brand_name]          NVARCHAR(100) NULL,
+    [active_ingredient]   NVARCHAR(100) NULL,
+    [dose]                NVARCHAR(50) NULL,
+    [route]               NVARCHAR(30) NULL,
+    [frequency]           NVARCHAR(50) NULL,
+    [administration_date] DATE NULL,
+    [administration_time] TIME(0) NULL,
+    CONSTRAINT [PK_consultation_previous_treatments] PRIMARY KEY ([id]),
+    CONSTRAINT [FK_consultation_previous_treatments_consultations] FOREIGN KEY ([consultation_id]) REFERENCES [dbo].[consultations]([id]) ON DELETE CASCADE
 );
 GO
 
 -- REQ-CON-001: review of systems (1:1)
-CREATE TABLE dbo.consultation_review_of_systems (
-    id                              INT IDENTITY(1,1) PRIMARY KEY,
-    consultation_id                 UNIQUEIDENTIFIER NOT NULL UNIQUE REFERENCES dbo.consultations(id) ON DELETE CASCADE,
-    respiratory_cardiovascular      NVARCHAR(300) NULL,
-    digestive                       NVARCHAR(300) NULL,
-    endocrine                       NVARCHAR(300) NULL,
-    musculoskeletal                 NVARCHAR(300) NULL,
-    genitourinary                   NVARCHAR(300) NULL,
-    hematopoietic_lymphatic         NVARCHAR(300) NULL,
-    skin_and_appendages             NVARCHAR(300) NULL,
-    neurological_psychiatric        NVARCHAR(300) NULL
+CREATE TABLE [dbo].[consultation_review_of_systems] (
+    [id]                         INT IDENTITY(1,1) NOT NULL,
+    [consultation_id]            UNIQUEIDENTIFIER NOT NULL,
+    [respiratory_cardiovascular] NVARCHAR(300) NULL,
+    [digestive]                  NVARCHAR(300) NULL,
+    [endocrine]                  NVARCHAR(300) NULL,
+    [musculoskeletal]            NVARCHAR(300) NULL,
+    [genitourinary]              NVARCHAR(300) NULL,
+    [hematopoietic_lymphatic]    NVARCHAR(300) NULL,
+    [skin_and_appendages]        NVARCHAR(300) NULL,
+    [neurological_psychiatric]   NVARCHAR(300) NULL,
+    CONSTRAINT [PK_consultation_review_of_systems] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_consultation_review_of_systems_consultation_id] UNIQUE ([consultation_id]),
+    CONSTRAINT [FK_consultation_review_of_systems_consultations] FOREIGN KEY ([consultation_id]) REFERENCES [dbo].[consultations]([id]) ON DELETE CASCADE
 );
 GO
 
@@ -551,38 +657,49 @@ GO
    5. PRESCRIPTIONS  (REQ-REC-001 to 008)
    ===================================================================== */
 
-CREATE TABLE dbo.prescriptions (
-    id                     UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    prescription_number    INT IDENTITY(1000,1) NOT NULL UNIQUE,     -- REQ-REC-002: printed prescription number
-    patient_id             UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.patients(id),
-    consultation_id        UNIQUEIDENTIFIER NULL REFERENCES dbo.consultations(id),
-    physician_id              UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.physicians(user_id),
-    issue_date              DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
-    weight                   DECIMAL(5,2) NULL,
-    height                   DECIMAL(5,2) NULL,
-    bmi                      AS (CASE WHEN height > 0 THEN weight / ((height / 100.0) * (height / 100.0)) END) PERSISTED,  -- REQ-REC-002
-    blood_pressure           VARCHAR(8) NULL,
-    temperature               DECIMAL(4,1) NULL,
-    diagnosis                  NVARCHAR(MAX) NULL,
-    status                     NVARCHAR(20) NOT NULL DEFAULT N'Emitida'
-        CHECK (status IN (N'Emitida', N'Cancelada')),             -- REQ-REC-005: cancel, don't delete
-    created_at                 DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME()
+CREATE TABLE [dbo].[prescriptions] (
+    [id]                  UNIQUEIDENTIFIER NOT NULL,
+    [prescription_number] INT IDENTITY(1000,1) NOT NULL,
+    [patient_id]          UNIQUEIDENTIFIER NOT NULL,
+    [consultation_id]     UNIQUEIDENTIFIER NULL,
+    [physician_id]        UNIQUEIDENTIFIER NOT NULL,
+    [issue_date]          DATETIME2(0) NOT NULL CONSTRAINT [DF_prescriptions_issue_date] DEFAULT SYSUTCDATETIME(),
+    [weight]              DECIMAL(5,2) NULL,
+    [height]              DECIMAL(5,2) NULL,
+    [bmi]                 AS (CASE WHEN [height] > 0 THEN [weight] / (([height] / 100.0) * ([height] / 100.0)) END) PERSISTED,
+    [blood_pressure]      VARCHAR(8) NULL,
+    [temperature]         DECIMAL(4,1) NULL,
+    [diagnosis]           NVARCHAR(MAX) NULL,
+    [status]              NVARCHAR(20) NOT NULL CONSTRAINT [DF_prescriptions_status] DEFAULT N'Emitida',
+    [created_at]          DATETIME2(0) NOT NULL CONSTRAINT [DF_prescriptions_created_at] DEFAULT SYSUTCDATETIME(),
+    CONSTRAINT [PK_prescriptions] PRIMARY KEY ([id]),
+    CONSTRAINT [UQ_prescriptions_prescription_number] UNIQUE ([prescription_number]),
+    CONSTRAINT [FK_prescriptions_patients] FOREIGN KEY ([patient_id]) REFERENCES [dbo].[patients]([id]),
+    CONSTRAINT [FK_prescriptions_consultations] FOREIGN KEY ([consultation_id]) REFERENCES [dbo].[consultations]([id]),
+    CONSTRAINT [FK_prescriptions_physicians] FOREIGN KEY ([physician_id]) REFERENCES [dbo].[physicians]([user_id]),
+    CONSTRAINT [CK_prescriptions_status] CHECK ([status] IN (N'Emitida', N'Cancelada'))
 );
 GO
-CREATE INDEX IX_prescriptions_patient ON dbo.prescriptions(patient_id, issue_date DESC);   -- REQ-REC-004
+
+-- REQ-REC-004
+CREATE INDEX [IX_prescriptions_patient] ON [dbo].[prescriptions]([patient_id], [issue_date] DESC);
 GO
 
 -- REQ-REC-001: prescribed medications, 1..N list
-CREATE TABLE dbo.prescription_medications (
-    id                    INT IDENTITY(1,1) PRIMARY KEY,
-    prescription_id       UNIQUEIDENTIFIER NOT NULL REFERENCES dbo.prescriptions(id) ON DELETE CASCADE,
-    generic_name          NVARCHAR(100) NOT NULL,
-    form                  NVARCHAR(20) NOT NULL CHECK (form IN (N'Tabletas', N'Solución')),
-    dose                  NVARCHAR(50) NOT NULL,
-    frequency_hours       INT NOT NULL,
-    administration_route  NVARCHAR(20) NOT NULL CHECK (administration_route IN (N'Oral', N'Intravenosa')),
-    instructions           NVARCHAR(200) NULL,
-    duration_days           INT NOT NULL
+CREATE TABLE [dbo].[prescription_medications] (
+    [id]                   INT IDENTITY(1,1) NOT NULL,
+    [prescription_id]      UNIQUEIDENTIFIER NOT NULL,
+    [generic_name]         NVARCHAR(100) NOT NULL,
+    [form]                 NVARCHAR(20) NOT NULL,
+    [dose]                 NVARCHAR(50) NOT NULL,
+    [frequency_hours]      INT NOT NULL,
+    [administration_route] NVARCHAR(20) NOT NULL,
+    [instructions]         NVARCHAR(200) NULL,
+    [duration_days]        INT NOT NULL,
+    CONSTRAINT [PK_prescription_medications] PRIMARY KEY ([id]),
+    CONSTRAINT [FK_prescription_medications_prescriptions] FOREIGN KEY ([prescription_id]) REFERENCES [dbo].[prescriptions]([id]) ON DELETE CASCADE,
+    CONSTRAINT [CK_prescription_medications_form] CHECK ([form] IN (N'Tabletas', N'Solución')),
+    CONSTRAINT [CK_prescription_medications_administration_route] CHECK ([administration_route] IN (N'Oral', N'Intravenosa'))
 );
 GO
 
@@ -591,18 +708,394 @@ GO
    ===================================================================== */
 
 -- WHO reference table (LMS), static, no external exposure: no GUID.
-CREATE TABLE dbo.who_growth_standards (
-    id          INT IDENTITY(1,1) PRIMARY KEY,
-    indicator   NVARCHAR(20) NOT NULL,     -- 'WeightForAge','HeightForAge', etc.
-    gender      NVARCHAR(10) NOT NULL,
-    age_months  INT NULL,
-    measurement NVARCHAR(10) NULL,
-    l           FLOAT NULL,
-    m           FLOAT NULL,
-    s           FLOAT NULL
+CREATE TABLE [dbo].[who_growth_standards] (
+    [id]          INT IDENTITY(1,1) NOT NULL,
+    [indicator]   NVARCHAR(20) NOT NULL,
+    [gender]      NVARCHAR(10) NOT NULL,
+    [age_months]  INT NULL,
+    [measurement] NVARCHAR(10) NULL,
+    [l]           FLOAT NULL,
+    [m]           FLOAT NULL,
+    [s]           FLOAT NULL,
+    CONSTRAINT [PK_who_growth_standards] PRIMARY KEY ([id])
 );
 GO
-CREATE INDEX IX_who_growth_standards_lookup ON dbo.who_growth_standards(indicator, gender, age_months);
+
+CREATE INDEX [IX_who_growth_standards_lookup] ON [dbo].[who_growth_standards]([indicator], [gender], [age_months]);
+GO
+
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (1, N'PerimetroCefalico', N'Femenino', 0, N'Unica', 1, 33.8787, 0.03496)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (2, N'PerimetroCefalico', N'Femenino', 1, N'Unica', 1, 36.5463, 0.0321)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (3, N'PerimetroCefalico', N'Femenino', 2, N'Unica', 1, 38.2521, 0.03168)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (4, N'PerimetroCefalico', N'Femenino', 3, N'Unica', 1, 39.5328, 0.0314)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (5, N'PerimetroCefalico', N'Femenino', 4, N'Unica', 1, 40.5817, 0.03119)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (6, N'PerimetroCefalico', N'Femenino', 5, N'Unica', 1, 41.459, 0.03102)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (7, N'PerimetroCefalico', N'Femenino', 6, N'Unica', 1, 42.1995, 0.03087)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (8, N'PerimetroCefalico', N'Femenino', 7, N'Unica', 1, 42.829, 0.03075)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (9, N'PerimetroCefalico', N'Femenino', 8, N'Unica', 1, 43.3671, 0.03063)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (10, N'PerimetroCefalico', N'Femenino', 9, N'Unica', 1, 43.83, 0.03053)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (11, N'PerimetroCefalico', N'Femenino', 10, N'Unica', 1, 44.2319, 0.03044)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (12, N'PerimetroCefalico', N'Femenino', 11, N'Unica', 1, 44.5844, 0.03035)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (13, N'PerimetroCefalico', N'Femenino', 12, N'Unica', 1, 44.8965, 0.03027)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (14, N'PerimetroCefalico', N'Femenino', 13, N'Unica', 1, 45.1752, 0.03019)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (15, N'PerimetroCefalico', N'Femenino', 14, N'Unica', 1, 45.4265, 0.03012)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (16, N'PerimetroCefalico', N'Femenino', 15, N'Unica', 1, 45.6551, 0.03006)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (17, N'PerimetroCefalico', N'Femenino', 16, N'Unica', 1, 45.865, 0.02999)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (18, N'PerimetroCefalico', N'Femenino', 17, N'Unica', 1, 46.0598, 0.02993)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (19, N'PerimetroCefalico', N'Femenino', 18, N'Unica', 1, 46.2424, 0.02987)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (20, N'PerimetroCefalico', N'Femenino', 19, N'Unica', 1, 46.4152, 0.02982)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (21, N'PerimetroCefalico', N'Femenino', 20, N'Unica', 1, 46.5801, 0.02977)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (22, N'PerimetroCefalico', N'Femenino', 21, N'Unica', 1, 46.7384, 0.02972)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (23, N'PerimetroCefalico', N'Femenino', 22, N'Unica', 1, 46.8913, 0.02967)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (24, N'PerimetroCefalico', N'Femenino', 23, N'Unica', 1, 47.0391, 0.02962)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (25, N'PerimetroCefalico', N'Femenino', 24, N'Unica', 1, 47.1822, 0.02957)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (26, N'PerimetroCefalico', N'Femenino', 25, N'Unica', 1, 47.3204, 0.02953)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (27, N'PerimetroCefalico', N'Femenino', 26, N'Unica', 1, 47.4536, 0.02949)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (28, N'PerimetroCefalico', N'Femenino', 27, N'Unica', 1, 47.5817, 0.02945)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (29, N'PerimetroCefalico', N'Femenino', 28, N'Unica', 1, 47.7045, 0.02941)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (30, N'PerimetroCefalico', N'Femenino', 29, N'Unica', 1, 47.8219, 0.02937)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (31, N'PerimetroCefalico', N'Femenino', 30, N'Unica', 1, 47.934, 0.02933)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (32, N'PerimetroCefalico', N'Femenino', 31, N'Unica', 1, 48.041, 0.02929)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (33, N'PerimetroCefalico', N'Femenino', 32, N'Unica', 1, 48.1432, 0.02926)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (34, N'PerimetroCefalico', N'Femenino', 33, N'Unica', 1, 48.2408, 0.02922)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (35, N'PerimetroCefalico', N'Femenino', 34, N'Unica', 1, 48.3343, 0.02919)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (36, N'PerimetroCefalico', N'Femenino', 35, N'Unica', 1, 48.4239, 0.02915)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (37, N'PerimetroCefalico', N'Femenino', 36, N'Unica', 1, 48.5099, 0.02912)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (38, N'PerimetroCefalico', N'Femenino', 37, N'Unica', 1, 48.5926, 0.02909)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (39, N'PerimetroCefalico', N'Femenino', 38, N'Unica', 1, 48.6722, 0.02906)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (40, N'PerimetroCefalico', N'Femenino', 39, N'Unica', 1, 48.7489, 0.02903)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (41, N'PerimetroCefalico', N'Femenino', 40, N'Unica', 1, 48.8228, 0.029)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (42, N'PerimetroCefalico', N'Femenino', 41, N'Unica', 1, 48.8941, 0.02897)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (43, N'PerimetroCefalico', N'Femenino', 42, N'Unica', 1, 48.9629, 0.02894)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (44, N'PerimetroCefalico', N'Femenino', 43, N'Unica', 1, 49.0294, 0.02891)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (45, N'PerimetroCefalico', N'Femenino', 44, N'Unica', 1, 49.0937, 0.02888)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (46, N'PerimetroCefalico', N'Femenino', 45, N'Unica', 1, 49.156, 0.02886)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (47, N'PerimetroCefalico', N'Femenino', 46, N'Unica', 1, 49.2164, 0.02883)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (48, N'PerimetroCefalico', N'Femenino', 47, N'Unica', 1, 49.2751, 0.0288)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (49, N'PerimetroCefalico', N'Femenino', 48, N'Unica', 1, 49.3321, 0.02878)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (50, N'PerimetroCefalico', N'Femenino', 49, N'Unica', 1, 49.3877, 0.02875)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (51, N'PerimetroCefalico', N'Femenino', 50, N'Unica', 1, 49.4419, 0.02873)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (52, N'PerimetroCefalico', N'Femenino', 51, N'Unica', 1, 49.4947, 0.0287)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (53, N'PerimetroCefalico', N'Femenino', 52, N'Unica', 1, 49.5464, 0.02868)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (54, N'PerimetroCefalico', N'Femenino', 53, N'Unica', 1, 49.5969, 0.02865)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (55, N'PerimetroCefalico', N'Femenino', 54, N'Unica', 1, 49.6464, 0.02863)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (56, N'PerimetroCefalico', N'Femenino', 55, N'Unica', 1, 49.6947, 0.02861)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (57, N'PerimetroCefalico', N'Femenino', 56, N'Unica', 1, 49.7421, 0.02859)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (58, N'PerimetroCefalico', N'Femenino', 57, N'Unica', 1, 49.7885, 0.02856)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (59, N'PerimetroCefalico', N'Femenino', 58, N'Unica', 1, 49.8341, 0.02854)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (60, N'PerimetroCefalico', N'Femenino', 59, N'Unica', 1, 49.8789, 0.02852)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (61, N'PerimetroCefalico', N'Femenino', 60, N'Unica', 1, 49.9229, 0.0285)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (62, N'PerimetroCefalico', N'Masculino', 0, N'Unica', 1, 34.4618, 0.03686)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (63, N'PerimetroCefalico', N'Masculino', 1, N'Unica', 1, 37.2759, 0.03133)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (64, N'PerimetroCefalico', N'Masculino', 2, N'Unica', 1, 39.1285, 0.02997)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (65, N'PerimetroCefalico', N'Masculino', 3, N'Unica', 1, 40.5135, 0.02918)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (66, N'PerimetroCefalico', N'Masculino', 4, N'Unica', 1, 41.6317, 0.02868)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (67, N'PerimetroCefalico', N'Masculino', 5, N'Unica', 1, 42.5576, 0.02837)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (68, N'PerimetroCefalico', N'Masculino', 6, N'Unica', 1, 43.3306, 0.02817)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (69, N'PerimetroCefalico', N'Masculino', 7, N'Unica', 1, 43.9803, 0.02804)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (70, N'PerimetroCefalico', N'Masculino', 8, N'Unica', 1, 44.53, 0.02796)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (71, N'PerimetroCefalico', N'Masculino', 9, N'Unica', 1, 44.9998, 0.02792)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (72, N'PerimetroCefalico', N'Masculino', 10, N'Unica', 1, 45.4051, 0.0279)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (73, N'PerimetroCefalico', N'Masculino', 11, N'Unica', 1, 45.7573, 0.02789)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (74, N'PerimetroCefalico', N'Masculino', 12, N'Unica', 1, 46.0661, 0.02789)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (75, N'PerimetroCefalico', N'Masculino', 13, N'Unica', 1, 46.3395, 0.02789)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (76, N'PerimetroCefalico', N'Masculino', 14, N'Unica', 1, 46.5844, 0.02791)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (77, N'PerimetroCefalico', N'Masculino', 15, N'Unica', 1, 46.806, 0.02792)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (78, N'PerimetroCefalico', N'Masculino', 16, N'Unica', 1, 47.0088, 0.02795)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (79, N'PerimetroCefalico', N'Masculino', 17, N'Unica', 1, 47.1962, 0.02797)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (80, N'PerimetroCefalico', N'Masculino', 18, N'Unica', 1, 47.3711, 0.028)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (81, N'PerimetroCefalico', N'Masculino', 19, N'Unica', 1, 47.5357, 0.02803)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (82, N'PerimetroCefalico', N'Masculino', 20, N'Unica', 1, 47.6919, 0.02806)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (83, N'PerimetroCefalico', N'Masculino', 21, N'Unica', 1, 47.8408, 0.0281)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (84, N'PerimetroCefalico', N'Masculino', 22, N'Unica', 1, 47.9833, 0.02813)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (85, N'PerimetroCefalico', N'Masculino', 23, N'Unica', 1, 48.1201, 0.02817)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (86, N'PerimetroCefalico', N'Masculino', 24, N'Unica', 1, 48.2515, 0.02821)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (87, N'PerimetroCefalico', N'Masculino', 25, N'Unica', 1, 48.3777, 0.02825)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (88, N'PerimetroCefalico', N'Masculino', 26, N'Unica', 1, 48.4989, 0.0283)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (89, N'PerimetroCefalico', N'Masculino', 27, N'Unica', 1, 48.6151, 0.02834)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (90, N'PerimetroCefalico', N'Masculino', 28, N'Unica', 1, 48.7264, 0.02838)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (91, N'PerimetroCefalico', N'Masculino', 29, N'Unica', 1, 48.8331, 0.02842)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (92, N'PerimetroCefalico', N'Masculino', 30, N'Unica', 1, 48.9351, 0.02847)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (93, N'PerimetroCefalico', N'Masculino', 31, N'Unica', 1, 49.0327, 0.02851)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (94, N'PerimetroCefalico', N'Masculino', 32, N'Unica', 1, 49.126, 0.02855)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (95, N'PerimetroCefalico', N'Masculino', 33, N'Unica', 1, 49.2153, 0.02859)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (96, N'PerimetroCefalico', N'Masculino', 34, N'Unica', 1, 49.3007, 0.02863)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (97, N'PerimetroCefalico', N'Masculino', 35, N'Unica', 1, 49.3826, 0.02867)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (98, N'PerimetroCefalico', N'Masculino', 36, N'Unica', 1, 49.4612, 0.02871)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (99, N'PerimetroCefalico', N'Masculino', 37, N'Unica', 1, 49.5367, 0.02875)
+GO
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (100, N'PerimetroCefalico', N'Masculino', 38, N'Unica', 1, 49.6093, 0.02878)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (101, N'PerimetroCefalico', N'Masculino', 39, N'Unica', 1, 49.6791, 0.02882)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (102, N'PerimetroCefalico', N'Masculino', 40, N'Unica', 1, 49.7465, 0.02886)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (103, N'PerimetroCefalico', N'Masculino', 41, N'Unica', 1, 49.8116, 0.02889)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (104, N'PerimetroCefalico', N'Masculino', 42, N'Unica', 1, 49.8745, 0.02893)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (105, N'PerimetroCefalico', N'Masculino', 43, N'Unica', 1, 49.9354, 0.02896)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (106, N'PerimetroCefalico', N'Masculino', 44, N'Unica', 1, 49.9942, 0.02899)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (107, N'PerimetroCefalico', N'Masculino', 45, N'Unica', 1, 50.0512, 0.02903)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (108, N'PerimetroCefalico', N'Masculino', 46, N'Unica', 1, 50.1064, 0.02906)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (109, N'PerimetroCefalico', N'Masculino', 47, N'Unica', 1, 50.1598, 0.02909)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (110, N'PerimetroCefalico', N'Masculino', 48, N'Unica', 1, 50.2115, 0.02912)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (111, N'PerimetroCefalico', N'Masculino', 49, N'Unica', 1, 50.2617, 0.02915)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (112, N'PerimetroCefalico', N'Masculino', 50, N'Unica', 1, 50.3105, 0.02918)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (113, N'PerimetroCefalico', N'Masculino', 51, N'Unica', 1, 50.3578, 0.02921)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (114, N'PerimetroCefalico', N'Masculino', 52, N'Unica', 1, 50.4039, 0.02924)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (115, N'PerimetroCefalico', N'Masculino', 53, N'Unica', 1, 50.4488, 0.02927)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (116, N'PerimetroCefalico', N'Masculino', 54, N'Unica', 1, 50.4926, 0.02929)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (117, N'PerimetroCefalico', N'Masculino', 55, N'Unica', 1, 50.5354, 0.02932)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (118, N'PerimetroCefalico', N'Masculino', 56, N'Unica', 1, 50.5772, 0.02935)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (119, N'PerimetroCefalico', N'Masculino', 57, N'Unica', 1, 50.6183, 0.02938)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (120, N'PerimetroCefalico', N'Masculino', 58, N'Unica', 1, 50.6587, 0.0294)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (121, N'PerimetroCefalico', N'Masculino', 59, N'Unica', 1, 50.6984, 0.02943)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (122, N'PerimetroCefalico', N'Masculino', 60, N'Unica', 1, 50.7375, 0.02946)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (123, N'Peso', N'Femenino', 0, N'Unica', 0.3809, 3.2322, 0.14171)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (124, N'Peso', N'Femenino', 1, N'Unica', 0.1714, 4.1873, 0.13724)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (125, N'Peso', N'Femenino', 2, N'Unica', 0.0962, 5.1282, 0.13)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (126, N'Peso', N'Femenino', 3, N'Unica', 0.0402, 5.8458, 0.12619)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (127, N'Peso', N'Femenino', 4, N'Unica', -0.005, 6.4237, 0.12402)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (128, N'Peso', N'Femenino', 5, N'Unica', -0.043, 6.8985, 0.12274)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (129, N'Peso', N'Femenino', 6, N'Unica', -0.0756, 7.297, 0.12204)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (130, N'Peso', N'Femenino', 7, N'Unica', -0.1039, 7.6422, 0.12178)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (131, N'Peso', N'Femenino', 8, N'Unica', -0.1288, 7.9487, 0.12181)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (132, N'Peso', N'Femenino', 9, N'Unica', -0.1507, 8.2254, 0.12199)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (133, N'Peso', N'Femenino', 10, N'Unica', -0.17, 8.48, 0.12223)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (134, N'Peso', N'Femenino', 11, N'Unica', -0.1872, 8.7192, 0.12247)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (135, N'Peso', N'Femenino', 12, N'Unica', -0.2024, 8.9481, 0.12268)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (136, N'Peso', N'Femenino', 13, N'Unica', -0.2158, 9.1699, 0.12283)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (137, N'Peso', N'Femenino', 14, N'Unica', -0.2278, 9.387, 0.12294)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (138, N'Peso', N'Femenino', 15, N'Unica', -0.2384, 9.6008, 0.12299)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (139, N'Peso', N'Femenino', 16, N'Unica', -0.2478, 9.8124, 0.12303)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (140, N'Peso', N'Femenino', 17, N'Unica', -0.2562, 10.0226, 0.12306)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (141, N'Peso', N'Femenino', 18, N'Unica', -0.2637, 10.2315, 0.12309)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (142, N'Peso', N'Femenino', 19, N'Unica', -0.2703, 10.4393, 0.12315)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (143, N'Peso', N'Femenino', 20, N'Unica', -0.2762, 10.6464, 0.12323)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (144, N'Peso', N'Femenino', 21, N'Unica', -0.2815, 10.8534, 0.12335)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (145, N'Peso', N'Femenino', 22, N'Unica', -0.2862, 11.0608, 0.1235)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (146, N'Peso', N'Femenino', 23, N'Unica', -0.2903, 11.2688, 0.12369)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (147, N'Peso', N'Femenino', 24, N'Unica', -0.2941, 11.4775, 0.1239)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (148, N'Peso', N'Femenino', 25, N'Unica', -0.2975, 11.6864, 0.12414)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (149, N'Peso', N'Femenino', 26, N'Unica', -0.3005, 11.8947, 0.12441)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (150, N'Peso', N'Femenino', 27, N'Unica', -0.3032, 12.1015, 0.12472)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (151, N'Peso', N'Femenino', 28, N'Unica', -0.3057, 12.3059, 0.12506)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (152, N'Peso', N'Femenino', 29, N'Unica', -0.308, 12.5073, 0.12545)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (153, N'Peso', N'Femenino', 30, N'Unica', -0.3101, 12.7055, 0.12587)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (154, N'Peso', N'Femenino', 31, N'Unica', -0.312, 12.9006, 0.12633)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (155, N'Peso', N'Femenino', 32, N'Unica', -0.3138, 13.093, 0.12683)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (156, N'Peso', N'Femenino', 33, N'Unica', -0.3155, 13.2837, 0.12737)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (157, N'Peso', N'Femenino', 34, N'Unica', -0.3171, 13.4731, 0.12794)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (158, N'Peso', N'Femenino', 35, N'Unica', -0.3186, 13.6618, 0.12855)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (159, N'Peso', N'Femenino', 36, N'Unica', -0.3201, 13.8503, 0.12919)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (160, N'Peso', N'Femenino', 37, N'Unica', -0.3216, 14.0385, 0.12988)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (161, N'Peso', N'Femenino', 38, N'Unica', -0.323, 14.2265, 0.13059)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (162, N'Peso', N'Femenino', 39, N'Unica', -0.3243, 14.414, 0.13135)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (163, N'Peso', N'Femenino', 40, N'Unica', -0.3257, 14.601, 0.13213)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (164, N'Peso', N'Femenino', 41, N'Unica', -0.327, 14.7873, 0.13293)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (165, N'Peso', N'Femenino', 42, N'Unica', -0.3283, 14.9727, 0.13376)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (166, N'Peso', N'Femenino', 43, N'Unica', -0.3296, 15.1573, 0.1346)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (167, N'Peso', N'Femenino', 44, N'Unica', -0.3309, 15.341, 0.13545)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (168, N'Peso', N'Femenino', 45, N'Unica', -0.3322, 15.524, 0.1363)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (169, N'Peso', N'Femenino', 46, N'Unica', -0.3335, 15.7064, 0.13716)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (170, N'Peso', N'Femenino', 47, N'Unica', -0.3348, 15.8882, 0.138)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (171, N'Peso', N'Femenino', 48, N'Unica', -0.3361, 16.0697, 0.13884)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (172, N'Peso', N'Femenino', 49, N'Unica', -0.3374, 16.2511, 0.13968)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (173, N'Peso', N'Femenino', 50, N'Unica', -0.3387, 16.4322, 0.14051)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (174, N'Peso', N'Femenino', 51, N'Unica', -0.34, 16.6133, 0.14132)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (175, N'Peso', N'Femenino', 52, N'Unica', -0.3414, 16.7942, 0.14213)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (176, N'Peso', N'Femenino', 53, N'Unica', -0.3427, 16.9748, 0.14293)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (177, N'Peso', N'Femenino', 54, N'Unica', -0.344, 17.1551, 0.14371)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (178, N'Peso', N'Femenino', 55, N'Unica', -0.3453, 17.3347, 0.14448)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (179, N'Peso', N'Femenino', 56, N'Unica', -0.3466, 17.5136, 0.14525)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (180, N'Peso', N'Femenino', 57, N'Unica', -0.3479, 17.6916, 0.146)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (181, N'Peso', N'Femenino', 58, N'Unica', -0.3492, 17.8686, 0.14675)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (182, N'Peso', N'Femenino', 59, N'Unica', -0.3505, 18.0445, 0.14748)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (183, N'Peso', N'Femenino', 60, N'Unica', -0.3518, 18.2193, 0.14821)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (184, N'Peso', N'Masculino', 0, N'Unica', 0.3487, 3.3464, 0.14602)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (185, N'Peso', N'Masculino', 1, N'Unica', 0.2297, 4.4709, 0.13395)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (186, N'Peso', N'Masculino', 2, N'Unica', 0.197, 5.5675, 0.12385)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (187, N'Peso', N'Masculino', 3, N'Unica', 0.1738, 6.3762, 0.11727)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (188, N'Peso', N'Masculino', 4, N'Unica', 0.1553, 7.0023, 0.11316)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (189, N'Peso', N'Masculino', 5, N'Unica', 0.1395, 7.5105, 0.1108)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (190, N'Peso', N'Masculino', 6, N'Unica', 0.1257, 7.934, 0.10958)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (191, N'Peso', N'Masculino', 7, N'Unica', 0.1134, 8.297, 0.10902)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (192, N'Peso', N'Masculino', 8, N'Unica', 0.1021, 8.6151, 0.10882)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (193, N'Peso', N'Masculino', 9, N'Unica', 0.0917, 8.9014, 0.10881)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (194, N'Peso', N'Masculino', 10, N'Unica', 0.082, 9.1649, 0.10891)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (195, N'Peso', N'Masculino', 11, N'Unica', 0.073, 9.4122, 0.10906)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (196, N'Peso', N'Masculino', 12, N'Unica', 0.0644, 9.6479, 0.10925)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (197, N'Peso', N'Masculino', 13, N'Unica', 0.0563, 9.8749, 0.10949)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (198, N'Peso', N'Masculino', 14, N'Unica', 0.0487, 10.0953, 0.10976)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (199, N'Peso', N'Masculino', 15, N'Unica', 0.0413, 10.3108, 0.11007)
+GO
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (200, N'Peso', N'Masculino', 16, N'Unica', 0.0343, 10.5228, 0.11041)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (201, N'Peso', N'Masculino', 17, N'Unica', 0.0275, 10.7319, 0.11079)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (202, N'Peso', N'Masculino', 18, N'Unica', 0.0211, 10.9385, 0.11119)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (203, N'Peso', N'Masculino', 19, N'Unica', 0.0148, 11.143, 0.11164)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (204, N'Peso', N'Masculino', 20, N'Unica', 0.0087, 11.3462, 0.11211)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (205, N'Peso', N'Masculino', 21, N'Unica', 0.0029, 11.5486, 0.11261)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (206, N'Peso', N'Masculino', 22, N'Unica', -0.0028, 11.7504, 0.11314)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (207, N'Peso', N'Masculino', 23, N'Unica', -0.0083, 11.9514, 0.11369)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (208, N'Peso', N'Masculino', 24, N'Unica', -0.0137, 12.1515, 0.11426)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (209, N'Peso', N'Masculino', 25, N'Unica', -0.0189, 12.3502, 0.11485)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (210, N'Peso', N'Masculino', 26, N'Unica', -0.024, 12.5466, 0.11544)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (211, N'Peso', N'Masculino', 27, N'Unica', -0.0289, 12.7401, 0.11604)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (212, N'Peso', N'Masculino', 28, N'Unica', -0.0337, 12.9303, 0.11664)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (213, N'Peso', N'Masculino', 29, N'Unica', -0.0385, 13.1169, 0.11723)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (214, N'Peso', N'Masculino', 30, N'Unica', -0.0431, 13.3, 0.11781)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (215, N'Peso', N'Masculino', 31, N'Unica', -0.0476, 13.4798, 0.11839)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (216, N'Peso', N'Masculino', 32, N'Unica', -0.052, 13.6567, 0.11896)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (217, N'Peso', N'Masculino', 33, N'Unica', -0.0564, 13.8309, 0.11953)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (218, N'Peso', N'Masculino', 34, N'Unica', -0.0606, 14.0031, 0.12008)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (219, N'Peso', N'Masculino', 35, N'Unica', -0.0648, 14.1736, 0.12062)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (220, N'Peso', N'Masculino', 36, N'Unica', -0.0689, 14.3429, 0.12116)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (221, N'Peso', N'Masculino', 37, N'Unica', -0.0729, 14.5113, 0.12168)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (222, N'Peso', N'Masculino', 38, N'Unica', -0.0769, 14.6791, 0.1222)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (223, N'Peso', N'Masculino', 39, N'Unica', -0.0808, 14.8466, 0.12271)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (224, N'Peso', N'Masculino', 40, N'Unica', -0.0846, 15.014, 0.12322)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (225, N'Peso', N'Masculino', 41, N'Unica', -0.0883, 15.1813, 0.12373)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (226, N'Peso', N'Masculino', 42, N'Unica', -0.092, 15.3486, 0.12425)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (227, N'Peso', N'Masculino', 43, N'Unica', -0.0957, 15.5158, 0.12478)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (228, N'Peso', N'Masculino', 44, N'Unica', -0.0993, 15.6828, 0.12531)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (229, N'Peso', N'Masculino', 45, N'Unica', -0.1028, 15.8497, 0.12586)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (230, N'Peso', N'Masculino', 46, N'Unica', -0.1063, 16.0163, 0.12643)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (231, N'Peso', N'Masculino', 47, N'Unica', -0.1097, 16.1827, 0.127)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (232, N'Peso', N'Masculino', 48, N'Unica', -0.1131, 16.3489, 0.12759)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (233, N'Peso', N'Masculino', 49, N'Unica', -0.1165, 16.515, 0.12819)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (234, N'Peso', N'Masculino', 50, N'Unica', -0.1198, 16.6811, 0.1288)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (235, N'Peso', N'Masculino', 51, N'Unica', -0.123, 16.8471, 0.12943)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (236, N'Peso', N'Masculino', 52, N'Unica', -0.1262, 17.0132, 0.13005)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (237, N'Peso', N'Masculino', 53, N'Unica', -0.1294, 17.1792, 0.13069)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (238, N'Peso', N'Masculino', 54, N'Unica', -0.1325, 17.3452, 0.13133)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (239, N'Peso', N'Masculino', 55, N'Unica', -0.1356, 17.5111, 0.13197)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (240, N'Peso', N'Masculino', 56, N'Unica', -0.1387, 17.6768, 0.13261)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (241, N'Peso', N'Masculino', 57, N'Unica', -0.1417, 17.8422, 0.13325)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (242, N'Peso', N'Masculino', 58, N'Unica', -0.1447, 18.0073, 0.13389)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (243, N'Peso', N'Masculino', 59, N'Unica', -0.1477, 18.1722, 0.13453)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (244, N'Peso', N'Masculino', 60, N'Unica', -0.1506, 18.3366, 0.13517)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (245, N'Talla', N'Femenino', 0, N'Acostado', 1, 49.1477, 0.0379)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (246, N'Talla', N'Femenino', 1, N'Acostado', 1, 53.6872, 0.0364)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (247, N'Talla', N'Femenino', 2, N'Acostado', 1, 57.0673, 0.03568)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (248, N'Talla', N'Femenino', 3, N'Acostado', 1, 59.8029, 0.0352)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (249, N'Talla', N'Femenino', 4, N'Acostado', 1, 62.0899, 0.03486)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (250, N'Talla', N'Femenino', 5, N'Acostado', 1, 64.0301, 0.03463)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (251, N'Talla', N'Femenino', 6, N'Acostado', 1, 65.7311, 0.03448)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (252, N'Talla', N'Femenino', 7, N'Acostado', 1, 67.2873, 0.03441)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (253, N'Talla', N'Femenino', 8, N'Acostado', 1, 68.7498, 0.0344)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (254, N'Talla', N'Femenino', 9, N'Acostado', 1, 70.1435, 0.03444)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (255, N'Talla', N'Femenino', 10, N'Acostado', 1, 71.4818, 0.03452)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (256, N'Talla', N'Femenino', 11, N'Acostado', 1, 72.771, 0.03464)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (257, N'Talla', N'Femenino', 12, N'Acostado', 1, 74.015, 0.03479)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (258, N'Talla', N'Femenino', 13, N'Acostado', 1, 75.2176, 0.03496)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (259, N'Talla', N'Femenino', 14, N'Acostado', 1, 76.3817, 0.03514)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (260, N'Talla', N'Femenino', 15, N'Acostado', 1, 77.5099, 0.03534)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (261, N'Talla', N'Femenino', 16, N'Acostado', 1, 78.6055, 0.03555)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (262, N'Talla', N'Femenino', 17, N'Acostado', 1, 79.671, 0.03576)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (263, N'Talla', N'Femenino', 18, N'Acostado', 1, 80.7079, 0.03598)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (264, N'Talla', N'Femenino', 19, N'Acostado', 1, 81.7182, 0.0362)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (265, N'Talla', N'Femenino', 20, N'Acostado', 1, 82.7036, 0.03643)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (266, N'Talla', N'Femenino', 21, N'Acostado', 1, 83.6654, 0.03666)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (267, N'Talla', N'Femenino', 22, N'Acostado', 1, 84.604, 0.03688)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (268, N'Talla', N'Femenino', 23, N'Acostado', 1, 85.5202, 0.03711)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (269, N'Talla', N'Femenino', 24, N'Acostado', 1, 86.4153, 0.03734)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (270, N'Talla', N'Femenino', 24, N'De_pie', 1, 85.7153, 0.03764)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (271, N'Talla', N'Femenino', 25, N'De_pie', 1, 86.5904, 0.03786)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (272, N'Talla', N'Femenino', 26, N'De_pie', 1, 87.4462, 0.03808)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (273, N'Talla', N'Femenino', 27, N'De_pie', 1, 88.283, 0.0383)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (274, N'Talla', N'Femenino', 28, N'De_pie', 1, 89.1004, 0.03851)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (275, N'Talla', N'Femenino', 29, N'De_pie', 1, 89.8991, 0.03872)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (276, N'Talla', N'Femenino', 30, N'De_pie', 1, 90.6797, 0.03893)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (277, N'Talla', N'Femenino', 31, N'De_pie', 1, 91.443, 0.03913)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (278, N'Talla', N'Femenino', 32, N'De_pie', 1, 92.1906, 0.03933)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (279, N'Talla', N'Femenino', 33, N'De_pie', 1, 92.9239, 0.03952)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (280, N'Talla', N'Femenino', 34, N'De_pie', 1, 93.6444, 0.03971)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (281, N'Talla', N'Femenino', 35, N'De_pie', 1, 94.3533, 0.03989)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (282, N'Talla', N'Femenino', 36, N'De_pie', 1, 95.0515, 0.04006)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (283, N'Talla', N'Femenino', 37, N'De_pie', 1, 95.7399, 0.04024)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (284, N'Talla', N'Femenino', 38, N'De_pie', 1, 96.4187, 0.04041)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (285, N'Talla', N'Femenino', 39, N'De_pie', 1, 97.0885, 0.04057)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (286, N'Talla', N'Femenino', 40, N'De_pie', 1, 97.7493, 0.04073)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (287, N'Talla', N'Femenino', 41, N'De_pie', 1, 98.4015, 0.04089)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (288, N'Talla', N'Femenino', 42, N'De_pie', 1, 99.0448, 0.04105)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (289, N'Talla', N'Femenino', 43, N'De_pie', 1, 99.6795, 0.0412)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (290, N'Talla', N'Femenino', 44, N'De_pie', 1, 100.3058, 0.04135)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (291, N'Talla', N'Femenino', 45, N'De_pie', 1, 100.9238, 0.0415)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (292, N'Talla', N'Femenino', 46, N'De_pie', 1, 101.5337, 0.04164)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (293, N'Talla', N'Femenino', 47, N'De_pie', 1, 102.136, 0.04179)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (294, N'Talla', N'Femenino', 48, N'De_pie', 1, 102.7312, 0.04193)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (295, N'Talla', N'Femenino', 49, N'De_pie', 1, 103.3197, 0.04206)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (296, N'Talla', N'Femenino', 50, N'De_pie', 1, 103.9021, 0.0422)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (297, N'Talla', N'Femenino', 51, N'De_pie', 1, 104.4786, 0.04233)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (298, N'Talla', N'Femenino', 52, N'De_pie', 1, 105.0494, 0.04246)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (299, N'Talla', N'Femenino', 53, N'De_pie', 1, 105.6148, 0.04259)
+GO
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (300, N'Talla', N'Femenino', 54, N'De_pie', 1, 106.1748, 0.04272)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (301, N'Talla', N'Femenino', 55, N'De_pie', 1, 106.7295, 0.04285)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (302, N'Talla', N'Femenino', 56, N'De_pie', 1, 107.2788, 0.04298)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (303, N'Talla', N'Femenino', 57, N'De_pie', 1, 107.8227, 0.0431)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (304, N'Talla', N'Femenino', 58, N'De_pie', 1, 108.3613, 0.04322)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (305, N'Talla', N'Femenino', 59, N'De_pie', 1, 108.8948, 0.04334)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (306, N'Talla', N'Femenino', 60, N'De_pie', 1, 109.4233, 0.04347)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (307, N'Talla', N'Masculino', 0, N'Acostado', 1, 49.8842, 0.03795)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (308, N'Talla', N'Masculino', 1, N'Acostado', 1, 54.7244, 0.03557)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (309, N'Talla', N'Masculino', 2, N'Acostado', 1, 58.4249, 0.03424)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (310, N'Talla', N'Masculino', 3, N'Acostado', 1, 61.4292, 0.03328)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (311, N'Talla', N'Masculino', 4, N'Acostado', 1, 63.886, 0.03257)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (312, N'Talla', N'Masculino', 5, N'Acostado', 1, 65.9026, 0.03204)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (313, N'Talla', N'Masculino', 6, N'Acostado', 1, 67.6236, 0.03165)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (314, N'Talla', N'Masculino', 7, N'Acostado', 1, 69.1645, 0.03139)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (315, N'Talla', N'Masculino', 8, N'Acostado', 1, 70.5994, 0.03124)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (316, N'Talla', N'Masculino', 9, N'Acostado', 1, 71.9687, 0.03117)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (317, N'Talla', N'Masculino', 10, N'Acostado', 1, 73.2812, 0.03118)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (318, N'Talla', N'Masculino', 11, N'Acostado', 1, 74.5388, 0.03125)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (319, N'Talla', N'Masculino', 12, N'Acostado', 1, 75.7488, 0.03137)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (320, N'Talla', N'Masculino', 13, N'Acostado', 1, 76.9186, 0.03154)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (321, N'Talla', N'Masculino', 14, N'Acostado', 1, 78.0497, 0.03174)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (322, N'Talla', N'Masculino', 15, N'Acostado', 1, 79.1458, 0.03197)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (323, N'Talla', N'Masculino', 16, N'Acostado', 1, 80.2113, 0.03222)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (324, N'Talla', N'Masculino', 17, N'Acostado', 1, 81.2487, 0.0325)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (325, N'Talla', N'Masculino', 18, N'Acostado', 1, 82.2587, 0.03279)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (326, N'Talla', N'Masculino', 19, N'Acostado', 1, 83.2418, 0.0331)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (327, N'Talla', N'Masculino', 20, N'Acostado', 1, 84.1996, 0.03342)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (328, N'Talla', N'Masculino', 21, N'Acostado', 1, 85.1348, 0.03376)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (329, N'Talla', N'Masculino', 22, N'Acostado', 1, 86.0477, 0.0341)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (330, N'Talla', N'Masculino', 23, N'Acostado', 1, 86.941, 0.03445)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (331, N'Talla', N'Masculino', 24, N'Acostado', 1, 87.8161, 0.03479)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (332, N'Talla', N'Masculino', 24, N'De_pie', 1, 87.1161, 0.03507)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (333, N'Talla', N'Masculino', 25, N'De_pie', 1, 87.972, 0.03542)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (334, N'Talla', N'Masculino', 26, N'De_pie', 1, 88.8065, 0.03576)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (335, N'Talla', N'Masculino', 27, N'De_pie', 1, 89.6197, 0.0361)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (336, N'Talla', N'Masculino', 28, N'De_pie', 1, 90.412, 0.03642)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (337, N'Talla', N'Masculino', 29, N'De_pie', 1, 91.1828, 0.03674)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (338, N'Talla', N'Masculino', 30, N'De_pie', 1, 91.9327, 0.037039999999999997)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (339, N'Talla', N'Masculino', 31, N'De_pie', 1, 92.6631, 0.03733)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (340, N'Talla', N'Masculino', 32, N'De_pie', 1, 93.3753, 0.03761)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (341, N'Talla', N'Masculino', 33, N'De_pie', 1, 94.0711, 0.03787)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (342, N'Talla', N'Masculino', 34, N'De_pie', 1, 94.7532, 0.03812)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (343, N'Talla', N'Masculino', 35, N'De_pie', 1, 95.4236, 0.03836)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (344, N'Talla', N'Masculino', 36, N'De_pie', 1, 96.0835, 0.03858)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (345, N'Talla', N'Masculino', 37, N'De_pie', 1, 96.7337, 0.03879)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (346, N'Talla', N'Masculino', 38, N'De_pie', 1, 97.3749, 0.039)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (347, N'Talla', N'Masculino', 39, N'De_pie', 1, 98.0073, 0.03919)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (348, N'Talla', N'Masculino', 40, N'De_pie', 1, 98.631, 0.03937)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (349, N'Talla', N'Masculino', 41, N'De_pie', 1, 99.2459, 0.03954)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (350, N'Talla', N'Masculino', 42, N'De_pie', 1, 99.8515, 0.03971)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (351, N'Talla', N'Masculino', 43, N'De_pie', 1, 100.4485, 0.03986)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (352, N'Talla', N'Masculino', 44, N'De_pie', 1, 101.0374, 0.04002)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (353, N'Talla', N'Masculino', 45, N'De_pie', 1, 101.6186, 0.04016)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (354, N'Talla', N'Masculino', 46, N'De_pie', 1, 102.1933, 0.04031)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (355, N'Talla', N'Masculino', 47, N'De_pie', 1, 102.7625, 0.04045)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (356, N'Talla', N'Masculino', 48, N'De_pie', 1, 103.3273, 0.04059)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (357, N'Talla', N'Masculino', 49, N'De_pie', 1, 103.8886, 0.04073)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (358, N'Talla', N'Masculino', 50, N'De_pie', 1, 104.4473, 0.04086)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (359, N'Talla', N'Masculino', 51, N'De_pie', 1, 105.0041, 0.041)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (360, N'Talla', N'Masculino', 52, N'De_pie', 1, 105.5596, 0.04113)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (361, N'Talla', N'Masculino', 53, N'De_pie', 1, 106.1138, 0.04126)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (362, N'Talla', N'Masculino', 54, N'De_pie', 1, 106.6668, 0.04139)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (363, N'Talla', N'Masculino', 55, N'De_pie', 1, 107.2188, 0.04152)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (364, N'Talla', N'Masculino', 56, N'De_pie', 1, 107.7697, 0.04165)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (365, N'Talla', N'Masculino', 57, N'De_pie', 1, 108.3198, 0.04177)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (366, N'Talla', N'Masculino', 58, N'De_pie', 1, 108.8689, 0.0419)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (367, N'Talla', N'Masculino', 59, N'De_pie', 1, 109.417, 0.04202)
+INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (368, N'Talla', N'Masculino', 60, N'De_pie', 1, 109.9638, 0.04214)
+SET IDENTITY_INSERT [dbo].[who_growth_standards] OFF
 GO
 
 PRINT 'Pediatrics V6.1 schema (SQL Server) created successfully.';
