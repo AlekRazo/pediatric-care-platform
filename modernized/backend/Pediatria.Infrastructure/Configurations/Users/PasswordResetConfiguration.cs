@@ -1,0 +1,1 @@
+namespace Pediatria.Infrastructure.Configurations.Users;
