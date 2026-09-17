@@ -5,7 +5,12 @@ namespace Pediatria.Application.Interfaces;
 
 public interface IAuthService
 {
-    Task<AuthResponseDto> Login(AuthRequestDto request);
-    Task<bool> Logout();
+    // Login (USC-USR-001)
+    Task<AuthResponseDto> Login (AuthRequestDto request);
+
+    //Password Recovery (USC-USR-002)
     Task<bool> RecoverPassword(PasswordRecoveryRequestDto request);
+
+    //Logout (USC-USR-003)
+    Task<bool> Logout();
 }

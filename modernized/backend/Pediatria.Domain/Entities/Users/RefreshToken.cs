@@ -9,5 +9,6 @@ public sealed class RefreshToken
     public DateTime ExpiresAt { get; set; }
     public bool Revoked { get; set; }
     public string? CreatedByIp { get; set; }
+    
     public User User { get; set; } = null!;
 }

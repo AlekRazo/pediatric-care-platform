@@ -3,6 +3,8 @@ using Pediatria.Application.DTOs.Users;
 using Pediatria.Application.Interfaces;
 using Pediatria.Domain.Interfaces;
 
+namespace Pediatria.Application.Services;
+
 public class UsersService : IUsersService
 {
     private readonly IUsersRepository _usersRepository;

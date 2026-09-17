@@ -10,5 +10,6 @@ public sealed class AuditLog
     public DateTime Timestamp { get; set; }
     public string? IpAddress { get; set; }
     public string? Details { get; set; }
+    
     public User? User { get; set; }
 }

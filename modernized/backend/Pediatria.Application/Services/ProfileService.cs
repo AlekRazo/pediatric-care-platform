@@ -2,6 +2,8 @@ using Pediatria.Application.DTOs.Profiles;
 using Pediatria.Application.Interfaces;
 using Pediatria.Domain.Interfaces;
 
+namespace Pediatria.Application.Services;
+
 public class ProfileService : IProfileService
 {
     private readonly IProfileRepository _profileRepository;

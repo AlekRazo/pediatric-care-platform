@@ -10,13 +10,14 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<User> Users => Set<User>();
-    public DbSet<UserRole> UserRoles => Set<UserRole>();
     public DbSet<Role> Roles => Set<Role>();
+    public DbSet<UserRole> UserRoles => Set<UserRole>();
     public DbSet<Physician> Physicians => Set<Physician>();
     public DbSet<Receptionist> Receptionists => Set<Receptionist>();
-    public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+    public DbSet<Clinic> Clinics => Set<Clinic>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<PasswordReset> PasswordResets => Set<PasswordReset>();
+    public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -5,14 +5,7 @@ namespace Pediatria.Application.Interfaces;
 
 public interface IUsersService
 {
-    // Login (USC-USR-001)
-    Task<AuthResponseDto> Login (AuthRequestDto request);
-
-    //Password Recovery (USC-USR-002)
-    Task<bool> RecoverPassword(PasswordRecoveryRequestDto request);
-
-    //Logout (USC-USR-003)
-    Task<bool> Logout();
+    
 
     //Search Users (USC-USR-004)
     Task<List<UserResponseDto>> GetUsers(string keyword);
