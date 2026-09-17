@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pediatria.WebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84e6ebad051c09d8aa81f972d4b7ceeaacb434b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5b9fefc18802cc624a06d52d5d8a99416dcf094")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pediatria.WebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pediatria.WebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
