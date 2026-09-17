@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pediatria.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84e6ebad051c09d8aa81f972d4b7ceeaacb434b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+149ae8832238162c60462cf75a0fed114bff29c0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pediatria.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pediatria.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
