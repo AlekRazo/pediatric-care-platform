@@ -1,4 +1,3 @@
-using System.Net;
 using Pediatria.Application.DTOs.Common;
 using Pediatria.Domain.Exceptions;
 

@@ -1,6 +1,6 @@
 using Pediatria.Application.DTOs.Profiles;
-using Pediatria.Application.Interfaces;
-using Pediatria.Domain.Interfaces;
+using Pediatria.Application.Interfaces.Repositories;
+using Pediatria.Application.Interfaces.Services;
 
 namespace Pediatria.Application.Services;
 

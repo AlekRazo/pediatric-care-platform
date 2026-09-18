@@ -2,7 +2,7 @@ namespace Pediatria.Domain.Entities.Users;
 
 public sealed class User
 {
-    public Guid Id { get; set; } = Guid.CreateVersion7();
+    public Guid Id { get; set; }
     public string Username { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string PasswordHash { get; set; } = null!;

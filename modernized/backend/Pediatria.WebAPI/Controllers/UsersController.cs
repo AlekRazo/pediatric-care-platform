@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pediatria.Application.DTOs.Common;
 using Pediatria.Application.DTOs.Users;
-using Pediatria.Application.Interfaces;
+using Pediatria.Application.Interfaces.Services;
 
 namespace Pediatria.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin,Receptionist")]
+//[Authorize(Roles = "Admin,Receptionist")]
 public class UsersController : ControllerBase
 {
     private readonly IUsersService _usersService;

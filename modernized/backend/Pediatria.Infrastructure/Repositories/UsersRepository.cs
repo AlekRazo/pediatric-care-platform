@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Pediatria.Application.Interfaces.Repositories;
 using Pediatria.Domain.Entities.Users;
-using Pediatria.Domain.Interfaces;
 using Pediatria.Infrastructure.Persistence;
 
 namespace Pediatria.Infrastructure.Repositories;
@@ -14,12 +14,10 @@ public class UsersRepository : IUsersRepository
         _context = context;
     }
 
-    public async Task<User> AddAsync(User user)
+    public async Task<int> AddAsync(User user)
     {
         await _context.Users.AddAsync(user);
-        await _context.SaveChangesAsync();
-
-        return await _context.Users.AsNoTracking().Include(u => u.UserRoles).FirstAsync(u => u.Id == user.Id)!;
+        return await _context.SaveChangesAsync();
     }
 
     public Task<bool> DeleteUser(Guid id)
@@ -32,9 +30,14 @@ public class UsersRepository : IUsersRepository
         return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username && u.Email == email)!;
     }
 
-    public async Task<User?> ExistsByUserAndPasswordAsync(string username, string password)
+    public async Task<bool> ExistsByUsernameAsync(string username)
     {
-        return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username && u.PasswordHash == password)!;
+        return await _context.Users.AnyAsync(u => u.Username == username)!;
+    }
+
+    public async Task<User?> GetByUsernameAsync(string username)
+    {
+        return await _context.Users.AsNoTracking().Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Username == username)!;
     }
 
     public async Task<User?> GetByIdAsync(Guid id)

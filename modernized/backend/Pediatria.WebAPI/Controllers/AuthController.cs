@@ -3,7 +3,7 @@ using Pediatria.Application.DTOs.Common;
 using Pediatria.Application.DTOs.Auth;
 using Pediatria.Application.DTOs.Users;
 using Microsoft.AspNetCore.Authorization;
-using Pediatria.Application.Interfaces;
+using Pediatria.Application.Interfaces.Services;
 
 namespace Pediatria.WebApi.Controllers;
 

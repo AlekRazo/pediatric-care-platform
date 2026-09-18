@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Scalar.AspNetCore;
 using Pediatria.Application.Interfaces.Repositories;
 using Pediatria.Application.Interfaces.Services;
@@ -6,6 +8,8 @@ using Pediatria.Application.Services;
 using Pediatria.Infrastructure.Persistence;
 using Pediatria.Infrastructure.Repositories;
 using Pediatria.Middlewares;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +45,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddOpenApi();
 
 
-/*builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -53,8 +57,8 @@ builder.Services.AddOpenApi();
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
     };
-
-    options.Events = new JwtBearerEvents
+});
+/*.    options.Events = new JwtBearerEvents
     {
         OnChallenge = async context =>
         {
@@ -76,10 +80,12 @@ builder.Services.AddOpenApi();
 
 //Dependencias
 builder.Services.AddScoped<IAuthService, AuthService>();
-//builder.Services.AddScoped<IJwtService, JwtService>();
-builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 
 var app = builder.Build();
 

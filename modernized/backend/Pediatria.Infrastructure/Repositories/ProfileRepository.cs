@@ -1,7 +1,6 @@
-using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
+using Pediatria.Application.Interfaces.Repositories;
 using Pediatria.Domain.Entities.Users;
-using Pediatria.Domain.Interfaces;
 using Pediatria.Infrastructure.Persistence;
 
 namespace Pediatria.Infrastructure.Repositories;

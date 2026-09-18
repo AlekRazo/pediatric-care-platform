@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Pediatria.Application.Interfaces.Repositories;
 using Pediatria.Domain.Entities.Users;
-using Pediatria.Domain.Interfaces;
 
 namespace Pediatria.Infrastructure.Repositories;
 

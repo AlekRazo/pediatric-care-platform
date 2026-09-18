@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pediatria.Application.DTOs.Common;
 using Pediatria.Application.DTOs.Profiles;
-using Pediatria.Application.Interfaces;
+using Pediatria.Application.Interfaces.Services;
+
+namespace Pediatria.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+//[Authorize]
 public class ProfileController : ControllerBase
 {
     private readonly IProfileService _profileService;

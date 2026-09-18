@@ -1,7 +1,9 @@
 using Pediatria.Application.DTOs.Auth;
 using Pediatria.Application.DTOs.Users;
-using Pediatria.Application.Interfaces;
-using Pediatria.Domain.Interfaces;
+using Pediatria.Application.Interfaces.Repositories;
+using Pediatria.Application.Interfaces.Services;
+using Pediatria.Domain.Entities.Users;
+using Pediatria.Domain.Exceptions;
 
 namespace Pediatria.Application.Services;
 
@@ -29,24 +31,40 @@ public class UsersService : IUsersService
         throw new NotImplementedException();
     }
 
-    public Task<AuthResponseDto> Login(AuthRequestDto request)
+    public async Task<UserResponseDto> RegisterUser(RegisterUserRequestDto request)
     {
-        throw new NotImplementedException();
-    }
+        var exists = await _usersRepository.ExistsByUsernameAsync(request.Username);
 
-    public Task<bool> Logout()
-    {
-        throw new NotImplementedException();
-    }
+        if (exists)
+            throw new BusinessException("El usuario ya se encuentra registrado.");
 
-    public Task<bool> RecoverPassword(PasswordRecoveryRequestDto request)
-    {
-        throw new NotImplementedException();
-    }
+        var user = new User
+        {
+            Id = Guid.CreateVersion7(),
+            Username = request.Username,
+            Email = request.Email,
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password)
+        };
 
-    public Task<UserResponseDto> RegisterUser(RegisterUserRequestDto request)
-    {
-        throw new NotImplementedException();
+        int result = await _usersRepository.AddAsync(user);
+
+        if(result > 0){
+            var newUser = await _usersRepository.GetByIdAsync(user.Id);
+
+            if(newUser is not null)
+            {
+                return new UserResponseDto
+                {
+                    Id = newUser.Id,
+                    Username =  newUser.Username,
+                    Email = newUser.Email,
+                    IsActive = newUser.Active,
+                    CreatedAt = newUser.CreatedAt
+                };
+            }
+        }
+
+        return new UserResponseDto();
     }
 
     public Task<UserResponseDto> UpdateUser(Guid id, UpdateUserRequestDto request)
