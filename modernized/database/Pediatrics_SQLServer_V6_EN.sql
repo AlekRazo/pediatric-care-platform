@@ -36,10 +36,10 @@ GO
 SET QUOTED_IDENTIFIER ON;
 GO
 
-CREATE DATABASE [PediatricsV2];
+CREATE DATABASE [PediatriaV2]
 GO
 
-USE [PediatricsV2];
+USE [PediatriaV2];
 GO
 
 /* =====================================================================
@@ -82,7 +82,7 @@ CREATE TABLE [dbo].[user_roles] (
     [user_id] UNIQUEIDENTIFIER NOT NULL,
     [role_id] INT NOT NULL,
     CONSTRAINT [PK_user_roles] PRIMARY KEY ([user_id], [role_id]),
-    CONSTRAINT [FK_user_roles_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]),
+    CONSTRAINT [FK_user_roles_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]) ON DELETE CASCADE,
     CONSTRAINT [FK_user_roles_roles] FOREIGN KEY ([role_id]) REFERENCES [dbo].[roles]([id])
 );
 GO
@@ -723,6 +723,7 @@ GO
 CREATE INDEX [IX_who_growth_standards_lookup] ON [dbo].[who_growth_standards]([indicator], [gender], [age_months]);
 GO
 
+SET IDENTITY_INSERT [dbo].[who_growth_standards] ON
 INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (1, N'PerimetroCefalico', N'Femenino', 0, N'Unica', 1, 33.8787, 0.03496)
 INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (2, N'PerimetroCefalico', N'Femenino', 1, N'Unica', 1, 36.5463, 0.0321)
 INSERT [dbo].[who_growth_standards] ([id], [indicator], [gender], [age_months], [measurement], [l], [m], [s]) VALUES (3, N'PerimetroCefalico', N'Femenino', 2, N'Unica', 1, 38.2521, 0.03168)

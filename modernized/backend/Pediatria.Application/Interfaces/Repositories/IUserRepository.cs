@@ -28,5 +28,12 @@ public interface IUsersRepository
     Task<User?> UpdateAsync(Guid id, User user);
 
     //Delete User (USC-USR-012)
-    Task<bool> DeleteUser(Guid id);
+    void DeleteUser(User user);
+
+    //User Roles
+    Task<List<Role>> GetRolesByNamesAsync(IEnumerable<string> names);
+
+    Task<User?> GetTrackedByIdAsync(Guid id);
+
+    Task<int> SaveChangesAsync();
 }

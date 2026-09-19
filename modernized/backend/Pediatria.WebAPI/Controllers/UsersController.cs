@@ -19,7 +19,7 @@ public class UsersController : ControllerBase
     }
 
     //# 4 - Search Users (USC-USR-004)
-    [HttpGet("search")]
+    [HttpGet]
     public async Task<IActionResult> GetUsers([FromQuery] string keyword)
     {
         var users = await _usersService.GetUsers(keyword);

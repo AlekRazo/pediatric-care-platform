@@ -20,9 +20,9 @@ public class UsersRepository : IUsersRepository
         return await _context.SaveChangesAsync();
     }
 
-    public Task<bool> DeleteUser(Guid id)
+    public void DeleteUser(User user)
     {
-        throw new NotImplementedException();
+        _context.Users.Remove(user);
     }
 
     public async Task<User?> ExistsByUserAndEmailAsync(string username, string email)
@@ -45,9 +45,9 @@ public class UsersRepository : IUsersRepository
         return await _context.Users.AsNoTracking().Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Id == id)!;
     }
 
-    public Task<List<User>> GetByKeywordAsync(string keyword)
+    public async Task<List<User>> GetByKeywordAsync(string keyword)
     {
-        throw new NotImplementedException();
+        return await _context.Users.Where(u => u.Username.Contains(keyword) || u.Email.Contains(keyword)).ToListAsync();
     }
 
     public Task<bool> Logout()
@@ -57,16 +57,38 @@ public class UsersRepository : IUsersRepository
 
     public async Task<User?> UpdateAsync(Guid id, User user)
     {
-        var result = await _context.Users.AsNoTracking().Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Id == id)!;
+        var result = await _context.Users.Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Id == id)!;
 
-        if(result is null) return null;
+        if (result is null) return null;
 
         result.Username = user.Username;
         result.Email = user.Email;
         result.PasswordHash = user.PasswordHash;
         result.Active =  user.Active;
-        result.UserRoles =  user.UserRoles;
 
-        return await _context.Users.AsNoTracking().Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Id == id)!;
+        result.UserRoles.Clear();
+
+        foreach(var ur in user.UserRoles)
+            result.UserRoles.Add(ur);
+
+        await _context.SaveChangesAsync();
+
+        return result;
+    }
+
+    public async Task<User?> GetTrackedByIdAsync(Guid id)
+    {
+        return await _context.Users.Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Id == id)!;
+    }
+
+    public async Task<int> SaveChangesAsync()
+    {
+        return await _context.SaveChangesAsync();
+    }
+
+    //User Roles
+    public async Task<List<Role>> GetRolesByNamesAsync(IEnumerable<string> names)
+    {
+        return await _context.Roles.Where(r => names.Contains(r.Name)).ToListAsync();
     }
 }

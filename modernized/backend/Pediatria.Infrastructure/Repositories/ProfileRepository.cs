@@ -44,7 +44,7 @@ public class ProfileRepository : IProfileRepository
     {
         var result = await _context.Physicians.FirstOrDefaultAsync(p => p.UserId == id)!;
 
-        if(result is null) return null;
+        if (result is null) return null;
 
         result.FullName = physician.FullName;
         result.BirthDate = physician.BirthDate;

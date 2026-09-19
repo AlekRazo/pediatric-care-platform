@@ -14,10 +14,12 @@ Estos errores son retornados en la respuesta estándar (ApiResponse<T>).
 public class ExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-    public ExceptionHandlerMiddleware(RequestDelegate next)
+    public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
     {
         _next = next;
+        _logger = logger;
     }
 
     public async Task InvokeAsync(HttpContext httpContext)
@@ -28,22 +30,27 @@ public class ExceptionHandlerMiddleware
         }
         catch (ValidationException ex)
         {
-            await HandleException(httpContext, StatusCodes.Status400BadRequest, "Error de validación.", ex.Message);
+            _logger.LogWarning(ex, "Error de validación en {Path}", httpContext.Request.Path);
+            await HandleException(httpContext, StatusCodes.Status400BadRequest, ex.Message, ex.Errors is null ? new List<string>() : ex.Errors.ToList());
         }
         catch (UnauthorizedException ex)
         {
+            _logger.LogWarning(ex, "Acceso no autorizado en {Path}", httpContext.Request.Path);
             await HandleException(httpContext, StatusCodes.Status401Unauthorized, "No autorizado", ex.Message);
         }
         catch (BusinessException ex)
         {
-            await HandleException(httpContext, StatusCodes.Status400BadRequest, "Error en el proceso.", ex.Errors is null ? new List<string>() : ex.Errors.ToList());
+            _logger.LogWarning(ex, "Error de negocio en {Path}", httpContext.Request.Path);
+            await HandleException(httpContext, StatusCodes.Status400BadRequest, ex.Message, ex.Errors is null ? new List<string>() : ex.Errors.ToList());
         }
         catch (NotFoundException ex)
         {
+            _logger.LogWarning(ex, "Recurso no encontrado en {Path}", httpContext.Request.Path);
             await HandleException (httpContext, StatusCodes.Status404NotFound, "Recurso no encontrado.", ex.Message);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error de inesperado procesando {Path}", httpContext.Request.Path);
             await HandleException(httpContext, StatusCodes.Status500InternalServerError, "Ocurrió un error inesperado. Intente más tarde.", ex.Message);
         }
     }
