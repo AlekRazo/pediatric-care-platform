@@ -112,8 +112,8 @@ public class UsersService : IUsersService
             
             user.UserRoles.Clear();
 
-            foreach(var role in user.UserRoles)
-                user.UserRoles.Add(role);
+            foreach(var role in userRoles)
+                user.UserRoles.Add(new UserRole{ UserId = user.Id, RoleId = role.Id });
         }
         
         await _usersRepository.SaveChangesAsync();
