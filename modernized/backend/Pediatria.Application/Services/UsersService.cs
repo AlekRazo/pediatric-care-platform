@@ -19,19 +19,6 @@ public class UsersService : IUsersService
         _usersRepository = usersRepository;
     }
 
-    public async Task<bool> DeleteUser(Guid id)
-    {
-        var user = await _usersRepository.GetTrackedByIdAsync(id);
-
-        if (user is null)
-            throw new NotFoundException($"No existe el ususario con el id {id}.");
-
-        _usersRepository.DeleteUser(user);
-        await _usersRepository.SaveChangesAsync();
-        
-        return true;
-    }
-
     public async Task<UserResponseDto> GetUser(Guid id)
     {
         var user = await _usersRepository.GetByIdAsync(id);
@@ -119,6 +106,19 @@ public class UsersService : IUsersService
         await _usersRepository.SaveChangesAsync();
         
         return Map(user);
+    }
+
+    public async Task<bool> DeleteUser(Guid id)
+    {
+        var user = await _usersRepository.GetTrackedByIdAsync(id);
+
+        if (user is null)
+            throw new NotFoundException($"No existe el ususario con el id {id}.");
+
+        _usersRepository.DeleteUser(user);
+        await _usersRepository.SaveChangesAsync();
+        
+        return true;
     }
 
     private UserResponseDto Map(User user)

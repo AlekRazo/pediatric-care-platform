@@ -18,7 +18,7 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    //Login (USC-USR-001)
+    //# 1 - Login (USC-USR-001)
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] AuthRequestDto request)
     {
