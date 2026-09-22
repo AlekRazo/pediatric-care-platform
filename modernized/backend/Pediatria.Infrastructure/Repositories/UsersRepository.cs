@@ -25,6 +25,7 @@ public class UsersRepository : IUsersRepository
         _context.Users.Remove(user);
     }
 
+    //# 2 - Password Recovery (USC-USR-002)
     public async Task<User?> ExistsByUserAndEmailAsync(string username, string email)
     {
         return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username && u.Email == email)!;
@@ -35,21 +36,25 @@ public class UsersRepository : IUsersRepository
         return await _context.Users.AnyAsync(u => u.Username == username)!;
     }
 
+    //Login (USC-USR-001)
     public async Task<User?> GetByUsernameAsync(string username)
     {
-        return await _context.Users.AsNoTracking().Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Username == username)!;
+        return await _context.Users.AsNoTracking().Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstOrDefaultAsync(u => u.Username == username)!;
     }
 
+    //# 5 - Get User (USC-USR-005)
     public async Task<User?> GetByIdAsync(Guid id)
     {
-        return await _context.Users.AsNoTracking().Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Id == id)!;
+        return await _context.Users.AsNoTracking().Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstOrDefaultAsync(u => u.Id == id)!;
     }
 
+    //# 4 - Search Users (USC-USR-004)
     public async Task<List<User>> GetByKeywordAsync(string keyword)
     {
         return await _context.Users.Where(u => u.Username.Contains(keyword) || u.Email.Contains(keyword)).ToListAsync();
     }
 
+    //# 3 - Logout (USC-USR-003)
     public Task<bool> Logout()
     {
         throw new NotImplementedException();
@@ -78,7 +83,7 @@ public class UsersRepository : IUsersRepository
 
     public async Task<User?> GetTrackedByIdAsync(Guid id)
     {
-        return await _context.Users.Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Id == id)!;
+        return await _context.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstOrDefaultAsync(u => u.Id == id)!;
     }
 
     public async Task<int> SaveChangesAsync()
