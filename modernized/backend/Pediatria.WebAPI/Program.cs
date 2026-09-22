@@ -79,12 +79,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 });*/
 
 builder.Services.AddHttpContextAccessor();
-//Dependencias
+//Dependencies
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
-
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IClientInfoService, ClientInfoService>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+// Repositories
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();

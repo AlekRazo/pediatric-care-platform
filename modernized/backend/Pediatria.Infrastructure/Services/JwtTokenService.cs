@@ -9,7 +9,7 @@ using Pediatria.Domain.Entities.Users;
 
 namespace Pediatria.Infrastructure.Services;
 
-public class JwtTokenService : IJwtService
+public class JwtTokenService : IJwtTokenService
 {
     private readonly IConfiguration _configuration;
 

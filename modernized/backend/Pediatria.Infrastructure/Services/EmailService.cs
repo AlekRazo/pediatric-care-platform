@@ -16,7 +16,7 @@ public class EmailService : IEmailService
 
     public async Task SendPassowrdRecoveryEmailAsync(string toEmail, string temporaryPassword)
     {
-        //Crear cuenta de correo específica para producción
+        //Create email account for Production
         var fromAddress = new MailAddress(_configuration["Email:Email"]!, "From Name");
         var toAddress = new MailAddress(toEmail, "To Name");
 

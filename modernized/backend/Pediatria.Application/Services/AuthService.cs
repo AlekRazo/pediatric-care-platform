@@ -1,6 +1,3 @@
-using System.Net;
-using System.Net.Mail;
-using Microsoft.Extensions.Configuration;
 using Pediatria.Application.DTOs.Auth;
 using Pediatria.Application.DTOs.Users;
 using Pediatria.Application.Interfaces.Repositories;
@@ -15,10 +12,10 @@ public class AuthService : IAuthService
     private readonly ITokenRepository _tokenRepository;
     private readonly IUsersRepository _usersRepository;
     private readonly IClientInfoService _clientInforRepository;
-    private readonly IJwtService _jwtService;
+    private readonly IJwtTokenService _jwtService;
     private readonly IEmailService _emailService;
 
-    public AuthService(ITokenRepository tokenRepository, IUsersRepository usersRepository, IClientInfoService clientInfoRepository, IJwtService jwtService, IEmailService emailService)
+    public AuthService(ITokenRepository tokenRepository, IUsersRepository usersRepository, IClientInfoService clientInfoRepository, IJwtTokenService jwtService, IEmailService emailService)
     {
         _tokenRepository = tokenRepository;
         _usersRepository = usersRepository;
@@ -46,7 +43,7 @@ public class AuthService : IAuthService
             CreatedAt = currentTime,
             ExpiresAt = currentTime.AddDays(7),
             Revoked = false,
-            CreatedByIp = _clientInforRepository.getClientIpAddress()
+            CreatedByIp = _clientInforRepository.GetClientIpAddress()
         };
 
         //Guardar Refresh Token
@@ -81,7 +78,27 @@ public class AuthService : IAuthService
             throw new UnauthorizedException("El usuario o correo electrónico son incorrectos");
 
         //Generar nueva contraseña
-        string temporaryPassword = user.Username + "!";
+        Random random = new Random();
+        string temporaryPassword = user.Username + random.Next(1,1000) + "!";
+
+        //Guardar contraseña
+        
+        var adminGuid = _clientInforRepository.GetUserId();
+        var currentTime = DateTime.UtcNow;
+
+        if(adminGuid is null)
+            throw new UnauthorizedException("La petición no tiene un administrador.");
+
+        var passwordReset = new PasswordReset
+        {
+            Id = Guid.CreateVersion7(),
+            UserId = user.Id,
+            AdminId = adminGuid.Value,
+            TempPasswordHash = BCrypt.Net.BCrypt.HashPassword(temporaryPassword),
+            CreatedAt = currentTime,
+            ExpiresAt = currentTime.AddHours(24),
+            Used = false
+        }; 
 
         await _emailService.SendPassowrdRecoveryEmailAsync(user.Email, temporaryPassword);
         return true;
@@ -108,7 +125,7 @@ public class AuthService : IAuthService
             CreatedAt = currentTime,
             ExpiresAt = currentTime.AddDays(7),
             Revoked = false,
-            CreatedByIp = _clientInforRepository.getClientIpAddress()
+            CreatedByIp = _clientInforRepository.GetClientIpAddress()
         };
 
         //Guardar Refresh Token
