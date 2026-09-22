@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pediatria.Application.DTOs.Common;
 using Pediatria.Application.DTOs.Profiles;

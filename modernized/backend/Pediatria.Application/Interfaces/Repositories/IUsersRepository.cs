@@ -13,7 +13,7 @@ public interface IUsersRepository
     Task<User?> ExistsByUserAndEmailAsync(string username, string email);
 
     //Logout (USC-USR-003)
-    Task<bool> Logout();
+    Task<int> RevokeTokens(Guid id);
 
     //Search Users (USC-USR-004)
     Task<List<User>> GetByKeywordAsync(string keyword);

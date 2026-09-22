@@ -4,6 +4,7 @@ using Pediatria.Application.DTOs.Auth;
 using Pediatria.Application.DTOs.Users;
 using Microsoft.AspNetCore.Authorization;
 using Pediatria.Application.Interfaces.Services;
+using System.Security.Claims;
 
 namespace Pediatria.WebApi.Controllers;
 
@@ -39,7 +40,16 @@ public class AuthController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Logout()
     {
-        var result = await _authService.Logout();
-        return Ok(ApiResponse<bool>.SuccessResponse(result));
+        var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _authService.Logout(userId);
+        return Ok(ApiResponse<bool>.SuccessResponse(result, "Sesión cerrada correctamente"));
+    }
+
+    [HttpPost("refresh")]
+    [Authorize]
+    public async Task<IActionResult> RefreshToken(RefreshTokenRequestDto request)
+    {
+        var result = await _authService.RefreshToken(request);
+        return Ok(ApiResponse<AuthResponseDto>.SuccessResponse(result));
     }
 }

@@ -1,47 +1,34 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 using Pediatria.Application.Interfaces.Repositories;
 using Pediatria.Domain.Entities.Users;
+using Pediatria.Infrastructure.Persistence;
 
 namespace Pediatria.Infrastructure.Repositories;
 
 public class TokenRepository : ITokenRepository
 {
-    private readonly IConfiguration _configuration;
+    AppDbContext _context;
 
-    public TokenRepository(IConfiguration configuration)
+    public TokenRepository (AppDbContext context)
     {
-        _configuration = configuration;
+        _context = context;
     }
 
-    public string CreateJWTToken(User user)
+    public async Task<int> AddRefreshTokenAsync(RefreshToken refreshToken)
     {
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.Username),
-            new Claim(ClaimTypes.Email, user.Email)
-        };
+        await _context.RefreshTokens.AddAsync(refreshToken);
+        return await _context.SaveChangesAsync();
+    }
 
-        foreach (var role in user.UserRoles)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
-        }
+    public async Task<RefreshToken?> GetActiveRefreshTokenAsync(string token)
+    {
+        return await _context.RefreshTokens.Include(rt => rt.User).FirstOrDefaultAsync(rt => rt.TokenHash == token);
+    }
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.Now.AddMinutes(30),
-            signingCredentials: credentials
-        );
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+    public async Task<int> RevokeRefreshTokenAsync(Guid userId)
+    {
+        var tokens = await _context.RefreshTokens.Where(t => t.UserId == userId && t.Revoked).ToListAsync();
+        tokens.ForEach(t => t.Revoked = true);
+        return await _context.SaveChangesAsync();
     }
 }

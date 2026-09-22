@@ -55,9 +55,11 @@ public class UsersRepository : IUsersRepository
     }
 
     //# 3 - Logout (USC-USR-003)
-    public Task<bool> Logout()
+    public async Task<int> RevokeTokens(Guid id)
     {
-        throw new NotImplementedException();
+        var tokens = await _context.RefreshTokens.Where(t => t.UserId == id && !t.Revoked).ToListAsync();
+        tokens.ForEach(t => t.Revoked = true);
+        return await _context.SaveChangesAsync();
     }
 
     public async Task<User?> UpdateAsync(Guid id, User user)

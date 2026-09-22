@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Scalar.AspNetCore;
 using Pediatria.Application.Interfaces.Repositories;
@@ -10,6 +9,7 @@ using Pediatria.Infrastructure.Repositories;
 using Pediatria.Middlewares;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Pediatria.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,11 +78,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });*/
 
+builder.Services.AddHttpContextAccessor();
 //Dependencias
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
+builder.Services.AddScoped<IClientInfoService, ClientInfoService>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();

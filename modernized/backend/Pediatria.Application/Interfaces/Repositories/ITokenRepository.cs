@@ -4,5 +4,7 @@ namespace Pediatria.Application.Interfaces.Repositories;
 
 public interface ITokenRepository
 {
-    string CreateJWTToken(User user);
+    Task<int> AddRefreshTokenAsync(RefreshToken refreshToken);
+    Task<RefreshToken?> GetActiveRefreshTokenAsync(string token);
+    Task<int> RevokeRefreshTokenAsync(Guid id);
 }

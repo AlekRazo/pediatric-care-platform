@@ -4,5 +4,7 @@ namespace Pediatria.Application.Interfaces.Services;
 
 public interface IJwtService
 {
-    Task<string> GenerateTokenAsync(User user);
+    string CreateJWTToken(User user);
+    string CreateRefreshToken();
+    string HashToken(string token);
 }
