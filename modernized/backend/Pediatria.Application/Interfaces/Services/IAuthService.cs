@@ -12,7 +12,7 @@ public interface IAuthService
     Task<bool> RecoverPassword(PasswordRecoveryRequestDto request);
 
     //Logout (USC-USR-003)
-    Task<bool> Logout(Guid id);
+    Task<bool> Logout();
 
     Task<AuthResponseDto> RefreshToken(RefreshTokenRequestDto request);
 }

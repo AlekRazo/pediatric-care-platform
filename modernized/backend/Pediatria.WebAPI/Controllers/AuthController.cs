@@ -29,6 +29,7 @@ public class AuthController : ControllerBase
     
     //# 2 - Password Recovery (USC-USR-002)
     [HttpPost("recover-password")]
+    [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> RecoverPassword([FromBody] PasswordRecoveryRequestDto request)
     {
         var result = await _authService.RecoverPassword(request);
@@ -40,8 +41,7 @@ public class AuthController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Logout()
     {
-        var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var result = await _authService.Logout(userId);
+        var result = await _authService.Logout();
         return Ok(ApiResponse<bool>.SuccessResponse(result, "Sesión cerrada correctamente"));
     }
 

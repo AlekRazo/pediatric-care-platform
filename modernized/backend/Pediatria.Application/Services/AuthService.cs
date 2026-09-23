@@ -60,9 +60,14 @@ public class AuthService : IAuthService
         };
     }
 
-    public async Task<bool> Logout(Guid id)
+    public async Task<bool> Logout()
     {
-        var result = await _tokenRepository.RevokeRefreshTokenAsync(id);
+        var id = _clientInforRepository.GetUserId();
+
+        if (id is null)
+            throw new UnauthorizedException("No hay un usuario para cerrar sesión");
+
+        var result = await _tokenRepository.RevokeRefreshTokenAsync(id.Value);
 
         if (result <= 0)
             return false;
