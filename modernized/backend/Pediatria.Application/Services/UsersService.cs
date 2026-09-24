@@ -27,6 +27,9 @@ public class UsersService : IUsersService
 
     public async Task<List<UserResponseDto>> GetUsers(string keyword)
     {
+        if (string.IsNullOrEmpty(keyword))
+            throw new BusinessException("No existe un palabra de búsqueda.");
+
         var users = await _usersRepository.GetByKeywordAsync(keyword);
         return users.Select(x => Map(x)).ToList();
     }

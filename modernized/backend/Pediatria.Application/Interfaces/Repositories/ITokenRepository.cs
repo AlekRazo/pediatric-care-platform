@@ -6,5 +6,6 @@ public interface ITokenRepository
 {
     Task<int> AddRefreshTokenAsync(RefreshToken refreshToken);
     Task<RefreshToken?> GetActiveRefreshTokenAsync(string token);
-    Task<int> RevokeRefreshTokenAsync(Guid id);
+    Task<int> RevokeAllRefreshTokensAsync(Guid id);
+    Task<int> SaveChangesAsync();
 }

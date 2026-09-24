@@ -67,7 +67,7 @@ public class AuthService : IAuthService
         if (id is null)
             throw new UnauthorizedException("No hay un usuario para cerrar sesión");
 
-        var result = await _tokenRepository.RevokeRefreshTokenAsync(id.Value);
+        var result = await _tokenRepository.RevokeAllRefreshTokensAsync(id.Value);
 
         if (result <= 0)
             return false;
@@ -103,7 +103,10 @@ public class AuthService : IAuthService
             CreatedAt = currentTime,
             ExpiresAt = currentTime.AddHours(24),
             Used = false
-        }; 
+        };
+
+        //Guardar contraseña temporal
+        var result = await _usersRepository.AddResetPassword(passwordReset);
 
         await _emailService.SendPassowrdRecoveryEmailAsync(user.Email, temporaryPassword);
         return true;
@@ -111,13 +114,16 @@ public class AuthService : IAuthService
 
     public async Task<AuthResponseDto> RefreshToken(RefreshTokenRequestDto request)
     {
-        var token = await _tokenRepository.GetActiveRefreshTokenAsync(request.RefreshToken);
+        var token = await _tokenRepository.GetActiveRefreshTokenAsync(_jwtService.HashToken(request.RefreshToken));
 
         if(token is null || token.Revoked || token.ExpiresAt < DateTime.UtcNow)
             throw new UnauthorizedException("Refresh token inválido.");
         
+        //Revoke token
         token.Revoked = true;
+        var resultRevoke = await _tokenRepository.SaveChangesAsync();
 
+        //Create new token
         var newAccessToken = _jwtService.CreateJWTToken(token.User);
         var newRefreshToken = _jwtService.CreateRefreshToken();
         var currentTime = DateTime.UtcNow;
@@ -133,8 +139,8 @@ public class AuthService : IAuthService
             CreatedByIp = _clientInforRepository.GetClientIpAddress()
         };
 
-        //Guardar Refresh Token
-        var result = await _tokenRepository.AddRefreshTokenAsync(refreshToken);
+        //Save Refresh Token
+        var resultSave = await _tokenRepository.AddRefreshTokenAsync(refreshToken);
 
         return new AuthResponseDto
         {

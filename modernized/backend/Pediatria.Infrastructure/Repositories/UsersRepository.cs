@@ -88,14 +88,21 @@ public class UsersRepository : IUsersRepository
         return await _context.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstOrDefaultAsync(u => u.Id == id)!;
     }
 
-    public async Task<int> SaveChangesAsync()
-    {
-        return await _context.SaveChangesAsync();
-    }
-
     //User Roles
     public async Task<List<Role>> GetRolesByNamesAsync(IEnumerable<string> names)
     {
         return await _context.Roles.Where(r => names.Contains(r.Name)).ToListAsync();
+    }
+    
+    //Password Reset
+    public async Task<int> AddResetPassword(PasswordReset passwordReset)
+    {
+        await _context.PasswordResets.AddAsync(passwordReset);
+        return await _context.SaveChangesAsync();
+    }
+    
+    public async Task<int> SaveChangesAsync()
+    {
+        return await _context.SaveChangesAsync();
     }
 }
