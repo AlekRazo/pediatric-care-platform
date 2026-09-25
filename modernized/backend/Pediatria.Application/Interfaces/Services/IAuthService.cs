@@ -9,7 +9,9 @@ public interface IAuthService
     Task<AuthResponseDto> Login (AuthRequestDto request);
 
     //Password Recovery (USC-USR-002)
-    Task<bool> RecoverPassword(PasswordRecoveryRequestDto request);
+    Task<bool> ForgotPassword(ForgotPasswordRequestDto request);
+
+    Task<bool> ResetPassword(ResetPasswordRequestDto request);
 
     //Logout (USC-USR-003)
     Task<bool> Logout();

@@ -28,11 +28,19 @@ public class AuthController : ControllerBase
     }
     
     //# 2 - Password Recovery (USC-USR-002)
-    [HttpPost("recover-password")]
-    [Authorize(Roles = "Administrador")]
-    public async Task<IActionResult> RecoverPassword([FromBody] PasswordRecoveryRequestDto request)
+    [HttpPost("forgot-password")]
+    [AllowAnonymous]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequestDto request)
     {
-        var result = await _authService.RecoverPassword(request);
+        var result = await _authService.ForgotPassword(request);
+        return Accepted(ApiResponse<bool>.SuccessResponse(result));
+    }
+
+    [HttpPost("reset-password")]
+    [AllowAnonymous]
+    public async Task<IActionResult> RecoverPassword([FromBody] ResetPasswordRequestDto request)
+    {
+        var result = await _authService.ResetPassword(request);
         return Ok(ApiResponse<bool>.SuccessResponse(result));
     }
     
@@ -46,7 +54,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("refresh")]
-    [Authorize]
+    [AllowAnonymous]
     public async Task<IActionResult> RefreshToken(RefreshTokenRequestDto request)
     {
         var result = await _authService.RefreshToken(request);

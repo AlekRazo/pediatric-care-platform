@@ -17,6 +17,5 @@ public class PasswordResetConfiguration : IEntityTypeConfiguration<PasswordReset
         builder.Property(pr => pr.Used).HasDefaultValue(false);
 
         builder.HasOne(pr => pr.User).WithMany().HasForeignKey(pr => pr.UserId).HasConstraintName("FK_password_resets_users").OnDelete(DeleteBehavior.Cascade);
-        builder.HasOne(pr => pr.Admin).WithMany().HasForeignKey(pr => pr.AdminId).HasConstraintName("FK_password_resets_admin").OnDelete(DeleteBehavior.NoAction);
     }
 }

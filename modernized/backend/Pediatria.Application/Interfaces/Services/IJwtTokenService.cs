@@ -7,4 +7,5 @@ public interface IJwtTokenService
     string CreateJWTToken(User user);
     string CreateRefreshToken();
     string HashToken(string token);
+    string CreatePasswordResetToken();
 }

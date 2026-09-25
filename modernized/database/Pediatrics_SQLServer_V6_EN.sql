@@ -149,14 +149,13 @@ GO
 CREATE TABLE [dbo].[password_resets] (
     [id]                 UNIQUEIDENTIFIER NOT NULL,
     [user_id]            UNIQUEIDENTIFIER NOT NULL,
-    [admin_id]           UNIQUEIDENTIFIER NOT NULL,
-    [temp_password_hash] NVARCHAR(256) NOT NULL,
+    [requested_by_user_id]  UNIQUEIDENTIFIER NOT NULL,
+    [token_hash]         NVARCHAR(256) NOT NULL,
     [created_at]         DATETIME2(0) NOT NULL CONSTRAINT [DF_password_resets_created_at] DEFAULT SYSUTCDATETIME(),
     [expires_at]         DATETIME2(0) NOT NULL,
-    [used]               BIT NOT NULL CONSTRAINT [DF_password_resets_used] DEFAULT 0,
+    [used_at]            DATETIME2(0) NULL,
     CONSTRAINT [PK_password_resets] PRIMARY KEY ([id]),
-    CONSTRAINT [FK_password_resets_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]) ON DELETE CASCADE,
-    CONSTRAINT [FK_password_resets_admin] FOREIGN KEY ([admin_id]) REFERENCES [dbo].[users]([id])
+    CONSTRAINT [FK_password_resets_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users]([id]) ON DELETE CASCADE
 );
 GO
 

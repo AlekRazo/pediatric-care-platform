@@ -11,15 +11,17 @@ public class AuthService : IAuthService
 {
     private readonly ITokenRepository _tokenRepository;
     private readonly IUsersRepository _usersRepository;
-    private readonly IClientInfoService _clientInforRepository;
+    private readonly IPasswordResetRepository _passwordResetRepository;
+    private readonly IClientInfoService _clientInfoRepository;
     private readonly IJwtTokenService _jwtService;
     private readonly IEmailService _emailService;
 
-    public AuthService(ITokenRepository tokenRepository, IUsersRepository usersRepository, IClientInfoService clientInfoRepository, IJwtTokenService jwtService, IEmailService emailService)
+    public AuthService(ITokenRepository tokenRepository, IUsersRepository usersRepository, IPasswordResetRepository passwordResetRepository, IClientInfoService clientInfoRepository, IJwtTokenService jwtService, IEmailService emailService)
     {
         _tokenRepository = tokenRepository;
         _usersRepository = usersRepository;
-        _clientInforRepository = clientInfoRepository;
+        _passwordResetRepository = passwordResetRepository;
+        _clientInfoRepository = clientInfoRepository;
         _jwtService = jwtService;
         _emailService = emailService;
     }
@@ -43,7 +45,7 @@ public class AuthService : IAuthService
             CreatedAt = currentTime,
             ExpiresAt = currentTime.AddDays(7),
             Revoked = false,
-            CreatedByIp = _clientInforRepository.GetClientIpAddress()
+            CreatedByIp = _clientInfoRepository.GetClientIpAddress()
         };
 
         //Guardar Refresh Token
@@ -62,7 +64,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> Logout()
     {
-        var id = _clientInforRepository.GetUserId();
+        var id = _clientInfoRepository.GetUserId();
 
         if (id is null)
             throw new UnauthorizedException("No hay un usuario para cerrar sesión");
@@ -75,40 +77,57 @@ public class AuthService : IAuthService
         return true;
     }
 
-    public async Task<bool> RecoverPassword(PasswordRecoveryRequestDto request)
+    public async Task<bool> ForgotPassword(ForgotPasswordRequestDto request)
     {
-        var user = await _usersRepository.GetByUsernameAsync(request.Username);
+        var user = await _usersRepository.GetByUsernameAsync(request.Email);
 
         if (user is null || request.Email != user.Email)
-            throw new UnauthorizedException("El usuario o correo electrónico son incorrectos");
+            throw new UnauthorizedException($"El usuario con el correo electrónico { request.Email } no existe.");
 
-        //Generar nueva contraseña
-        Random random = new Random();
-        string temporaryPassword = user.Username + random.Next(1,1000) + "!";
+        //returns int
+        await _passwordResetRepository.InvalidateUserTokensAsync(user.Id);
 
-        //Guardar contraseña
-        
-        var adminGuid = _clientInforRepository.GetUserId();
+        var token = _jwtService.CreatePasswordResetToken();
+        var requestUserByGuid = _clientInfoRepository.GetUserId();
         var currentTime = DateTime.UtcNow;
 
-        if(adminGuid is null)
+        if(requestUserByGuid is null)
             throw new UnauthorizedException("La petición no tiene un administrador.");
 
         var passwordReset = new PasswordReset
         {
             Id = Guid.CreateVersion7(),
             UserId = user.Id,
-            AdminId = adminGuid.Value,
-            TempPasswordHash = BCrypt.Net.BCrypt.HashPassword(temporaryPassword),
+            RequestedByUserd = requestUserByGuid.Value,
+            TokenHash = _jwtService.HashToken(token),
             CreatedAt = currentTime,
-            ExpiresAt = currentTime.AddHours(24),
-            Used = false
+            ExpiresAt = currentTime.AddMinutes(30),
+            UsedAt = null
         };
 
         //Guardar contraseña temporal
         var result = await _usersRepository.AddResetPassword(passwordReset);
 
-        await _emailService.SendPassowrdRecoveryEmailAsync(user.Email, temporaryPassword);
+        await _emailService.SendPassowrdRecoveryEmailAsync(user.Email, token);
+        return true;
+    }
+
+    public async Task<bool> ResetPassword(ResetPasswordRequestDto request)
+    {
+        if(request.NewPassword != request.ConfirmNewPassword)
+            throw new ValidationException("Las contraseñas no coinciden");
+
+        var tokenHash = _jwtService.HashToken(request.Token);
+        var passwordReset = await _passwordResetRepository.GetValidByTokenHashAsync(tokenHash);
+
+        if (passwordReset is null)
+            throw new UnauthorizedException("El token de recuperación no es válido.");
+
+        var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+        passwordReset.User.PasswordHash = passwordHash;
+        passwordReset.UsedAt = DateTime.UtcNow;
+
+        await _passwordResetRepository.SaveChangesAsync();
         return true;
     }
 
@@ -136,7 +155,7 @@ public class AuthService : IAuthService
             CreatedAt = currentTime,
             ExpiresAt = currentTime.AddDays(7),
             Revoked = false,
-            CreatedByIp = _clientInforRepository.GetClientIpAddress()
+            CreatedByIp = _clientInfoRepository.GetClientIpAddress()
         };
 
         //Save Refresh Token

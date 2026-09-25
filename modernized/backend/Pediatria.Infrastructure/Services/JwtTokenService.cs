@@ -39,7 +39,7 @@ public class JwtTokenService : IJwtTokenService
             issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],
             claims: claims,
-            expires: DateTime.Now.AddMinutes(30),
+            expires: DateTime.UtcNow.AddMinutes(15),
             signingCredentials: credentials
         );
 
@@ -49,6 +49,11 @@ public class JwtTokenService : IJwtTokenService
     public string CreateRefreshToken()
     {
         return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+    }
+
+    public string CreatePasswordResetToken()
+    {
+        return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
     }
 
     public string HashToken(string token)
