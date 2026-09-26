@@ -89,6 +89,7 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 // Repositories
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IPasswordResetRepository, PasswordResetRepository>();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 
 var app = builder.Build();

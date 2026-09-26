@@ -21,6 +21,7 @@ public class AuthController : ControllerBase
 
     //# 1 - Login (USC-USR-001)
     [HttpPost("login")]
+    [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] AuthRequestDto request)
     {
         var result = await _authService.Login(request);

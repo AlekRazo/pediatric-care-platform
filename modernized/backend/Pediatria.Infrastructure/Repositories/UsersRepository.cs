@@ -26,9 +26,9 @@ public class UsersRepository : IUsersRepository
     }
 
     //# 2 - Password Recovery (USC-USR-002)
-    public async Task<User?> ExistsByUserAndEmailAsync(string username, string email)
+    public async Task<User?> GetByEmailAsync(string email)
     {
-        return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username && u.Email == email)!;
+        return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email)!;
     }
 
     public async Task<bool> ExistsByUsernameAsync(string username)

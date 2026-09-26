@@ -1,8 +1,5 @@
-
-
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Identity.Client;
 using MimeKit;
 using Pediatria.Application.Interfaces.Services;
 
@@ -17,32 +14,50 @@ public class EmailService : IEmailService
         _configuration = configuration;
     }
 
-    public async Task SendPassowrdRecoveryEmailAsync(string toEmail, string temporaryPassword)
+    public async Task SendPassowrdRecoveryEmailAsync(string toEmail, string resetToken)
     {
-        var subject = "Correo de recuperación de contraseña";
-        var body = GetEmailHtmlBody("¡Hola, Usuario!", $"Hemos recibido una solicitus para recuperar su contraseña. {Environment.NewLine} Su contraseña temporal es: { temporaryPassword }. Expira en 24 horas.");
+        var frontendUrl = _configuration["Frontend:Url"] ?? throw new InvalidOperationException("Frontend:Url no está configurado.");
+        var resetUrl = $"{frontendUrl}/reset-password?token={Uri.EscapeDataString(resetToken)}";
+        var subject = "Recuperación de contraseña";
+        var button = GenerateHtmlButton(resetUrl, "#ffffff", "#4f48e0", "Restablecer contraseña");
+        var text = """
+            Hemos recibido una solicitud para restablecer su contraseña. Haga click en el enlace para crear una nueva contraseña:
+
+            {button}
+
+            Si no puede hacer click en el botón, copie y pegue el siguiente enlace al navegador:
+            {resetUrl}
+
+            El enlace caducará en 30 minutos.
+
+            Si no ha sido usted quien envió la solicitud, no haga caso a este correo.
+            """;
+
+        text = text.Replace("{button}", button).Replace("{resetUrl}", resetUrl);
+
+        var body = GetEmailHtmlBody("Recuperación de contraseña", text);
         
-        SendHtmlEmail(toEmail, subject, body);
+        await SendHtmlEmail(toEmail, subject, body);
     }
 
-    private void SendHtmlEmail(string toEmail, string subject, string body)
+    private async Task SendHtmlEmail(string toEmail, string subject, string body)
     {
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress("Pediatria App", _configuration["Email:Email"]!));
-        message.To.Add(new MailboxAddress("To Name", toEmail));
+        message.To.Add(new MailboxAddress(toEmail, toEmail));
         message.Subject = subject;
         message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
         {
             Text = body
         };
 
-        using(var client = new SmtpClient())
-        {
-            client.Connect("smtp.gmail.com", 587, false);
-            client.Authenticate(_configuration["Email:Email"]!, _configuration["Email:Password"]!);
-            client.Send(message);
-            client.Disconnect(true);
-        };
+        using var client = new SmtpClient();
+
+        await client.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+        await client.AuthenticateAsync(_configuration["Email:Email"]!, _configuration["Email:Password"]!);
+        await client.SendAsync(message);
+        await client.DisconnectAsync(true);
+
     }
 
     private string GetEmailHtmlBody(string title, string text)

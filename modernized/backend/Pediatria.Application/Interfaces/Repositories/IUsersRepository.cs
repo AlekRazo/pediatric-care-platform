@@ -10,7 +10,7 @@ public interface IUsersRepository
     Task<User?> GetByUsernameAsync(string username);
 
     //Password Recovery (USC-USR-002)
-    Task<User?> ExistsByUserAndEmailAsync(string username, string email);
+    Task<User?> GetByEmailAsync(string email);
 
     //Logout (USC-USR-003)
     Task<int> RevokeTokens(Guid id);

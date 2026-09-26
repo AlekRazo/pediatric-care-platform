@@ -2,5 +2,5 @@ namespace Pediatria.Application.Interfaces.Services;
 
 public interface IEmailService
 {
-    Task SendPassowrdRecoveryEmailAsync(string toEmail, string temporaryPassword);
+    Task SendPassowrdRecoveryEmailAsync(string toEmail, string resetToken);
 }

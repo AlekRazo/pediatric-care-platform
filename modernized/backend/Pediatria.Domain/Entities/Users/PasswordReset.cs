@@ -4,7 +4,7 @@ public sealed class PasswordReset
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
-    public Guid? RequestedByUserd { get; set; }
+    public Guid? RequestedByUserId { get; set; }
     public string TokenHash { get; set; } = null!;
     public DateTime CreatedAt { get; set; }
     public DateTime ExpiresAt { get; set; }

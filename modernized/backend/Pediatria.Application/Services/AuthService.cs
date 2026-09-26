@@ -36,7 +36,6 @@ public class AuthService : IAuthService
         var jwtToken = _jwtService.CreateJWTToken(user);
         var rawRefreshToken = _jwtService.CreateRefreshToken();
         var currentTime = DateTime.UtcNow;
-
         var refreshToken = new RefreshToken
         {
             Id = Guid.CreateVersion7(),
@@ -79,7 +78,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> ForgotPassword(ForgotPasswordRequestDto request)
     {
-        var user = await _usersRepository.GetByUsernameAsync(request.Email);
+        var user = await _usersRepository.GetByEmailAsync(request.Email);
 
         if (user is null || request.Email != user.Email)
             throw new UnauthorizedException($"El usuario con el correo electrónico { request.Email } no existe.");
@@ -91,14 +90,11 @@ public class AuthService : IAuthService
         var requestUserByGuid = _clientInfoRepository.GetUserId();
         var currentTime = DateTime.UtcNow;
 
-        if(requestUserByGuid is null)
-            throw new UnauthorizedException("La petición no tiene un administrador.");
-
         var passwordReset = new PasswordReset
         {
             Id = Guid.CreateVersion7(),
             UserId = user.Id,
-            RequestedByUserd = requestUserByGuid.Value,
+            RequestedByUserId = requestUserByGuid is not null ? requestUserByGuid.Value : null,
             TokenHash = _jwtService.HashToken(token),
             CreatedAt = currentTime,
             ExpiresAt = currentTime.AddMinutes(30),
@@ -109,6 +105,7 @@ public class AuthService : IAuthService
         var result = await _usersRepository.AddResetPassword(passwordReset);
 
         await _emailService.SendPassowrdRecoveryEmailAsync(user.Email, token);
+
         return true;
     }
 
@@ -128,6 +125,7 @@ public class AuthService : IAuthService
         passwordReset.UsedAt = DateTime.UtcNow;
 
         await _passwordResetRepository.SaveChangesAsync();
+        
         return true;
     }
 

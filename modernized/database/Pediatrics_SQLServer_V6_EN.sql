@@ -149,7 +149,7 @@ GO
 CREATE TABLE [dbo].[password_resets] (
     [id]                 UNIQUEIDENTIFIER NOT NULL,
     [user_id]            UNIQUEIDENTIFIER NOT NULL,
-    [requested_by_user_id]  UNIQUEIDENTIFIER NOT NULL,
+    [requested_by_user_id]  UNIQUEIDENTIFIER NULL,
     [token_hash]         NVARCHAR(256) NOT NULL,
     [created_at]         DATETIME2(0) NOT NULL CONSTRAINT [DF_password_resets_created_at] DEFAULT SYSUTCDATETIME(),
     [expires_at]         DATETIME2(0) NOT NULL,

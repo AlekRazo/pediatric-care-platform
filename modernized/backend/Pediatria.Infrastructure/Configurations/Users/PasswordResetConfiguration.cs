@@ -12,9 +12,8 @@ public class PasswordResetConfiguration : IEntityTypeConfiguration<PasswordReset
         builder.HasKey(pr => pr.Id).HasName("PK_password_resets");
         builder.Property(pr => pr.Id).ValueGeneratedNever();
 
-        builder.Property(pr => pr.TempPasswordHash).HasMaxLength(256).IsRequired();
+        builder.Property(pr => pr.TokenHash).HasMaxLength(256).IsRequired();
         builder.Property(pr => pr.CreatedAt).HasDefaultValueSql("SYSUTCDATETIME()");
-        builder.Property(pr => pr.Used).HasDefaultValue(false);
 
         builder.HasOne(pr => pr.User).WithMany().HasForeignKey(pr => pr.UserId).HasConstraintName("FK_password_resets_users").OnDelete(DeleteBehavior.Cascade);
     }
