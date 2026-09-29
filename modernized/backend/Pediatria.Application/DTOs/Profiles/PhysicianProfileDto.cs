@@ -4,7 +4,7 @@ public class PhysicianProfileDto
 {
     public Guid Id { get; set; }
     public string FullName { get; set; } = null!;
-    public DateOnly BirthDate { get; set; }
+    public DateOnly? BirthDate { get; set; }
     public string Gender { get; set; } = null!;
     public string ProfessionalLicenseNumber { get; set; } = null!;
     public string EducationalInstitution { get; set; } = null!;

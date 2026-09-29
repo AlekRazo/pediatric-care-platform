@@ -66,7 +66,7 @@ public class UsersService : IUsersService
         int result = await _usersRepository.AddAsync(user);
 
         if (result == 0)
-            throw new Exception($"No se pudo registrar el usuario con el id {user.Id}. SaveChanges no afectó ninguna fila.");
+            throw new Exception($"No se pudo registrar el usuario con el id {user.Id}.");
         
         var newUser = await _usersRepository.GetByIdAsync(user.Id);
 

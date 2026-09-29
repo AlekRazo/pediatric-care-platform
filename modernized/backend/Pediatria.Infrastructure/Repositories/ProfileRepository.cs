@@ -24,20 +24,16 @@ public class ProfileRepository : IProfileRepository
         return _context.Receptionists.AsNoTracking().FirstOrDefaultAsync(p => p.UserId == id)!;
     }
 
-    public async Task<Physician> AddPhysicianAsync(Physician physician)
+    public async Task<int> AddPhysicianAsync(Physician physician)
     {
         await _context.Physicians.AddAsync(physician);
-        await _context.SaveChangesAsync();
-
-        return await _context.Physicians.AsNoTracking().FirstAsync(p => p.UserId == physician.UserId)!;
+        return await _context.SaveChangesAsync();
     }
 
-    public async Task<Receptionist> AddReceptionistAsync(Receptionist receptionist)
+    public async Task<int> AddReceptionistAsync(Receptionist receptionist)
     {
         await _context.Receptionists.AddAsync(receptionist);
-        await _context.SaveChangesAsync();
-
-        return await _context.Receptionists.AsNoTracking().FirstAsync(p => p.UserId == receptionist.UserId)!;
+        return await _context.SaveChangesAsync();
     }
 
     public async Task<Physician?> UpdatePhysicianAsync(Guid id, Physician physician)
@@ -72,5 +68,10 @@ public class ProfileRepository : IProfileRepository
         await _context.SaveChangesAsync();
 
         return await _context.Receptionists.FirstOrDefaultAsync(r => r.UserId == id)!;
+    }
+
+    public Task<int> SaveChangesAsync()
+    {
+        return _context.SaveChangesAsync();
     }
 }

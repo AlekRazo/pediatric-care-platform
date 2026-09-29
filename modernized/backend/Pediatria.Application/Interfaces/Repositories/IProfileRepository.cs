@@ -11,14 +11,15 @@ public interface IProfileRepository
     Task<Receptionist?> GetReceptionistAsync(Guid id);
 
     //Register User (USC-USR-007)
-    Task<Physician> AddPhysicianAsync(Physician physician);
+    Task<int> AddPhysicianAsync(Physician physician);
     
     //Register User (USC-USR-008)
-    Task<Receptionist> AddReceptionistAsync(Receptionist receptionist);
+    Task<int> AddReceptionistAsync(Receptionist receptionist);
     
     //Modify User (USC-USR-010)
     Task<Physician?> UpdatePhysicianAsync(Guid id, Physician physician);
     
     //Modify User (USC-USR-011)
     Task<Receptionist?> UpdateReceptionistAsync(Guid id, Receptionist receptionist);
+    Task<int> SaveChangesAsync();
 }
