@@ -28,7 +28,7 @@ public class AuthService : IAuthService
 
     public async Task<AuthResponseDto> Login(AuthRequestDto request)
     {
-        var user = await _usersRepository.GetByUsernameAsync(request.Username);
+        var user = await _usersRepository.GetTrackedByUsernameAsync(request.Username);
 
         if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             throw new UnauthorizedException("El usuario o contraseña son incorrectos");
@@ -49,6 +49,9 @@ public class AuthService : IAuthService
 
         //Guardar Refresh Token
         var result = await _tokenRepository.AddRefreshTokenAsync(refreshToken);
+        
+        user.LastLoginAt = currentTime;
+        await _usersRepository.SaveChangesAsync();
 
         return new AuthResponseDto
         {

@@ -88,6 +88,11 @@ public class UsersRepository : IUsersRepository
         return await _context.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstOrDefaultAsync(u => u.Id == id)!;
     }
 
+    public async Task<User?> GetTrackedByUsernameAsync(string username)
+    {
+        return await _context.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstOrDefaultAsync(u => u.Username == username)!;
+    }
+
     //User Roles
     public async Task<List<Role>> GetRolesByNamesAsync(IEnumerable<string> names)
     {

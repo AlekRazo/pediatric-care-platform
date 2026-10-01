@@ -35,6 +35,8 @@ public interface IUsersRepository
 
     Task<User?> GetTrackedByIdAsync(Guid id);
 
+    Task<User?> GetTrackedByUsernameAsync(string username);
+
     //Reset Password
     Task<int> AddResetPassword(PasswordReset passwordReset);
 
