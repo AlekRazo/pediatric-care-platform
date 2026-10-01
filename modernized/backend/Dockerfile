@@ -9,7 +9,7 @@ COPY Pediatria.Infrastructure/Pediatria.Infrastructure.csproj Pediatria.Infrastr
 COPY Pediatria.WebAPI/Pediatria.WebAPI.csproj Pediatria.WebAPI/
 COPY Pediatria.slnx .
 
-RUN dotnet restore Pediatria.WebAPI/Pediatria.WebAPI.csproj
+RUN dotnet restore "Pediatria.WebAPI/Pediatria.WebAPI.csproj"
 
 # Copy everything and publish
 COPY . .
